@@ -1,0 +1,910 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_phone_login/flutter_phone_login.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sport/app/SPClassApplicaion.dart';
+import 'package:sport/app/SPClassGlobalNotification.dart';
+import 'package:sport/model/SPClassBaseModelEntity.dart';
+import 'package:sport/model/SPClassUserLoginInfo.dart';
+import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/utils/SPClassNavigatorUtils.dart';
+import 'package:sport/utils/api/SPClassApiManager.dart';
+import 'package:sport/utils/api/SPClassHttpCallBack.dart';
+import 'package:sport/utils/SPClassToastUtils.dart';
+import 'package:sport/utils/api/SPClassNetConfig.dart';
+import 'package:sport/pages/common/SPClassDialogUtils.dart';
+import 'package:sport/pages/login/SPClassVideoPhoneLoginPage.dart';
+import 'package:sport/pages/news/SPClassWebPageState.dart';
+import 'package:sport/widgets/SPClassToolBar.dart';
+import 'package:video_player/video_player.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
+
+import 'package:sport/SPClassEncryptImage.dart';
+
+class SPClassVideoLoginPage extends StatefulWidget {
+  SPClassVideoLoginPageState createState() => SPClassVideoLoginPageState();
+}
+
+class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
+    with WidgetsBindingObserver {
+  int spProLoginType = 0; //0--验证码登录 1--密码登录 2==一键登录
+  VideoPlayerController _videoPlayerController;
+  bool spProIsKeyBoardShow = false;
+  bool spProIsShowPassWord = false;
+  String spProPhoneNum = "";
+  String spProVerCode = "";
+  String spProPhonePwd = "";
+  String spProWxCode;
+  bool isAgree = false; //是否同意协议
+  var spProWxListen;
+  static bool spProOneLogin = false;
+  int spProCurrentSecond = 0;
+  Timer spProTimer;
+
+  TextEditingController _textEditingController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _textEditingController = TextEditingController(text: spProPhoneNum);
+    _videoPlayerController =
+        VideoPlayerController.asset('assets/video/video_login.m4v')
+          ..initialize().then((_) {
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            setState(() {});
+          });
+    _videoPlayerController.setLooping(true);
+    _videoPlayerController.play();
+    WidgetsBinding.instance.addObserver(this);
+
+    spProWxListen = fluwx.weChatResponseEventHandler
+        .distinct((a, b) => a == b)
+        .listen((res) {
+      if (res is fluwx.WeChatAuthResponse) {
+        if (spProWxCode == null || (spProWxCode != res.code)) {
+          spProWxCode = res.code;
+          spFunDoLoginWx(res.code);
+        }
+      }
+    });
+    FlutterPhoneLogin.preLogin((result) {
+      if (result) {
+        spProOneLogin = true;
+        spProLoginType = 2;
+      } else {
+        spProOneLogin = false;
+        spProLoginType = 0;
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _videoPlayerController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    if (spProTimer != null) {
+      spProTimer.cancel();
+    }
+    if (spProWxListen != null) {
+      spProWxListen.cancel();
+    }
+  }
+
+  @override
+  void didChangeMetrics() {
+    // TODO: implement didChangeMetrics
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        spProIsKeyBoardShow = (MediaQuery.of(context).viewInsets.bottom > 0);
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            Container(
+                child: _videoPlayerController.value.initialized
+                    ? VideoPlayer(_videoPlayerController)
+                    : SizedBox(
+                        width: ScreenUtil.screenWidth,
+                        height: ScreenUtil.screenHeight)),
+            BackdropFilter(
+              filter: new ImageFilter.blur(
+                  sigmaX: spProIsKeyBoardShow ? 25 : 0,
+                  sigmaY: spProIsKeyBoardShow ? 25 : 0),
+              child: new Container(
+                width: ScreenUtil.screenWidth,
+                height: ScreenUtil.screenHeight,
+                color: Colors.black45,
+              ),
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  SPClassToolBar(
+                    context,
+                    spProBgColor: Colors.transparent,
+                    iconColor: 0xFFFFFFFF,
+                    actions: <Widget>[],
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding:
+                          EdgeInsets.only(left: width(37), right: width(37)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              (spProLoginType == 0 || spProLoginType == 2)
+                                  ? "手机号登录"
+                                  : "密码登录",
+                              style: TextStyle(
+                                  fontSize: sp(20), color: Colors.white),
+                            ),
+                          ),
+                          (spProLoginType == 2 && spProOneLogin)
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "认证服务由运营商提供",
+                                        style: TextStyle(
+                                            fontSize: sp(12),
+                                            color: Color(0xFF999999)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height(128),
+                                    ),
+                                    GestureDetector(
+                                        child: Container(
+                                          margin:
+                                              EdgeInsets.only(top: height(25)),
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors:
+                                                      spProPhoneNum.length == 11
+                                                          ? [
+                                                              Color(0xFFF1585A),
+                                                              Color(0xFFF77273)
+                                                            ]
+                                                          : [
+                                                              Color(0x99F1585A),
+                                                              Color(0x99F77273)
+                                                            ]),
+                                              borderRadius:
+                                                  BorderRadius.circular(400)),
+                                          height: height(48),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "本机号码一键登录",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: sp(16)),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          spFunDoOneLogin();
+                                        }),
+                                    SizedBox(
+                                      height: height(17),
+                                    ),
+                                    GestureDetector(
+                                      child: Text(
+                                        "其它手机号码登录",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: sp(12),
+                                            decoration:
+                                                TextDecoration.underline),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          spProLoginType = 0;
+                                        });
+                                      },
+                                    )
+                                  ],
+                                )
+                              : Column(
+                                  children: <Widget>[
+                                    spProLoginType == 0
+                                        ? Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "未注册手机验证后自动登录",
+                                              style: TextStyle(
+                                                  fontSize: sp(12),
+                                                  color: Color(0xFF999999)),
+                                            ),
+                                          )
+                                        : SizedBox(),
+                                    Container(
+                                      padding: EdgeInsets.only(left: width(20)),
+                                      margin: EdgeInsets.only(top: height(30)),
+                                      decoration: BoxDecoration(
+                                          color: Color(0x4DDDDDDD),
+                                          borderRadius:
+                                              BorderRadius.circular(400)),
+                                      height: height(48),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            "+86",
+                                            style: GoogleFonts.roboto(
+                                                fontSize: sp(18),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white,
+                                                    textBaseline: TextBaseline
+                                                        .alphabetic)),
+                                          ),
+                                          SizedBox(
+                                            width: width(8),
+                                          ),
+                                          Expanded(
+                                              child: TextField(
+                                            controller: _textEditingController,
+                                            textAlign: TextAlign.left,
+                                            maxLines: 1,
+                                            style: GoogleFonts.roboto(
+                                                fontSize: sp(18),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white,
+                                                    textBaseline: TextBaseline
+                                                        .alphabetic)),
+                                            decoration: InputDecoration(
+                                              hintText: "请输入手机号码",
+                                              hintStyle: TextStyle(
+                                                  color: Color(0xFFC6C6C6),
+                                                  fontSize: sp(14)),
+                                              border: InputBorder.none,
+                                            ),
+                                            inputFormatters: <
+                                                TextInputFormatter>[
+                                              WhitelistingTextInputFormatter
+                                                  .digitsOnly, //只输入数字
+                                              LengthLimitingTextInputFormatter(
+                                                  11) //限制长度
+                                            ],
+                                            onChanged: (value) {
+                                              spProPhoneNum = value;
+                                            },
+                                          ))
+                                        ],
+                                      ),
+                                    ),
+                                    spProLoginType == 0
+                                        ? SizedBox()
+                                        : Container(
+                                            padding: EdgeInsets.only(
+                                                left: width(20)),
+                                            margin: EdgeInsets.only(
+                                                top: height(13)),
+                                            decoration: BoxDecoration(
+                                                color: Color(0x4DDDDDDD),
+                                                borderRadius:
+                                                    BorderRadius.circular(400)),
+                                            height: height(48),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: TextField(
+                                                  obscureText:
+                                                      !spProIsShowPassWord,
+                                                  textAlign: TextAlign.left,
+                                                  maxLines: 1,
+                                                  style: GoogleFonts.roboto(
+                                                      fontSize: sp(18),
+                                                      textStyle: TextStyle(
+                                                          color: Colors.white,
+                                                          textBaseline:
+                                                              TextBaseline
+                                                                  .alphabetic)),
+                                                  decoration: InputDecoration(
+                                                    hintText: "请输入密码",
+                                                    hintStyle: TextStyle(
+                                                        color:
+                                                            Color(0xFFC6C6C6),
+                                                        fontSize: sp(14)),
+                                                    border: InputBorder.none,
+                                                    suffixIcon: IconButton(
+                                                      padding: EdgeInsets.only(
+                                                          right: width(24)),
+                                                      icon: SPClassEncryptImage
+                                                          .asset(
+                                                        !spProIsShowPassWord
+                                                            ? SPClassImageUtil
+                                                                .spFunGetImagePath(
+                                                                    'ic_login_uneye')
+                                                            : SPClassImageUtil
+                                                                .spFunGetImagePath(
+                                                                    'ic_eye_pwd'),
+                                                        fit: BoxFit.contain,
+                                                        color: Colors.white,
+                                                        width: width(18),
+                                                        height: width(18),
+                                                      ),
+                                                      onPressed: () =>
+                                                          setState(() {
+                                                        spProIsShowPassWord =
+                                                            !spProIsShowPassWord;
+                                                      }),
+                                                    ),
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      spProPhonePwd = value;
+                                                    });
+                                                  },
+                                                ))
+                                              ],
+                                            ),
+                                          ),
+                                    spProLoginType == 1
+                                        ? SizedBox()
+                                        : Container(
+                                            padding: EdgeInsets.only(
+                                                left: width(20)),
+                                            margin: EdgeInsets.only(
+                                                top: height(13)),
+                                            decoration: BoxDecoration(
+                                                color: Color(0x4DDDDDDD),
+                                                borderRadius:
+                                                    BorderRadius.circular(400)),
+                                            height: height(48),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: TextField(
+                                                  textAlign: TextAlign.left,
+                                                  maxLines: 1,
+                                                  style: GoogleFonts.roboto(
+                                                      fontSize: sp(18),
+                                                      textStyle: TextStyle(
+                                                          color: Colors.white,
+                                                          textBaseline:
+                                                              TextBaseline
+                                                                  .alphabetic)),
+                                                  decoration: InputDecoration(
+                                                    hintText: "请输入验证码",
+                                                    hintStyle: TextStyle(
+                                                        color:
+                                                            Color(0xFFC6C6C6),
+                                                        fontSize: sp(14)),
+                                                    border: InputBorder.none,
+                                                    suffixIcon: FlatButton(
+                                                      padding: EdgeInsets.only(
+                                                          right: width(24)),
+                                                      child: Text(
+                                                        spProCurrentSecond > 0
+                                                            ? "已发送" +
+                                                                spProCurrentSecond
+                                                                    .toString() +
+                                                                "s"
+                                                            : "发送验证码",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () =>
+                                                          {spFunDoSendCode()},
+                                                    ),
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      spProVerCode = value;
+                                                    });
+                                                  },
+                                                ))
+                                              ],
+                                            ),
+                                          ),
+                                    GestureDetector(
+                                        child: Container(
+                                          margin:
+                                              EdgeInsets.only(top: height(25)),
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors:
+                                                      spProPhoneNum.length == 11
+                                                          ? [
+                                                              Color(0xFFF1585A),
+                                                              Color(0xFFF77273)
+                                                            ]
+                                                          : [
+                                                              Color(0x99F1585A),
+                                                              Color(0x99F77273)
+                                                            ]),
+                                              borderRadius:
+                                                  BorderRadius.circular(400)),
+                                          height: height(48),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "登录",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: sp(16)),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          if (spProPhoneNum.length != 11) {
+                                            SPClassToastUtils.spFunShowToast(
+                                                msg: "请输入正确11位手机号码!");
+                                            return;
+                                          }
+                                          if (spProLoginType == 1 &&
+                                              spProPhonePwd.isEmpty) {
+                                            SPClassToastUtils.spFunShowToast(
+                                                msg: "请输入密码");
+                                            return;
+                                          }
+                                          if(!isAgree){
+                                            SPClassToastUtils.spFunShowToast(
+                                                msg: "请阅读并勾选 用户协议 和 隐私政策 ");
+                                            return;
+                                          }
+                                          if (spProLoginType == 0) {
+                                            if (spProVerCode.length == 0) {
+                                              SPClassToastUtils.spFunShowToast(
+                                                  msg: "请输入验证码");
+                                              return;
+                                            }
+                                            SPClassApiManager.spFunGetInstance()
+                                                .spFunLoginByCode(
+                                                    spProPhoneNumber:
+                                                        spProPhoneNum,
+                                                    spProPhoneCode:
+                                                        spProVerCode,
+                                                    spProInviteCode: "",
+                                                    context: context,
+                                                    spProCallBack:
+                                                        SPClassHttpCallBack<
+                                                                SPClassUserLoginInfo>(
+                                                            spProOnSuccess:
+                                                                (loginInfo) {
+                                                      SPClassApplicaion
+                                                              .spProUserLoginInfo =
+                                                          loginInfo;
+                                                      SPClassApplicaion
+                                                          .spFunSaveUserState();
+                                                      SPClassApplicaion
+                                                          .spFunInitUserState();
+                                                      SPClassApplicaion
+                                                          .spFunGetUserInfo();
+                                                      SPClassGlobalNotification
+                                                              .spFunGetInstance()
+                                                          .spFunInitWebSocket();
+                                                      SPClassApplicaion
+                                                          .spFunSavePushToken();
+                                                      SPClassApplicaion
+                                                          .spProEventBus
+                                                          .fire(
+                                                              "login:gamelist");
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }));
+                                          } else if (spProLoginType == 1) {
+                                            SPClassApiManager().spFunUserLogin(
+                                                queryParameters: {
+                                                  "username": spProPhoneNum
+                                                },
+                                                spProBodyParameters: {
+                                                  "pwd": spProPhonePwd
+                                                },
+                                                context: context,
+                                                spProCallBack:
+                                                    SPClassHttpCallBack<
+                                                            SPClassUserLoginInfo>(
+                                                        spProOnSuccess:
+                                                            (loginInfo) {
+                                                  SPClassApplicaion
+                                                          .spProUserLoginInfo =
+                                                      loginInfo;
+                                                  SPClassApplicaion
+                                                      .spFunSaveUserState();
+                                                  SPClassApplicaion
+                                                      .spFunInitUserState();
+                                                  SPClassApplicaion
+                                                      .spFunGetUserInfo();
+                                                  SPClassGlobalNotification
+                                                          .spFunGetInstance()
+                                                      .spFunInitWebSocket();
+                                                  SPClassApplicaion
+                                                      .spFunSavePushToken();
+                                                  SPClassApplicaion
+                                                      .spProEventBus
+                                                      .fire("login:gamelist");
+                                                  Navigator.of(context).pop();
+                                                }));
+                                          }
+                                        }),
+                                    spProLoginType == 0
+                                        ? SizedBox()
+                                        : Container(
+                                            margin: EdgeInsets.only(
+                                                top: height(27)),
+                                            alignment: Alignment.center,
+                                            child: GestureDetector(
+                                              child: Text(
+                                                "忘记密码",
+                                                style: TextStyle(
+                                                  fontSize: sp(11),
+                                                  color: Colors.white,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                SPClassNavigatorUtils
+                                                    .spFunPushRoute(
+                                                        context,
+                                                        SPClassVideoPhoneLoginPage(
+                                                          spProVideoPlayerController:
+                                                              _videoPlayerController,
+                                                          spProPhoneType: 1,
+                                                        ));
+                                              },
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "其它登录方式",
+                                  style: TextStyle(
+                                      fontSize: sp(12), color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: height(13),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    (spProOneLogin && spProLoginType != 2)
+                                        ? GestureDetector(
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  padding:
+                                                      EdgeInsets.all(width(10)),
+                                                  decoration: ShapeDecoration(
+                                                      color: Colors.black45,
+                                                      shape: CircleBorder()),
+                                                  alignment: Alignment.center,
+                                                  child:
+                                                      SPClassEncryptImage.asset(
+                                                    SPClassImageUtil
+                                                        .spFunGetImagePath(
+                                                            'ic_one_login'),
+                                                    fit: BoxFit.contain,
+                                                    color: Colors.white,
+                                                    width: height(30),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: height(5),
+                                                ),
+                                                Text(
+                                                  "一键登录",
+                                                  style: TextStyle(
+                                                      fontSize: sp(12),
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            onTap: () {
+                                              spFunDoOneLogin();
+                                            },
+                                          )
+                                        : SizedBox(),
+                                    (spProOneLogin && spProLoginType != 2)
+                                        ? SizedBox(
+                                            width: width(20),
+                                          )
+                                        : SizedBox(),
+                                    GestureDetector(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.all(width(10)),
+                                            decoration: ShapeDecoration(
+                                                color: Colors.black45,
+                                                shape: CircleBorder()),
+                                            alignment: Alignment.center,
+                                            child: SPClassEncryptImage.asset(
+                                              SPClassImageUtil
+                                                  .spFunGetImagePath(
+                                                      'ic_wx_login'),
+                                              fit: BoxFit.contain,
+                                              color: Colors.white,
+                                              width: height(30),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: height(5),
+                                          ),
+                                          Text(
+                                            "微信",
+                                            style: TextStyle(
+                                                fontSize: sp(12),
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        if(!isAgree){
+                                          SPClassToastUtils.spFunShowToast(
+                                              msg: "请阅读并勾选 用户协议 和 隐私政策 ");
+                                          return;
+                                        }
+                                        fluwx.sendWeChatAuth(
+                                            scope: "snsapi_userinfo",
+                                            state: "wechat_sdk_demo_test");
+                                      },
+                                    ),
+                                    SizedBox(
+                                      width: width(20),
+                                    ),
+                                    GestureDetector(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.all(width(10)),
+                                            decoration: ShapeDecoration(
+                                                color: Colors.black45,
+                                                shape: CircleBorder()),
+                                            alignment: Alignment.center,
+                                            child: SPClassEncryptImage.asset(
+                                              spProLoginType == 1
+                                                  ? SPClassImageUtil
+                                                      .spFunGetImagePath(
+                                                          'ic_code_login')
+                                                  : SPClassImageUtil
+                                                      .spFunGetImagePath(
+                                                          'ic_pwd_login'),
+                                              fit: BoxFit.contain,
+                                              color: Colors.white,
+                                              width: height(30),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: height(5),
+                                          ),
+                                          Text(
+                                            spProLoginType == 0
+                                                ? "密码登录"
+                                                : "验证码登录",
+                                            style: TextStyle(
+                                                fontSize: sp(12),
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          spProLoginType =
+                                              (spProLoginType == 0) ? 1 : 0;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height(30),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(bottom: height(20)),
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Checkbox(
+                                        value: isAgree,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            isAgree = value;
+                                          });
+                                        },
+                                      ),
+                                      RichText(
+                                        textAlign: TextAlign.center,
+                                        text: TextSpan(
+                                            style: TextStyle(
+                                                fontSize: sp(11),
+                                                color: Colors.white),
+                                            text: "登录即代表同意 " +
+                                                SPClassApplicaion.spProAppName,
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                  text: " 用户协议",
+                                                  recognizer:
+                                                      new TapGestureRecognizer()
+                                                        ..onTap = () {
+                                                          SPClassNavigatorUtils
+                                                              .spFunPushRoute(
+                                                                  context,
+                                                                  SPClassWebPage(
+                                                                      "",
+                                                                      "用户协议",
+                                                                    spProLocalFile: "assets/html/useragreement.html",
+                                                                      ));
+                                                        }),
+                                              TextSpan(text: " 和 "),
+                                              TextSpan(
+                                                  style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                  text: "隐私政策",
+                                                  recognizer:
+                                                      new TapGestureRecognizer()
+                                                        ..onTap = () {
+                                                          SPClassNavigatorUtils
+                                                              .spFunPushRoute(
+                                                                  context,
+                                                                  SPClassWebPage(
+                                                                      "",
+                                                                      "隐私协议",
+                                                                      spProLocalFile:
+                                                                          "assets/html/privacy_score.html"));
+                                                        }),
+                                            ]),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void spFunDoLoginWx(String code) {
+    SPClassApiManager.spFunGetInstance().spFunUserLoginByWx(
+        context: context,
+        spProWxCode: code,
+        spProCallBack: SPClassHttpCallBack<SPClassUserLoginInfo>(
+            spProOnSuccess: (loginInfo) {
+          if (loginInfo.spProNeedBind) {
+            SPClassNavigatorUtils.spFunPushRoute(
+                context,
+                SPClassVideoPhoneLoginPage(
+                  spProVideoPlayerController: _videoPlayerController,
+                  spProPhoneType: 0,
+                  spProBindSid: loginInfo.spProBindSid,
+                ));
+          } else {
+            SPClassApplicaion.spProUserLoginInfo = loginInfo;
+            SPClassApplicaion.spFunSaveUserState();
+            SPClassApplicaion.spFunInitUserState();
+            SPClassApplicaion.spFunGetUserInfo();
+            SPClassToastUtils.spFunShowToast(msg: "登录成功");
+            SPClassGlobalNotification.spFunGetInstance().spFunInitWebSocket();
+            SPClassApplicaion.spFunSavePushToken();
+            Navigator.of(context).pop();
+          }
+        }));
+  }
+
+  void spFunDoOneLogin() {
+    SPClassDialogUtils.spFunShowLoadingDialog(context,
+        barrierDismissible: true, content: "登录中");
+    FlutterPhoneLogin.loginWithModel(success: (map) {
+      Navigator.of(context).pop();
+      SPClassApiManager.spFunGetInstance().spFunOneClickLogin(
+          context: context,
+          queryParameters: {
+            "token": map["token"],
+            "op_token": map["operatorToken"],
+            "operator": map["operatorType"]
+          },
+          spProCallBack: SPClassHttpCallBack<SPClassUserLoginInfo>(
+              spProOnSuccess: (userLogin) {
+            SPClassApplicaion.spProUserLoginInfo = userLogin;
+            SPClassApplicaion.spFunSaveUserState();
+            SPClassApplicaion.spFunInitUserState();
+            SPClassApplicaion.spFunGetUserInfo();
+            SPClassToastUtils.spFunShowToast(msg: "登录成功");
+            SPClassApplicaion.spFunSavePushToken();
+            SPClassGlobalNotification.spFunGetInstance().spFunInitWebSocket();
+            Navigator.of(context).pop();
+          }));
+    }, fail: (code) {
+      Navigator.of(context).pop();
+      if (Platform.isIOS) {
+        if (code != 170204 && code != 170301) {
+          SPClassToastUtils.spFunShowToast(
+              msg: "一键登录失败:code" + code.toString());
+          setState(() {
+            spProOneLogin = false;
+          });
+        }
+      } else {
+        if (code != 0 && code != 1) {
+          SPClassToastUtils.spFunShowToast(
+              msg: "一键登录失败:code" + code.toString());
+          setState(() {
+            spProOneLogin = false;
+          });
+        }
+      }
+    });
+  }
+
+  void spFunDoSendCode() async {
+    if (spProPhoneNum.length != 11) {
+      SPClassToastUtils.spFunShowToast(msg: "请输入11位正确手机号");
+      return;
+    } else if (spProCurrentSecond > 0) {
+      return;
+    }
+
+    SPClassApiManager.spFunGetInstance().spFunSendCode(
+        context: context,
+        spProPhoneNumber: spProPhoneNum,
+        spProCodeType: "login",
+        spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
+            spProOnSuccess: (result) {
+          SPClassToastUtils.spFunShowToast(msg: "发送成功");
+          setState(() {
+            spProCurrentSecond = 60;
+          });
+          spProTimer = Timer.periodic(Duration(seconds: 1), (second) {
+            setState(() {
+              if (spProCurrentSecond > 0) {
+                setState(() {
+                  spProCurrentSecond = spProCurrentSecond - 1;
+                });
+              } else {
+                second.cancel();
+              }
+            });
+          });
+        }));
+  }
+}

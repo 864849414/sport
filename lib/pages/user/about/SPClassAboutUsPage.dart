@@ -1,0 +1,160 @@
+
+
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:package_info/package_info.dart';
+import 'package:sport/app/SPClassApplicaion.dart';
+import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassNavigatorUtils.dart';
+import 'package:sport/utils/SPClassToastUtils.dart';
+import 'package:sport/utils/api/SPClassNetConfig.dart';
+import 'package:sport/utils/SPClassLogUtils.dart';
+import 'package:sport/pages/news/SPClassWebPageState.dart';
+import 'package:sport/pages/user/about/SPClassTestPage.dart';
+import 'package:sport/widgets/SPClassToolBar.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/SPClassEncryptImage.dart';
+
+class SPClassAboutUsPage extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return SPClassAboutUsPageState();
+  }
+
+}
+
+class SPClassAboutUsPageState extends State<SPClassAboutUsPage>{
+
+  int spProDebugIndex=0;
+  DateTime spProPressTime;
+  PackageInfo spProPackageInfo;
+  Timer timer;
+  @override
+   initState()  {
+    // TODO: implement initState
+    super.initState();
+       PackageInfo.fromPlatform().then((result){
+         spProPackageInfo=result;
+         if(mounted){
+           setState(() {
+           });
+         }
+     });
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: SPClassToolBar(
+        context,title: "关于我们",),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Color(0xFFF1F1F1),
+        child: Column(
+            children: <Widget>[
+              SizedBox(height: height(53),),
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  width: MediaQuery.of(context).size.width,
+                  child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_app_logo"),
+                    width: width(93),
+                  ),
+                ),
+                onTap: (){
+                  if(spProPressTime==null){
+                    spProPressTime=DateTime.now();
+                    spProDebugIndex=1;
+                    return;
+                  }
+                  spProDebugIndex++;
+                  if(timer!=null){
+                    timer.cancel();
+                  }
+                  timer= Timer(Duration(seconds: 2), (){
+                    spProPressTime=null;
+                  });
+                  if(spProDebugIndex==5){
+                    spProDebugIndex=0;
+                    spProPressTime=null;
+                    SPClassNavigatorUtils.spFunPushRoute(context,SPClassTestPage());
+                  }
+                },
+              ),
+              SizedBox(height: 10,),
+              Text("${SPClassApplicaion.spProAppName}",style: TextStyle(fontSize: 18,color: Color(0xFF333333),fontWeight: FontWeight.bold),),
+              Text("Copyright © 2018-2019 "+
+                  SPClassApplicaion.spProAppName,style: TextStyle(fontSize: 13,color: Color(0xFFBDBDBD)),),
+              SizedBox(height: 20,),
+              GestureDetector(
+                behavior:HitTestBehavior.opaque ,
+                child:Container(
+                  padding: EdgeInsets.only(right: 13,left: 13),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]),bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                  ),
+                  height: height(53),
+                  child:  Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text("隐私协议",style: TextStyle(fontSize:sp(14),color: Color(0xFF666666)),),
+
+                          ],
+                        ),
+                      ),
+                      SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                        width: width(11),
+                      ),
+                      SizedBox(width: width(10),)
+                    ],
+                  ),
+                ),
+                onTap: ()  {
+                  SPClassNavigatorUtils.spFunPushRoute(context,  SPClassWebPage("","隐私协议", spProLocalFile: "assets/html/privacy_score.html"));
+
+                },
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.bottomCenter,
+                    child:Text("version "+
+                        spProPackageInfo.version+
+                        " build "+
+                        spProPackageInfo.buildNumber +
+                        (SPClassApplicaion.spProDEBUG?
+                         "调试模式":""),style: TextStyle(fontSize: 13,color: Color(0xFFBDBDBD)),),
+                  ),
+                  onLongPressStart:(value){
+
+                  },
+                  onLongPressEnd: (value){
+
+                  },
+                ),
+              )
+
+            ],
+
+        ),
+      ),
+    );
+  }
+
+}

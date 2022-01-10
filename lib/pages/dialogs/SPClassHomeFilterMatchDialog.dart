@@ -1,0 +1,218 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassLogUtils.dart';
+import 'package:sport/utils/colors.dart';
+
+
+class SPClassHomeFilterMatchDialog extends StatefulWidget{
+  ValueChanged<String> callback;
+  String spProMatchType ;
+  SPClassHomeFilterMatchDialog(this.callback,this.spProMatchType);
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return SPClassHomeFilterMatchDialogState();
+  }
+
+}
+
+class SPClassHomeFilterMatchDialogState extends State<SPClassHomeFilterMatchDialog>{
+  static var football =["竞彩","让球","大小球"];
+  static var spProFootballSelects =[true,true,true];
+  static var spProFootballValue =["让球胜平负,胜平负","让球胜负","大小球"];
+
+  static var basketball =["让分","大小分"];
+  static var spProBasketballSelects =[true,true];
+  static var spProBasketballValue =["让分胜负","大小分"];
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return WillPopScope(
+      child:GestureDetector(
+        child: Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                  width: width(288),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(width(5))
+                  ),
+                  child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: width(288),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(height(9)),
+                        decoration: BoxDecoration(
+                            color: Color(0xFFF2F2F2),
+                            borderRadius: BorderRadius.circular(width(5))
+                        ),
+                        child: Text("选择玩法",style: TextStyle(fontSize:sp(16)),),
+                      ),
+                      SizedBox(height: height(15),),
+                      widget.spProMatchType=="足球" ?  Container(
+                        margin: EdgeInsets.only(left: width(20),right:width(20) ),
+                        alignment: Alignment.centerLeft,
+                        child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("足球",style: TextStyle(fontSize: sp(14)),),
+                            SizedBox(height: height(5),),
+                            GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 3,
+                              mainAxisSpacing: height(5),
+                              crossAxisSpacing: width(10),
+                              childAspectRatio: width(88)/width(33),
+                              children: football.map((title){
+                                var index=football.indexOf(title);
+                                return GestureDetector(
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 2,bottom: 2),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: spProFootballSelects[index] ? MyColors.main1:Colors.white,width: 0.4),
+                                        borderRadius: BorderRadius.circular(300),
+                                        color:spProFootballSelects[index] ? MyColors.main1:Color(0xFFF0F0F0)
+                                    ),
+                                    child: Text(title,style: TextStyle(fontSize: sp(12),color: spProFootballSelects[index] ? Colors.white:Color(0xFF333333)),),
+                                  ),
+                                  onTap: (){
+                                    setState(() {
+                                      spProFootballSelects[index]=!spProFootballSelects[index];
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ):SizedBox(),
+                      widget.spProMatchType=="篮球" ?  Container(
+                        margin: EdgeInsets.only(left: width(20),right:width(20) ),
+                        alignment: Alignment.centerLeft,
+                        child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("篮球",style: TextStyle(fontSize: sp(14)),),
+                            SizedBox(height: height(5),),
+                            GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 3,
+                              mainAxisSpacing: height(5),
+                              crossAxisSpacing: width(10),
+                              childAspectRatio: width(88)/width(33),
+                              children: basketball.map((title){
+                                var index=basketball.indexOf(title);
+                                return GestureDetector(
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 2,bottom: 2),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: spProBasketballSelects[index] ? MyColors.main1:Colors.white,width: 0.4),
+                                        borderRadius: BorderRadius.circular(300),
+                                        color:spProBasketballSelects[index] ? MyColors.main1:Color(0xFFF0F0F0)
+                                    ),
+                                    child: Text(title,style: TextStyle(fontSize: sp(12),color: spProBasketballSelects[index] ? Colors.white:Color(0xFF333333)),),
+                                  ),
+                                  onTap: (){
+                                    setState(() {
+                                      spProBasketballSelects[index]=!spProBasketballSelects[index];
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ):SizedBox(),
+                      SizedBox(height: height(15),),
+                      Divider(
+                        height: 0.5,
+                        color: MyColors.divider,
+                      ),
+                     Container(
+                       height: height(50),
+                       child:  Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: <Widget>[
+                           Expanded(
+                             child: FlatButton(
+                               padding: EdgeInsets.zero,
+                               onPressed: (){
+                                 if( widget.spProMatchType=="足球" ){
+                                   spProFootballSelects= spProFootballSelects.map((item){ return false;}).toList();
+                                 }else{
+                                   spProBasketballSelects=  spProBasketballSelects.map((item){ return false;}).toList();
+                                 }
+                                 setState(() {});
+                               },
+                               child: Container(
+                                 child: Text('重置',style: TextStyle(fontSize: sp(18)),),alignment: Alignment.center,
+                                 decoration: BoxDecoration(
+                                     border: Border(right: BorderSide(color: MyColors.divider,width: 0.5))
+                                 ),
+                               ),
+                             ),
+                           ),
+                           Expanded(
+                             child: FlatButton(
+                               padding: EdgeInsets.zero,
+                               onPressed: (){
+                                 var playWay =List<String>();
+                                 if( widget.spProMatchType=="足球" ){
+                                   for(var i=0;i<spProFootballSelects.length;i++){
+                                     if(spProFootballSelects[i]){playWay.add(spProFootballValue[i]);}
+                                   }
+                                 }else{
+                                   for(var i=0;i<spProBasketballSelects.length;i++){
+                                     if(spProBasketballSelects[i]){playWay.add(spProBasketballValue[i]);}
+                                   }
+                                 }
+                                 var result= JsonEncoder().convert(playWay).replaceAll("[", "").replaceAll("]", "").replaceAll(",", ";").replaceAll("\"", "");
+                                 widget.callback(result);
+                                 Navigator.of(context).pop();
+                               },
+                               child: Container(
+                                 child: Text('确定',style: TextStyle(fontSize: sp(18),color: MyColors.main1),),alignment: Alignment.center,
+                               ),
+                             ),
+                           )
+                         ],
+                       ),
+                     )
+                    ],
+                  ),
+                ),
+                onTap: (){
+
+                },
+              )
+            ],
+          ),
+        ),
+        onTap: (){
+           Navigator.of(context).pop();
+        },
+      ),
+      onWillPop:() async{
+        return true;
+      },
+    );
+  }
+
+}
