@@ -109,13 +109,18 @@ class SPClassSchemeItemView extends StatelessWidget{
                                     minWidth: width(52)
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Color.fromRGBO(77, 151, 255, 0.1),
-                                  borderRadius: BorderRadius.circular(100),
+                                  borderRadius: BorderRadius.circular(4),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF8D66),
+                                      Color(0xFFFF6A4C),
+                                    ]
+                                  )
                                 ),
                                 child:Text("近"+
                                     "${item.expert.spProLast10Result.length.toString()}"+
                                     "中"+
-                                    "${item.expert.spProLast10CorrectNum}",style: TextStyle(fontSize: sp(9),color: Color(0xFF217CD9),letterSpacing: 1),),
+                                    "${item.expert.spProLast10CorrectNum}",style: TextStyle(fontSize: sp(9),color: Color(0xFFF7F7F7),letterSpacing: 1),),
                               ),
                               visible:  (item.expert.spProSchemeNum!=null&&(double.tryParse(item.expert.spProLast10CorrectNum)/double.tryParse(item.expert.spProLast10Result.length.toString()))>=0.6),
                             ),
@@ -129,12 +134,34 @@ class SPClassSchemeItemView extends StatelessWidget{
                                     minWidth: width(52)
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Color.fromRGBO(247, 72, 37, 0.1),
-                                  borderRadius: BorderRadius.circular(100),
+                                    borderRadius: BorderRadius.circular(4),
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xFFFFB44D),
+                                          Color(0xFFFFA64D),
+                                        ]
+                                    )
                                 ),
-                                child:Text("${item.expert.spProCurrentRedNum}连红",style: TextStyle(fontSize: sp(9),color: Color(0xFFF74825),letterSpacing: 1),),
+                                child:Text("${item.expert.spProCurrentRedNum}连红",style: TextStyle(fontSize: sp(9),color: Color(0xFFF7F7F7),letterSpacing: 1),),
                               ),
                               visible: int.tryParse( item.expert.spProCurrentRedNum)>2,
+                            ),
+                            SizedBox(width: width(8),),
+                            Visibility(
+                              child: Container(
+                                padding: EdgeInsets.only(left: width(5),right:  width(5),top: width(0.8)),
+                                alignment: Alignment.center,
+                                height: width(16),
+                                constraints: BoxConstraints(
+                                    minWidth: width(52)
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xFF1B8DE0),width: 0.5),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child:Text("不中退",style: TextStyle(fontSize: sp(9),color: Color(0xFF1B8DE0),letterSpacing: 1),),
+                              ),
+                              visible: item.spProCanReturn,
                             ),
                             // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
                             //   children: <Widget>[
@@ -251,6 +278,7 @@ class SPClassSchemeItemView extends StatelessWidget{
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(left: width(6),right: width(6)),
                       decoration: BoxDecoration(
+                        border: Border.all(color: SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),width: 0.5),
                           color: SPClassMatchDataUtils.getColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),
                           borderRadius: BorderRadius.circular(width(2))
                        ),
@@ -288,9 +316,9 @@ class SPClassSchemeItemView extends StatelessWidget{
                   // ),
                   Row(
                     children: <Widget>[
-                      Text(SPClassDateUtils.spFunDateFormatByString(item.spProStTime, "MM-dd    HH:mm"),style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),),
+                      Text(SPClassDateUtils.spFunDateFormatByString(item.spProStTime, "MM-dd    HH:mm"),style: TextStyle(fontSize: sp(11),color: MyColors.grey_99),),
                       SizedBox(width: width(8),),
-                      Text(item.spProLeagueName,style: TextStyle(fontSize: sp(11)),),
+                      Text(item.spProLeagueName,style: TextStyle(fontSize: sp(11),color: MyColors.grey_99),),
                     ],
                   ),
                   Container(
@@ -303,41 +331,25 @@ class SPClassSchemeItemView extends StatelessWidget{
                     child:   Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamOne,length: 5),style: TextStyle(fontSize: sp(11),color: Color(0xFF333333)),maxLines: 1,),
+                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamOne,length: 5),style: TextStyle(fontSize: sp(11),color: MyColors.grey_66),maxLines: 1,),
                         Text(" VS ",style: TextStyle(fontSize: sp(13),color: Color(0xFF999999)),maxLines: 1,),
                         // item.spProIsOver!="1"? Text(" VS ",style: TextStyle(fontSize: sp(13),color: Color(0xFF999999)),maxLines: 1,):
                         // Text(item.spProScoreOne.trim()+
                         //     " - "+
                         //     item.spProScoreTwo.trim(),style: TextStyle(fontSize: sp(11),
                         //     color: Color(0xFFE3494B)),),
-                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamTwo,length: 5),style: TextStyle(fontSize: sp(11),color: Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamTwo,length: 5),style: TextStyle(fontSize: sp(11),color: MyColors.grey_66),maxLines: 1,overflow: TextOverflow.ellipsis,),
                       ],
                     ),
                   ),
                   Container(
                     child: (item.spProIsOver=="1"||item.spProDiamond=="0"||item.spProIsBought=="1") ?
                     Text('免费',style: TextStyle(color:Color(0xFF4D97FF),fontSize: sp(14)),):
-                    item.spProCanReturn?Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text('${item.spProDiamond}',style: TextStyle(color: MyColors.main1,fontSize: sp(14)),),
-                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("zhuanshi")),
-                        Container(
-                          height: height(28),
-                          padding: EdgeInsets.symmetric(horizontal: width(4)),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFF6A4D),
-                            borderRadius: BorderRadius.horizontal(right: Radius.circular(4))
-                          ),
-                          child: Text('退',style: TextStyle(fontSize: sp(12),color: Colors.white),),
-                        )
-                      ],
-                    ):Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text('${item.spProDiamond}',style: TextStyle(color: MyColors.main1,fontSize: sp(14)),),
-                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("zhuanshi"))
+                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("zhuanshi"),width: width(17),),
+                        Text('${item.spProDiamond}',style: TextStyle(color: MyColors.main1,fontSize: sp(13)),),
                       ],
                     ),
                   )

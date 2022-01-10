@@ -90,7 +90,7 @@ class SPClassQNavButtonState extends State<SPClassQNavButton> with TickerProvide
               bottom: 0,
             ),
             Positioned(
-              child:Text(widget.spProTabView.spProTabText,style:GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,textStyle:TextStyle(color: widget.selected? Color(0xFFDE3C31):Color(0xFFA8A8A8),fontSize: widget.spProTextSize)
+              child:Text(widget.spProTabView.spProTabText,style:GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,textStyle:TextStyle(color: widget.selected? Color(0xFF1B8DE0):Color(0xFFA8A8A8),fontSize: widget.spProTextSize)
               ),),
               bottom: height(5),),
             (widget.selected||widget.spProTabView.badge==0)?  SizedBox():Positioned(

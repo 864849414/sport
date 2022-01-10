@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:sport/utils/colors.dart';
 
 class SPClassBgButtonBubble extends CustomPainter{
   final spProHeightOffset=15;
@@ -52,7 +53,7 @@ class SPClassBgButtonBubble extends CustomPainter{
 
 
     if(spProPaint.shader==null){
-      spProPaint.shader=new LinearGradient(colors:[Color(0xFFF2150C),Color(0xFFF24B0C)]).createShader(Rect.fromCenter(center: centerOffset,width: radius*2,height:radius*2));
+      spProPaint.shader=new LinearGradient(colors:[MyColors.main1,MyColors.main1]).createShader(Rect.fromCenter(center: centerOffset,width: radius*2,height:radius*2));
     }
     canvas.drawCircle(centerOffset, radius, spProPaint);
     if(spProTransformOffset>0){

@@ -65,6 +65,7 @@ class SPClassBaseApi{
     if (queryParameters != null) {
       params.addAll(queryParameters);
     }
+
       Response response;
       cancelToken =new CancelToken();
       var httpManager=SPClassHttpManager.spFunGetInstance();
@@ -160,12 +161,16 @@ class SPClassBaseApi{
           if(SPClassApplicaion.spProEncrypt){
             data["data"] = json.decode(await Cipher2.decryptAesCbc128Padding7(data["data"],"0CD29CA6CFF94F22","4BE6FB7804494C64"));
           }
+          print('请求url：${httpManager.options.baseUrl}$url');
+          print('请求参数：$queryParameters');
+          print('返回数据：${data}');
           result=SPClassBaseModelEntity.formJson(data);
           result.spFunGetObject<T>(object: jsonObject);
           if(result.code=="401"){
             SPClassApplicaion.spFunClearUserState();
           }
         }
+
       }else{
          result =SPClassBaseModelEntity(response?.statusCode.toString(),"网络异常:statusCode:${response?.statusCode}",false);
       }

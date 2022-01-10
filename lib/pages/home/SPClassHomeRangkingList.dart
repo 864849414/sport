@@ -74,9 +74,16 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
     List<Widget> views=List();
     views.addAll(spProExpertList.map((expertItem){
       return Container(
+        margin: EdgeInsets.only(top: width(4),bottom: width(4)),
         decoration: BoxDecoration(
-           color: Color(0xFFF7F7F7),
-           borderRadius: BorderRadius.circular(4)
+           color: Colors.white,
+           borderRadius: BorderRadius.circular(4),
+            boxShadow:[
+              BoxShadow(
+                offset: Offset(0,0),
+                color: Color(0xFFCED4D9),
+                blurRadius:width(3,),),
+            ],
         ),
         alignment: Alignment.center,
         child: GestureDetector(
