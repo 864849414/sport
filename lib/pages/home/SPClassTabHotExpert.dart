@@ -33,7 +33,7 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
   var spProTabExpertTitles=['推荐','胜率','连红','回报'];
   List<SPClassHomeRangkingList> spProExpertViews=List();
   TabController spProTabExpertController;
-  var spProTabExpertKey=["hot","max_red_num",'',''];
+  var spProTabExpertKey=["hot","recent_correct_rate",'max_red_num','recent_profit'];
 
   get spProBodyParameters => null;
 

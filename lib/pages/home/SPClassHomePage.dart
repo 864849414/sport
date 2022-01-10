@@ -294,7 +294,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                           height: width(86),
                           child:  ListView.builder(
                               physics: PageScrollPhysics(),
-                              itemCount:2 ,
+                              itemCount:spProHotMatch.length>2?2:spProHotMatch.length ,
                               scrollDirection:Axis.horizontal,
                               itemBuilder: (c, i) =>
                                   Container(

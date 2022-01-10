@@ -7,6 +7,7 @@ import 'package:sport/model/SPClassExpertListEntity.dart';
 import 'package:sport/model/SPClassExpertInfo.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/utils/SPClassMatchDataUtils.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
@@ -188,16 +189,18 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
                             colors: [Color(0xFFFF7F66),Color(0xFFFF4A26)]
                         ),
                       ),
-                      child: Text((widget.order_key=="hot" )?
+                      child: Text((widget.order_key=="hot" )?//推荐
                       "近"+
                           "${expertItem.spProLast10Result.length.toString()}"+
                           "中"+
                           "${expertItem.spProLast10CorrectNum}":
-                      (widget.order_key=="max_red_num" )?
+                      (widget.order_key=="max_red_num" )?//连红
                       "${expertItem.spProMaxRedNum}"+
                           "连红":
-                      "${expertItem.popularity}"+
-                          "人气"
+                      (widget.order_key=="recent_correct_rate" )?//胜率
+                      "${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(expertItem.spProLast10Result)*100).toStringAsFixed(0)}"+
+                          "%": "${(double.tryParse(expertItem.spProRecentProfitSum)*100).toStringAsFixed(0)}"+
+                          "%"
                         ,style: GoogleFonts.notoSansSC(textStyle: TextStyle(fontSize: sp(9),color: Colors.white),fontWeight: FontWeight.w500),maxLines: 1,),
                     ),
                   )
