@@ -443,7 +443,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                                                     ]
                                                 )
                                             ),
-                                            child: Text('19观点',style: TextStyle(color: Colors.white,fontSize: sp(10)),),
+                                            child: Text('${spProHotMatch[i].spProSchemeNum}观点',style: TextStyle(color: Colors.white,fontSize: sp(10)),),
                                           ),
                                         )
                                       ],
