@@ -25,6 +25,7 @@ import 'package:sport/pages/home/SPClassSchemeItemView.dart';
 import 'package:sport/pages/hot/SPClassComplainPage.dart';
 import 'package:sport/pages/user/SPClassRechargeDiamondPage.dart';
 import 'package:html2md/html2md.dart' as html2md;
+import 'package:sport/utils/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'dart:ui';
@@ -172,8 +173,8 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage>{
               child: Column(
                   children: <Widget>[
                     Container(
-                      height: width(60),
-                      color: Color(0xFFDE3C31),
+                      height: width(132),
+                      color: MyColors.main1,
                     )
                   ]
               ),
