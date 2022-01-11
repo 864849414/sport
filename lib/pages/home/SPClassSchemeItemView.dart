@@ -219,13 +219,11 @@ class SPClassSchemeItemView extends StatelessWidget {
                               Visibility(
                                 child: Container(
                                   padding: EdgeInsets.only(
-                                      left: width(5),
-                                      right: width(5),
+                                      left: width(6),
+                                      right: width(6),
                                       top: width(0.8)),
                                   alignment: Alignment.center,
                                   height: width(16),
-                                  constraints:
-                                      BoxConstraints(minWidth: width(52)),
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Color(0xFF1B8DE0), width: 0.5),
@@ -239,7 +237,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                                         letterSpacing: 1),
                                   ),
                                 ),
-                                visible: item.spProCanReturn,
+                                visible: item.spProCanReturn&&item.spProDiamond!="0"&&item.spProIsOver!="0",
                               ),
                               // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
                               //   children: <Widget>[
@@ -342,50 +340,79 @@ class SPClassSchemeItemView extends StatelessWidget {
               ],
             ),
 
+            // Container(
+            //   margin: EdgeInsets.only(top: width(8)),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: <Widget>[
+            //       Container(
+            //         alignment: Alignment.center,
+            //         padding: EdgeInsets.only(left: width(6), right: width(6),),
+            //         margin: EdgeInsets.only(right: width(4), top: width(6)),
+            //         decoration: BoxDecoration(
+            //             border: Border.all(
+            //                 color: SPClassMatchDataUtils.getFontColors(
+            //                     item.spProGuessType,
+            //                     item.spProMatchType,
+            //                     item.spProPlayingWay),
+            //                 width: 0.5),
+            //             color: SPClassMatchDataUtils.getColors(
+            //                 item.spProGuessType,
+            //                 item.spProMatchType,
+            //                 item.spProPlayingWay),
+            //             borderRadius: BorderRadius.circular(width(4))),
+            //         child: Text(
+            //           "${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",
+            //           style: TextStyle(
+            //             color: SPClassMatchDataUtils.getFontColors(
+            //                 item.spProGuessType,
+            //                 item.spProMatchType,
+            //                 item.spProPlayingWay),
+            //             fontSize: sp(10),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         child: Text(
+            //           '${item.title}',
+            //           style: GoogleFonts.notoSansSC(
+            //               textStyle: TextStyle(
+            //                 color: Color(0xFF333333),
+            //               ),
+            //               fontSize: sp(17)),
+            //           maxLines: 2,
+            //           overflow: TextOverflow.ellipsis,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
-              margin: EdgeInsets.only(top: width(8)),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              margin: EdgeInsets.only(top: width(6)),
+              alignment: Alignment.centerLeft,
+              child:Stack(
                 children: <Widget>[
                   Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(left: width(6), right: width(6)),
-                    margin: EdgeInsets.only(right: width(4), top: width(6)),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: SPClassMatchDataUtils.getFontColors(
-                                item.spProGuessType,
-                                item.spProMatchType,
-                                item.spProPlayingWay),
-                            width: 0.5),
-                        color: SPClassMatchDataUtils.getColors(
-                            item.spProGuessType,
-                            item.spProMatchType,
-                            item.spProPlayingWay),
-                        borderRadius: BorderRadius.circular(width(4))),
-                    child: Text(
-                      "${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",
-                      style: TextStyle(
-                        color: SPClassMatchDataUtils.getFontColors(
-                            item.spProGuessType,
-                            item.spProMatchType,
-                            item.spProPlayingWay),
-                        fontSize: sp(10),
+                    child: RichText(
+                      maxLines: 2,overflow: TextOverflow.ellipsis,
+                      text:  TextSpan(
+                          text: item.title,
+                          style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),)
                       ),
                     ),
+                    padding: EdgeInsets.only(left: width(35)),
                   ),
-                  Expanded(
-                    child: Text(
-                      '${item.title}',
-                      style: GoogleFonts.notoSansSC(
-                          textStyle: TextStyle(
-                            color: Color(0xFF333333),
-                          ),
-                          fontSize: sp(17)),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                  Positioned(top: width(6),left: 0,child:
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: width(6),right: width(6)),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),width: 0.5),
+                        color: SPClassMatchDataUtils.getColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),
+                        borderRadius: BorderRadius.circular(width(4))
                     ),
-                  ),
+                    child: Text("${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",style: TextStyle(color:SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),fontSize: sp(9),),),
+                  ),)
                 ],
               ),
             ),

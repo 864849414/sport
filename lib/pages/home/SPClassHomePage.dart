@@ -208,7 +208,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
           preferredSize: Size.fromHeight(0)),
       floatingActionButton: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        child: !spProShowTopView||spProTabMatchTitles[spProTabMatchController.index]=='AI分析'
+        child: !spProShowTopView||spProTabMatchTitles[spProTabMatchController.index]=='AI分析'||spProTabMatchTitles[spProTabMatchController.index]=='关注'
             ? SizedBox()
             : GestureDetector(
                 child: Container(
@@ -513,7 +513,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                               children: <Widget>[
                                 Container(
                                   width:
-                                      width(47.0 * spProTabSchemeTitles.length),
+                                      width(70 * spProTabSchemeTitles.length),
                                   child: TabBar(
                                     labelColor: MyColors.main1,
                                     labelPadding: EdgeInsets.zero,

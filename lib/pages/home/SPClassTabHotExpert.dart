@@ -51,17 +51,16 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
     // TODO: implement build
     return  Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: width(18),/*left: width(10),right: width(10),*/bottom:  height(8)),
+      margin: EdgeInsets.only(top: width(18),/*left: width(10),right: width(10),*/bottom:  width(12)),
       child: Column(
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: width(16),right: width(16)),
-
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  height:height(26),
+                  height:width(25),
                   width: width(240),
                   decoration: BoxDecoration(
                       color: Color(0xFFF2F2F2),
@@ -69,8 +68,8 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
                   ),
                   child:TabBar(
                     indicator: BoxDecoration(
-                        color: Color(0xFF1B8DE0),
-                        borderRadius: BorderRadius.circular(150),
+                        color: MyColors.main1,
+                        borderRadius: BorderRadius.circular(width(18)),
                     ),
                     labelColor: Colors.white,
                     labelPadding: EdgeInsets.zero,
@@ -101,7 +100,6 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
               ],
             ),
           ),
-          SizedBox(height: 12,),
           Container(
             height: width(100),
             child: TabBarView(

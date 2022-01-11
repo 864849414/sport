@@ -83,7 +83,7 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
               BoxShadow(
                 offset: Offset(0,0),
                 color: Color(0xFFCED4D9),
-                blurRadius:width(3,),),
+                blurRadius:width(1,),),
             ],
         ),
         alignment: Alignment.center,
