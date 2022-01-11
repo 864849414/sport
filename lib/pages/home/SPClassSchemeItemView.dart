@@ -41,8 +41,8 @@ class SPClassSchemeItemView extends StatelessWidget {
         padding: EdgeInsets.only(
             left: width(13),
             right: width(13),
-            top: height(8),
-            bottom: height(8)),
+            top: height(15),
+            bottom: height(12)),
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -119,15 +119,29 @@ class SPClassSchemeItemView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "${item.expert.spProNickName}",
-                          style: GoogleFonts.notoSansSC(
-                            textStyle: TextStyle(
-                              color: Color(0xFF333333),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "${item.expert.spProNickName}",
+                              style: GoogleFonts.notoSansSC(
+                                textStyle: TextStyle(
+                                  color: Color(0xFF333333),
+                                ),
+                                fontSize: sp(15),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                            fontSize: sp(15),
-                            fontWeight: FontWeight.w500,
-                          ),
+                            SizedBox(width: 4,),
+                            Text(
+                              "7分钟前",
+                              style: GoogleFonts.notoSansSC(
+                                textStyle: TextStyle(
+                                  color: MyColors.grey_99,
+                                ),
+                                fontSize: sp(10),
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
                           margin: EdgeInsets.only(top: width(6)),
@@ -136,18 +150,18 @@ class SPClassSchemeItemView extends StatelessWidget {
                               Visibility(
                                 child: Container(
                                   padding: EdgeInsets.only(
-                                      left: width(5),
-                                      right: width(5),
+                                      left: width(8),
+                                      right: width(8),
                                       top: width(0.8)),
                                   alignment: Alignment.center,
                                   height: width(16),
-                                  constraints:
-                                      BoxConstraints(minWidth: width(52)),
+                                  // constraints:
+                                  //     BoxConstraints(minWidth: width(52)),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       gradient: LinearGradient(colors: [
-                                        Color(0xFFFF8D66),
                                         Color(0xFFFF6A4C),
+                                        Color(0xFFFF8D66),
                                       ])),
                                   child: Text(
                                     "近" +
@@ -174,13 +188,13 @@ class SPClassSchemeItemView extends StatelessWidget {
                               Visibility(
                                 child: Container(
                                   padding: EdgeInsets.only(
-                                      left: width(5),
-                                      right: width(5),
+                                      left: width(8),
+                                      right: width(8),
                                       top: width(0.8)),
                                   alignment: Alignment.center,
                                   height: width(16),
-                                  constraints:
-                                      BoxConstraints(minWidth: width(52)),
+                                  // constraints:
+                                  //     BoxConstraints(minWidth: width(52)),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       gradient: LinearGradient(colors: [
@@ -381,7 +395,10 @@ class SPClassSchemeItemView extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: width(8),top: width(4),bottom: width(4)),
-              color: Color(0xFFF6F6F6),
+              decoration: BoxDecoration(
+                color: Color(0xFFF6F6F6),
+                borderRadius: BorderRadius.circular(width(4))
+              ),
               child: Row(
                 children: <Widget>[
                   // item.spProMatchType.toLowerCase()=="lol" ? Container(

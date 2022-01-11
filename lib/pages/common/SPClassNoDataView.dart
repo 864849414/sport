@@ -29,13 +29,22 @@ class SPClassNoDataViewState extends State<SPClassNoDataView>{
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SPClassEncryptImage.asset(
-            SPClassImageUtil.spFunGetImagePath('empty'),
-            fit: BoxFit.contain,
-            width:widget.iconSize!=null? widget.iconSize.width: width(192),
-            height:widget.iconSize!=null? widget.iconSize.height:  height(136),
-          ),
-          Text(widget.content==null?"暂无数据":'${widget.content}',style: TextStyle(fontSize: sp(13),color: MyColors.grey_99),)
+          Stack(
+            children: <Widget>[
+              SPClassEncryptImage.asset(
+                SPClassImageUtil.spFunGetImagePath('empty'),
+                fit: BoxFit.contain,
+                width:widget.iconSize!=null? widget.iconSize.width: width(230),
+                height:widget.iconSize!=null? widget.iconSize.height:  width(230),
+              ),
+              Positioned(
+                bottom: width(40),
+                left: 0,
+                right: 0,
+                child:Text(widget.content==null?"暂无数据":'${widget.content}',style: TextStyle(fontSize: sp(13),color: MyColors.grey_99),textAlign: TextAlign.center,),
+              )
+            ],
+          )
         ],
       ),
     );

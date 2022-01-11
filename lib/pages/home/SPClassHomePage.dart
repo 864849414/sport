@@ -503,7 +503,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                             key: spProKeyTopTitle,
                             padding: EdgeInsets.only(
                                 left: width(13), right: width(13)),
-                            height: width(35),
+                            height: width(42),
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
@@ -523,7 +523,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                                     indicatorSize: TabBarIndicatorSize.tab,
                                     indicatorPadding: EdgeInsets.symmetric(horizontal: width(15)),
                                     labelStyle: GoogleFonts.notoSansSC(
-                                        fontSize: sp(13),
+                                        fontSize: sp(15),
                                         fontWeight: FontWeight.bold),
                                     unselectedLabelStyle:
                                         TextStyle(fontSize: sp(13)),
