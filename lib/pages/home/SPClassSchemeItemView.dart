@@ -48,7 +48,7 @@ class SPClassSchemeItemView extends StatelessWidget {
             border: Border(
                 bottom: BorderSide(
                     width: 0.5,
-                    color: spProShowLine ? Colors.grey[300] : Colors.white))),
+                    color: spProShowLine ? Color(0xFFF2F2F2) : Colors.white))),
         child: Column(
           children: <Widget>[
             Row(
@@ -319,13 +319,22 @@ class SPClassSchemeItemView extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(
                                       text: spProShowRate
-                                          ? "${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.expert.spProLast10Result) * 100).toStringAsFixed(0)}%"
+                                          ? "${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.expert.spProLast10Result) * 100).toStringAsFixed(0)}"
                                           : "",
                                       style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w500,
                                           textStyle: TextStyle(
-                                              fontSize: sp(24),
-                                              color: Color(0xFFE3494B))),
+                                              fontSize: sp(27),
+                                              color: Color(0xFFEB3E1C))),
+                                      children: [
+                                        TextSpan(
+                                            text: '%',
+                                            style: GoogleFonts.roboto(
+                                                textStyle: TextStyle(
+                                                    fontSize: sp(10),
+                                                    color: Color(0xFFEB3E1C),),),
+                                        )
+                                      ]
                                     ),
                                   ),
                                   Text(

@@ -45,7 +45,7 @@ class SPClassFollowSchemeListPageState extends State<SPClassFollowSchemeListPage
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      color: Color(0xFFF1F1F1),
+      color: Colors.white,
       child: EasyRefresh.custom(
         firstRefresh: true,
         controller:spProRefreshController ,
@@ -55,17 +55,12 @@ class SPClassFollowSchemeListPageState extends State<SPClassFollowSchemeListPage
         footer: SPClassBallFooter(
             textColor: Color(0xFF666666)
         ),
-
+        emptyWidget: spProSchemeList.length==0 ?SPClassNoDataView(content: '暂无方案',):null,
         onRefresh: spFunOnRefresh,
         onLoad: spFunOnMore,
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child:spProSchemeList.length==0?  SPClassNoDataView():SizedBox(),
-          ),
-          SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.only(left: width(10),right: width(10),bottom: width(10),top: height(5)),
-              padding: EdgeInsets.only(top: width(5),bottom: width(5),),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(width(7))
@@ -93,7 +88,7 @@ class SPClassFollowSchemeListPageState extends State<SPClassFollowSchemeListPage
                             },
                           ),
                           Expanded(
-                            child: SPClassSchemeItemView(schemeItem),
+                            child: SPClassSchemeItemView(schemeItem,spProShowProFit: false,),
                           )
                         ],
                       ),

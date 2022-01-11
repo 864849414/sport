@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport/pages/user/SPClassMyFollowExpertPage.dart';
+import 'package:sport/pages/user/scheme/follow/SPClassFollowSchemeListPage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/colors.dart';
 
@@ -72,7 +73,7 @@ class _FollowPageState extends State<FollowPage> with  TickerProviderStateMixin<
               controller: _controller,
               children: <Widget>[
                 SPClassMyFollowExpertPage(),
-                SPClassMyFollowExpertPage(),
+                SPClassFollowSchemeListPage('0'),
               ],
             ),
           )

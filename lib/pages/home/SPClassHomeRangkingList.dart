@@ -163,30 +163,65 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
                       borderRadius: BorderRadius.circular(200),
                       child:( expertItem?.spProAvatarUrl==null||expertItem.spProAvatarUrl.isEmpty)? SPClassEncryptImage.asset(
                         SPClassImageUtil.spFunGetImagePath("ic_default_avater"),
-                        width: width(40),
-                        height: width(40),
+                        width: width(46),
+                        height: width(46),
                       ):Image.network(
                         expertItem.spProAvatarUrl,
-                        width: width(40),
-                        height: width(40),
+                        width: width(46),
+                        height: width(46),
                         fit: BoxFit.fill,
                       ),
                     ),
                   ),
+                  // Positioned(
+                  //   left: -9,
+                  //   right: -9,
+                  //   bottom: -20,
+                  //   // child: Image.asset(
+                  //   //   SPClassImageUtil.spFunGetImagePath("juxing"),
+                  //   //   width: width(66),
+                  //   //   height: width(33),
+                  //   // ),
+                  //   child: Container(
+                  //     alignment: Alignment.center,
+                  //     width: width(66),
+                  //     height: width(33),
+                  //     decoration: BoxDecoration(
+                  //       image: DecorationImage(
+                  //         image: AssetImage(
+                  //           SPClassImageUtil.spFunGetImagePath("juxing"),
+                  //         )
+                  //       )
+                  //     ),
+                  //     child: Text((widget.order_key=="hot" )?//推荐
+                  //     "近"+
+                  //         "${expertItem.spProLast10Result.length.toString()}"+
+                  //         "中"+
+                  //         "${expertItem.spProLast10CorrectNum}":
+                  //     (widget.order_key=="max_red_num" )?//连红
+                  //     "${expertItem.spProMaxRedNum}"+
+                  //         "连红":
+                  //     (widget.order_key=="recent_correct_rate" )?//胜率
+                  //     "${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(expertItem.spProLast10Result)*100).toStringAsFixed(0)}"+
+                  //         "%": "${(double.tryParse(expertItem.spProRecentProfitSum)*100).toStringAsFixed(0)}"+
+                  //         "%"
+                  //       ,style: GoogleFonts.notoSansSC(textStyle: TextStyle(fontSize: sp(9),color: Colors.white),fontWeight: FontWeight.w500),maxLines: 1,),
+                  //   ),
+                  // ),
                   Positioned(
                     left: 0,
                     right: 0,
                     bottom: -10,
                     child: Container(
                       alignment: Alignment.center,
-                      width: width(45),
-                      height: width(15),
+                      width: width(46),
+                      height: width(18),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(300),
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [Color(0xFFFF7F66),Color(0xFFFF4A26)]
+                            colors: [Color(0xFFFF8C66),Color(0xFFF75231)]
                         ),
                       ),
                       child: Text((widget.order_key=="hot" )?//推荐

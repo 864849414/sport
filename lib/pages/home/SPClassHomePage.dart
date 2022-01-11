@@ -521,7 +521,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                                     indicatorColor: MyColors.main1,
                                     isScrollable: false,
                                     indicatorSize: TabBarIndicatorSize.tab,
-                                    indicatorPadding: EdgeInsets.symmetric(horizontal: width(15)),
+                                    indicatorPadding: EdgeInsets.symmetric(horizontal: width(24)),
                                     labelStyle: GoogleFonts.notoSansSC(
                                         fontSize: sp(15),
                                         fontWeight: FontWeight.bold),
