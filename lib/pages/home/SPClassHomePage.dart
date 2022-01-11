@@ -9,6 +9,7 @@ import 'package:sport/model/SPClassBannerItem.dart';
 import 'package:sport/model/SPClassGuessMatchInfo.dart';
 import 'package:sport/model/SPClassSchemeDetailEntity.dart';
 import 'package:sport/model/SPClassNoticesNotice.dart';
+import 'package:sport/pages/home/FollowPage.dart';
 import 'package:sport/pages/news/webViewPage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassDateUtils.dart';
@@ -49,7 +50,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
         TickerProviderStateMixin<SPClassHomePage> {
   var banners = List<SPClassBannerItem>();
   TabController spProTabSchemeController;
-  TabController spProTabMatchController;
+  TabController spProTabMatchController;   //顶部导航栏
   PageController spProPageControlller;
   ScrollController spProMsgScrollController;
   ScrollController spProHomeScrollController;
@@ -59,10 +60,10 @@ class SPClassHomePageState extends State<SPClassHomePage>
   var spProShowTitle = false;
   var spProShowTopView = false;
   var spProTabMatchTitles = ['关注', '足球', '篮球', 'AI分析'];
-  var spProTabMatchKeys = ["足球", "篮球"];
+  var spProTabMatchKeys = ['',"足球", "篮球"];
   var spProTabSchemeTitles = ["最新", "高胜率", "免费"];
   var spProTabSchemeKeys = ["newest", "recent_correct_rate", "free"];
-  var spProTabExpertKeys = ["is_zq_expert", "is_lq_expert", "is_es_expert"];
+  var spProTabExpertKeys = ['',"is_zq_expert", "is_lq_expert", "is_es_expert"];
   List<SPClassGuessMatchInfo> spProHotMatch =List();//热门赛事
   var spProPayWay = "";
   var spProReFreshTime;
@@ -73,7 +74,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
   double spProTopOffset = 0.0;
   double spProHeightNoticeItem = 0.0;
   int spProTabSchemeIndex = 0;
-  int spProTabMatchIndex = 0;
+  int spProTabMatchIndex = 1; //顶部栏的下标
   @override
   void initState() {
     // TODO: implement initState
@@ -93,7 +94,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
             ? 2
             : 0);
     spProTabMatchController =
-        TabController(length: spProTabMatchTitles.length, vsync: this);
+        TabController(length: spProTabMatchTitles.length,initialIndex: 1, vsync: this);
     spProSchemeViews = spProTabSchemeKeys.map((key) {
       return SPClassHomeSchemeList(
         spProFetchType: key,
@@ -267,6 +268,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                     }).toList()),
               ),
             ),
+            spProTabMatchTitles[spProTabMatchController.index]=='关注'?FollowPage():
             spProTabMatchTitles[spProTabMatchController.index]=='AI分析'?AIAnalysis():
             Expanded(
               child: SPClassNestedScrollViewRefreshBallStyle(

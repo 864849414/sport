@@ -10,8 +10,9 @@ import 'package:sport/utils/SPClassCommonMethods.dart';
 class SPClassNoDataView extends StatefulWidget{
   double height;
   Size iconSize;
+  String content;
 
-  SPClassNoDataView({this.height,this.iconSize});
+  SPClassNoDataView({this.height,this.iconSize,this.content});
 
   SPClassNoDataViewState createState()=>SPClassNoDataViewState();
 }
@@ -28,12 +29,12 @@ class SPClassNoDataViewState extends State<SPClassNoDataView>{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           SPClassEncryptImage.asset(
-            SPClassImageUtil.spFunGetImagePath('ic_news_no_data'),
+            SPClassImageUtil.spFunGetImagePath('empty'),
             fit: BoxFit.contain,
             width:widget.iconSize!=null? widget.iconSize.width: width(192),
             height:widget.iconSize!=null? widget.iconSize.height:  height(136),
           ),
-          Text("暂无数据",style: TextStyle(fontSize: 16,color: Color(0xFF666666)),)
+          Text(widget.content==null?"暂无数据":'${widget.content}',style: TextStyle(fontSize: 16,color: Color(0xFF666666)),)
         ],
       ),
     );
