@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/colors.dart';
 
 
 class SPClassNoDataView extends StatefulWidget{
@@ -34,7 +35,7 @@ class SPClassNoDataViewState extends State<SPClassNoDataView>{
             width:widget.iconSize!=null? widget.iconSize.width: width(192),
             height:widget.iconSize!=null? widget.iconSize.height:  height(136),
           ),
-          Text(widget.content==null?"暂无数据":'${widget.content}',style: TextStyle(fontSize: 16,color: Color(0xFF666666)),)
+          Text(widget.content==null?"暂无数据":'${widget.content}',style: TextStyle(fontSize: sp(13),color: MyColors.grey_99),)
         ],
       ),
     );

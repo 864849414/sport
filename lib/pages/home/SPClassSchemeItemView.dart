@@ -20,15 +20,17 @@ import 'package:sport/pages/competition/scheme/SPClassSchemeDetailPage.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/colors.dart';
 
-class SPClassSchemeItemView extends StatelessWidget{
+class SPClassSchemeItemView extends StatelessWidget {
   SPClassSchemeListSchemeList item;
   bool spProShowRate;
   bool spProShowProFit;
   bool spProCanClick;
   bool spProShowLine;
-  SPClassSchemeItemView(this.item,{this.spProShowRate:true,this.spProShowProFit:true,this.spProCanClick:true,this.spProShowLine:true});
-
-
+  SPClassSchemeItemView(this.item,
+      {this.spProShowRate: true,
+      this.spProShowProFit: true,
+      this.spProCanClick: true,
+      this.spProShowLine: true});
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,17 @@ class SPClassSchemeItemView extends StatelessWidget{
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: EdgeInsets.only(left: width(13),right: width(13),top: height(8),bottom: height(8)),
+        padding: EdgeInsets.only(
+            left: width(13),
+            right: width(13),
+            top: height(8),
+            bottom: height(8)),
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border(bottom: BorderSide(width:0.5,color:spProShowLine? Colors.grey[300]:Colors.white))
-        ),
-
+            border: Border(
+                bottom: BorderSide(
+                    width: 0.5,
+                    color: spProShowLine ? Colors.grey[300] : Colors.white))),
         child: Column(
           children: <Widget>[
             Row(
@@ -49,47 +56,62 @@ class SPClassSchemeItemView extends StatelessWidget{
                 Stack(
                   children: <Widget>[
                     GestureDetector(
-                      child:ClipRRect(
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(width(20)),
-                        child:( item?.expert?.spProAvatarUrl==null||item.expert.spProAvatarUrl.isEmpty)? SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_default_avater"),
-                          width: width(40),
-                          height: width(40),
-                        ):Image.network(
-                          item.expert.spProAvatarUrl,
-                          width: width(40),
-                          height: width(40),
-                          fit: BoxFit.cover,
-                        ),
+                        child: (item?.expert?.spProAvatarUrl == null ||
+                                item.expert.spProAvatarUrl.isEmpty)
+                            ? SPClassEncryptImage.asset(
+                                SPClassImageUtil.spFunGetImagePath(
+                                    "ic_default_avater"),
+                                width: width(40),
+                                height: width(40),
+                              )
+                            : Image.network(
+                                item.expert.spProAvatarUrl,
+                                width: width(40),
+                                height: width(40),
+                                fit: BoxFit.cover,
+                              ),
                       ),
-                      onTap: (){
-                        if(spProCanClick){
-                          SPClassApiManager.spFunGetInstance().spFunExpertInfo(queryParameters: {"expert_uid":item.spProUserId},
-                              context:context,spProCallBack: SPClassHttpCallBack(
-                                  spProOnSuccess: (info){
-                                    SPClassNavigatorUtils.spFunPushRoute(context,  SPClassExpertDetailPage(info));
-                                  }
-                              ));
+                      onTap: () {
+                        if (spProCanClick) {
+                          SPClassApiManager.spFunGetInstance().spFunExpertInfo(
+                              queryParameters: {"expert_uid": item.spProUserId},
+                              context: context,
+                              spProCallBack:
+                                  SPClassHttpCallBack(spProOnSuccess: (info) {
+                                SPClassNavigatorUtils.spFunPushRoute(
+                                    context, SPClassExpertDetailPage(info));
+                              }));
                         }
                       },
                     ),
                     Positioned(
                       right: 0,
                       top: 0,
-                      child:(item.expert.spProNewSchemeNum!="null"&&int.parse(item.expert.spProNewSchemeNum)>0)? Container(
-                        alignment: Alignment.center,
-                        width: width(13),
-                        height: width(13),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(width(6)),
-                          color: Color(0xFFE3494B),
-                        ),
-                        child:Text(item.expert.spProNewSchemeNum,style: TextStyle(fontSize: sp(8),color: Colors.white),),
-                      ):Container(),
+                      child: (item.expert.spProNewSchemeNum != "null" &&
+                              int.parse(item.expert.spProNewSchemeNum) > 0)
+                          ? Container(
+                              alignment: Alignment.center,
+                              width: width(13),
+                              height: width(13),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(width(6)),
+                                color: Color(0xFFE3494B),
+                              ),
+                              child: Text(
+                                item.expert.spProNewSchemeNum,
+                                style: TextStyle(
+                                    fontSize: sp(8), color: Colors.white),
+                              ),
+                            )
+                          : Container(),
                     )
                   ],
                 ),
-                SizedBox(width: width(5),),
+                SizedBox(
+                  width: width(5),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,200 +119,268 @@ class SPClassSchemeItemView extends StatelessWidget{
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("${item.expert.spProNickName}",style: TextStyle(fontSize: sp(14),color: Color(0xFF333333)),),
-                        Row(
-                          children: <Widget>[
-                            Visibility(
-                              child: Container(
-                                padding: EdgeInsets.only(left: width(5),right:  width(5),top: width(0.8)),
-                                alignment: Alignment.center,
-                                height: width(16),
-                                constraints: BoxConstraints(
-                                    minWidth: width(52)
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFFFF8D66),
-                                      Color(0xFFFF6A4C),
-                                    ]
-                                  )
-                                ),
-                                child:Text("近"+
-                                    "${item.expert.spProLast10Result.length.toString()}"+
-                                    "中"+
-                                    "${item.expert.spProLast10CorrectNum}",style: TextStyle(fontSize: sp(9),color: Color(0xFFF7F7F7),letterSpacing: 1),),
-                              ),
-                              visible:  (item.expert.spProSchemeNum!=null&&(double.tryParse(item.expert.spProLast10CorrectNum)/double.tryParse(item.expert.spProLast10Result.length.toString()))>=0.6),
+                        Text(
+                          "${item.expert.spProNickName}",
+                          style: GoogleFonts.notoSansSC(
+                            textStyle: TextStyle(
+                              color: Color(0xFF333333),
                             ),
-                            SizedBox(width: width(8),),
-                            Visibility(
-                              child: Container(
-                                padding: EdgeInsets.only(left: width(5),right:  width(5),top: width(0.8)),
-                                alignment: Alignment.center,
-                                height: width(16),
-                                constraints: BoxConstraints(
-                                    minWidth: width(52)
+                            fontSize: sp(15),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: width(6)),
+                          child: Row(
+                            children: <Widget>[
+                              Visibility(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: width(5),
+                                      right: width(5),
+                                      top: width(0.8)),
+                                  alignment: Alignment.center,
+                                  height: width(16),
+                                  constraints:
+                                      BoxConstraints(minWidth: width(52)),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gradient: LinearGradient(colors: [
+                                        Color(0xFFFF8D66),
+                                        Color(0xFFFF6A4C),
+                                      ])),
+                                  child: Text(
+                                    "近" +
+                                        "${item.expert.spProLast10Result.length.toString()}" +
+                                        "中" +
+                                        "${item.expert.spProLast10CorrectNum}",
+                                    style: TextStyle(
+                                        fontSize: sp(9),
+                                        color: Color(0xFFF7F7F7),
+                                        letterSpacing: 1),
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
+                                visible: (item.expert.spProSchemeNum != null &&
+                                    (double.tryParse(item
+                                                .expert.spProLast10CorrectNum) /
+                                            double.tryParse(item
+                                                .expert.spProLast10Result.length
+                                                .toString())) >=
+                                        0.6),
+                              ),
+                              SizedBox(
+                                width: width(4),
+                              ),
+                              Visibility(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: width(5),
+                                      right: width(5),
+                                      top: width(0.8)),
+                                  alignment: Alignment.center,
+                                  height: width(16),
+                                  constraints:
+                                      BoxConstraints(minWidth: width(52)),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gradient: LinearGradient(colors: [
+                                        Color(0xFFFFB44D),
+                                        Color(0xFFFFA64D),
+                                      ])),
+                                  child: Text(
+                                    "${item.expert.spProCurrentRedNum}连红",
+                                    style: TextStyle(
+                                        fontSize: sp(9),
+                                        color: Color(0xFFF7F7F7),
+                                        letterSpacing: 1),
+                                  ),
+                                ),
+                                visible:
+                                    int.tryParse(item.expert.spProCurrentRedNum) >
+                                        2,
+                              ),
+                              SizedBox(
+                                width: width(8),
+                              ),
+                              Visibility(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: width(5),
+                                      right: width(5),
+                                      top: width(0.8)),
+                                  alignment: Alignment.center,
+                                  height: width(16),
+                                  constraints:
+                                      BoxConstraints(minWidth: width(52)),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color(0xFF1B8DE0), width: 0.5),
                                     borderRadius: BorderRadius.circular(4),
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xFFFFB44D),
-                                          Color(0xFFFFA64D),
-                                        ]
-                                    )
+                                  ),
+                                  child: Text(
+                                    "不中退",
+                                    style: TextStyle(
+                                        fontSize: sp(9),
+                                        color: Color(0xFF1B8DE0),
+                                        letterSpacing: 1),
+                                  ),
                                 ),
-                                child:Text("${item.expert.spProCurrentRedNum}连红",style: TextStyle(fontSize: sp(9),color: Color(0xFFF7F7F7),letterSpacing: 1),),
+                                visible: item.spProCanReturn,
                               ),
-                              visible: int.tryParse( item.expert.spProCurrentRedNum)>2,
-                            ),
-                            SizedBox(width: width(8),),
-                            Visibility(
-                              child: Container(
-                                padding: EdgeInsets.only(left: width(5),right:  width(5),top: width(0.8)),
-                                alignment: Alignment.center,
-                                height: width(16),
-                                constraints: BoxConstraints(
-                                    minWidth: width(52)
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xFF1B8DE0),width: 0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child:Text("不中退",style: TextStyle(fontSize: sp(9),color: Color(0xFF1B8DE0),letterSpacing: 1),),
-                              ),
-                              visible: item.spProCanReturn,
-                            ),
-                            // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
-                            //   children: <Widget>[
-                            //     SPClassEncryptImage.asset(item.expert.spProCurrentRedNum.length>1  ? SPClassImageUtil.spFunGetImagePath("ic_recent_red2"):SPClassImageUtil.spFunGetImagePath("ic_recent_red"),
-                            //       height:width(16) ,
-                            //       fit: BoxFit.fitHeight,
-                            //     ),
-                            //     Positioned(
-                            //       left: width(item.expert.spProCurrentRedNum.length>1  ? 5:7),
-                            //       bottom: 0,
-                            //       top: 0,
-                            //       child: Container(
-                            //         alignment: Alignment.center,
-                            //         child: Text("${item.expert.spProCurrentRedNum}",style: GoogleFonts.roboto(textStyle: TextStyle(color:Color(0xFFDE3C31) ,fontSize: sp(14.8),fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)),
-                            //       ),
-                            //     ),
-                            //     Positioned(
-                            //       right: width(7),
-                            //       bottom: 0,
-                            //       top: 0,
-                            //       child: Container(
-                            //         padding: EdgeInsets.only(top: width(0.8)),
-                            //         alignment: Alignment.center,
-                            //         child: Text("连红",style: TextStyle(color:Colors.white ,fontSize: sp(9),fontStyle: FontStyle.italic)),
-                            //       ),
-                            //     )
-                            //   ],
-                            // ):SizedBox()
-                          ],
+                              // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
+                              //   children: <Widget>[
+                              //     SPClassEncryptImage.asset(item.expert.spProCurrentRedNum.length>1  ? SPClassImageUtil.spFunGetImagePath("ic_recent_red2"):SPClassImageUtil.spFunGetImagePath("ic_recent_red"),
+                              //       height:width(16) ,
+                              //       fit: BoxFit.fitHeight,
+                              //     ),
+                              //     Positioned(
+                              //       left: width(item.expert.spProCurrentRedNum.length>1  ? 5:7),
+                              //       bottom: 0,
+                              //       top: 0,
+                              //       child: Container(
+                              //         alignment: Alignment.center,
+                              //         child: Text("${item.expert.spProCurrentRedNum}",style: GoogleFonts.roboto(textStyle: TextStyle(color:Color(0xFFDE3C31) ,fontSize: sp(14.8),fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)),
+                              //       ),
+                              //     ),
+                              //     Positioned(
+                              //       right: width(7),
+                              //       bottom: 0,
+                              //       top: 0,
+                              //       child: Container(
+                              //         padding: EdgeInsets.only(top: width(0.8)),
+                              //         alignment: Alignment.center,
+                              //         child: Text("连红",style: TextStyle(color:Colors.white ,fontSize: sp(9),fontStyle: FontStyle.italic)),
+                              //       ),
+                              //     )
+                              //   ],
+                              // ):SizedBox()
+                            ],
+                          ),
                         )
                       ],
                     ),
-
                   ],
                 ),
-               spProShowProFit? Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child:double.tryParse(item.expert.spProRecentProfit)<=0? SizedBox():
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          text:spProShowRate?"${(double.tryParse(item.expert.spProRecentProfitSum)*100).toStringAsFixed(0)}%":"",
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500,
-                              textStyle: TextStyle(
-                                  fontSize: sp(24),
-                                  color: Color(0xFFF74825))),
-                        ),
-                      ),
-                      Text(spProShowRate?"近10场回报率":"",style: TextStyle(
-                          fontSize:
-                          sp(
-                              10),
-                          color: Color(
-                              0xFFF74825)),
+                spProShowProFit
+                    ? Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child:
+                            double.tryParse(item.expert.spProRecentProfit) <= 0
+                                ? SizedBox()
+                                : Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      RichText(
+                                        text: TextSpan(
+                                          text: spProShowRate
+                                              ? "${(double.tryParse(item.expert.spProRecentProfitSum) * 100).toStringAsFixed(0)}%"
+                                              : "",
+                                          style: GoogleFonts.roboto(
+                                              fontWeight: FontWeight.w500,
+                                              textStyle: TextStyle(
+                                                  fontSize: sp(24),
+                                                  color: Color(0xFFF74825))),
+                                        ),
+                                      ),
+                                      Text(
+                                        spProShowRate ? "近10场回报率" : "",
+                                        style: TextStyle(
+                                            fontSize: sp(10),
+                                            color: Color(0xFFF74825)),
+                                      )
+                                    ],
+                                  ),
                       )
-                    ],
-                  ),
-                ): Flexible(
-                 fit: FlexFit.tight,
-                 flex: 1,
-                 child:SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.expert.spProLast10Result)<0.7? SizedBox():
-                 Column(
-                   crossAxisAlignment: CrossAxisAlignment.end,
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   children: <Widget>[
-                     RichText(
-                       text: TextSpan(
-                         text:spProShowRate?"${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.expert.spProLast10Result)*100).toStringAsFixed(0)}%":"",
-                         style: GoogleFonts.roboto(
-                             fontWeight: FontWeight.w500,
-                             textStyle: TextStyle(
-                                 fontSize: sp(24),
-                                 color: Color(0xFFE3494B))),
-                       ),
-                     ),
-                     Text(spProShowRate?"近期胜率":"",style: TextStyle(
-                         fontSize:
-                         sp(
-                             10),
-                         color: Color(
-                             0xFF666666)),
-                     )
-                   ],
-                 ),
-               )
+                    : Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: SPClassMatchDataUtils.spFunCalcBestCorrectRate(
+                                    item.expert.spProLast10Result) <
+                                0.7
+                            ? SizedBox()
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  RichText(
+                                    text: TextSpan(
+                                      text: spProShowRate
+                                          ? "${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.expert.spProLast10Result) * 100).toStringAsFixed(0)}%"
+                                          : "",
+                                      style: GoogleFonts.roboto(
+                                          fontWeight: FontWeight.w500,
+                                          textStyle: TextStyle(
+                                              fontSize: sp(24),
+                                              color: Color(0xFFE3494B))),
+                                    ),
+                                  ),
+                                  Text(
+                                    spProShowRate ? "近期胜率" : "",
+                                    style: TextStyle(
+                                        fontSize: sp(10),
+                                        color: Color(0xFF666666)),
+                                  )
+                                ],
+                              ),
+                      )
               ],
             ),
 
             Container(
-              padding: EdgeInsets.only(bottom: height(5)),
-              alignment: Alignment.centerLeft,
-              child:Stack(
+              margin: EdgeInsets.only(top: width(8)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                   RichText(
-                     maxLines: 2,overflow: TextOverflow.ellipsis,
-                     text: TextSpan(
-                       text: "${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",
-                       style: TextStyle(color:Colors.white ,fontSize: sp(13),),
-                       children: <InlineSpan>[
-                         TextSpan(
-                             text: "   "+item.title,
-                             style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontWeight: FontWeight.w500,fontSize: sp(13),)
-                         )
-                       ]
-                     ),
-                   ),
-                   Positioned(top: height(2.7),left: 0,child:
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(left: width(6),right: width(6)),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),width: 0.5),
-                          color: SPClassMatchDataUtils.getColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),
-                          borderRadius: BorderRadius.circular(width(2))
-                       ),
-                     child: Text("${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",style: TextStyle(color:SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),fontSize: sp(9),),),
-                   ),)
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(left: width(6), right: width(6)),
+                    margin: EdgeInsets.only(right: width(4), top: width(6)),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: SPClassMatchDataUtils.getFontColors(
+                                item.spProGuessType,
+                                item.spProMatchType,
+                                item.spProPlayingWay),
+                            width: 0.5),
+                        color: SPClassMatchDataUtils.getColors(
+                            item.spProGuessType,
+                            item.spProMatchType,
+                            item.spProPlayingWay),
+                        borderRadius: BorderRadius.circular(width(4))),
+                    child: Text(
+                      "${SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay)}",
+                      style: TextStyle(
+                        color: SPClassMatchDataUtils.getFontColors(
+                            item.spProGuessType,
+                            item.spProMatchType,
+                            item.spProPlayingWay),
+                        fontSize: sp(10),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      '${item.title}',
+                      style: GoogleFonts.notoSansSC(
+                          textStyle: TextStyle(
+                            color: Color(0xFF333333),
+                          ),
+                          fontSize: sp(17)),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             ),
+            SizedBox(
+              height: width(6),
+            ),
             Container(
-              alignment:Alignment.center,
-              height: height(28),
-              padding: EdgeInsets.only(left:width(8)),
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: width(8),top: width(4),bottom: width(4)),
               color: Color(0xFFF6F6F6),
               child: Row(
                 children: <Widget>[
@@ -316,43 +406,85 @@ class SPClassSchemeItemView extends StatelessWidget{
                   // ),
                   Row(
                     children: <Widget>[
-                      Text(SPClassDateUtils.spFunDateFormatByString(item.spProStTime, "MM-dd    HH:mm"),style: TextStyle(fontSize: sp(11),color: MyColors.grey_99),),
-                      SizedBox(width: width(8),),
-                      Text(item.spProLeagueName,style: TextStyle(fontSize: sp(11),color: MyColors.grey_99),),
+                      Text(
+                        SPClassDateUtils.spFunDateFormatByString(
+                            item.spProStTime, "MM-dd    HH:mm"),
+                        style: TextStyle(
+                            fontSize: sp(11), color: MyColors.grey_99),
+                      ),
+                      SizedBox(
+                        width: width(8),
+                      ),
+                      Text(
+                        item.spProLeagueName,
+                        style: TextStyle(
+                            fontSize: sp(11), color: MyColors.grey_99),
+                      ),
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: width(4),right: width(8)),
+                    margin: EdgeInsets.only(left: width(4), right: width(8)),
                     width: 0.5,
                     height: height(9),
                     color: Colors.grey[300],
                   ),
                   Expanded(
-                    child:   Row(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamOne,length: 5),style: TextStyle(fontSize: sp(11),color: MyColors.grey_66),maxLines: 1,),
-                        Text(" VS ",style: TextStyle(fontSize: sp(13),color: Color(0xFF999999)),maxLines: 1,),
+                        Text(
+                          SPClassStringUtils.spFunMaxLength(item.spProTeamOne,
+                              length: 5),
+                          style: TextStyle(
+                              fontSize: sp(11), color: MyColors.grey_66),
+                          maxLines: 1,
+                        ),
+                        Text(
+                          " VS ",
+                          style: TextStyle(
+                              fontSize: sp(13), color: Color(0xFF999999)),
+                          maxLines: 1,
+                        ),
                         // item.spProIsOver!="1"? Text(" VS ",style: TextStyle(fontSize: sp(13),color: Color(0xFF999999)),maxLines: 1,):
                         // Text(item.spProScoreOne.trim()+
                         //     " - "+
                         //     item.spProScoreTwo.trim(),style: TextStyle(fontSize: sp(11),
                         //     color: Color(0xFFE3494B)),),
-                        Text(SPClassStringUtils.spFunMaxLength(item.spProTeamTwo,length: 5),style: TextStyle(fontSize: sp(11),color: MyColors.grey_66),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        Text(
+                          SPClassStringUtils.spFunMaxLength(item.spProTeamTwo,
+                              length: 5),
+                          style: TextStyle(
+                              fontSize: sp(11), color: MyColors.grey_66),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(right: width(8)),
-                    child: (item.spProIsOver=="1"||item.spProDiamond=="0"||item.spProIsBought=="1") ?
-                    Text('免费',style: TextStyle(color:Color(0xFF4D97FF),fontSize: sp(14)),):
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("zhuanshi"),width: width(17),),
-                        Text('${item.spProDiamond}',style: TextStyle(color: MyColors.main1,fontSize: sp(13)),),
-                      ],
-                    ),
+                    child: (item.spProIsOver == "1" ||
+                            item.spProDiamond == "0" ||
+                            item.spProIsBought == "1")
+                        ? Text(
+                            '免费',
+                            style: TextStyle(
+                                color: Color(0xFF4D97FF), fontSize: sp(14)),
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SPClassEncryptImage.asset(
+                                SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                                width: width(17),
+                              ),
+                              Text(
+                                '${item.spProDiamond}',
+                                style: TextStyle(
+                                    color: MyColors.main1, fontSize: sp(13)),
+                              ),
+                            ],
+                          ),
                   )
                   //  Container(
                   //   margin: EdgeInsets.only(right: width(8)),
@@ -394,23 +526,21 @@ class SPClassSchemeItemView extends StatelessWidget{
                 ],
               ),
             ),
-
           ],
         ),
       ),
-      onTap: (){
-        if(spFunIsLogin(context: context)){
+      onTap: () {
+        if (spFunIsLogin(context: context)) {
           SPClassApiManager.spFunGetInstance().spFunSchemeDetail(
-              queryParameters: {"scheme_id":item.spProSchemeId},
-              context: context,spProCallBack:SPClassHttpCallBack<SPClassSchemeDetailEntity>(
-              spProOnSuccess: (value){
-                SPClassNavigatorUtils.spFunPushRoute(context,  SPClassSchemeDetailPage(value));
-              }
-          ));
+              queryParameters: {"scheme_id": item.spProSchemeId},
+              context: context,
+              spProCallBack: SPClassHttpCallBack<SPClassSchemeDetailEntity>(
+                  spProOnSuccess: (value) {
+                SPClassNavigatorUtils.spFunPushRoute(
+                    context, SPClassSchemeDetailPage(value));
+              }));
         }
       },
     );
   }
-  
 }
-
