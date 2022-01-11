@@ -118,7 +118,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
       }
       spProTabMatchIndex = spProTabMatchController.index;
       setState(() {});
-      if (spProTabMatchTitles[spProTabMatchController.index]=='AI分析') {
+      if (spProTabMatchTitles[spProTabMatchController.index]=='AI分析'||spProTabMatchTitles[spProTabMatchController.index]=='关注') {
         return;
       }
       spProHomeMatchType = spProTabMatchKeys[spProTabMatchController.index];
