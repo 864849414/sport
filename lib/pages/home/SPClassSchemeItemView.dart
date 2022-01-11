@@ -300,7 +300,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                                         spProShowRate ? "近10场回报率" : "",
                                         style: TextStyle(
                                             fontSize: sp(10),
-                                            color: Color(0xFFF74825)),
+                                            color: MyColors.grey_99),
                                       )
                                     ],
                                   ),

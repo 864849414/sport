@@ -255,7 +255,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
                       fontSize: sp(17),
                     ),
                     isScrollable: false,
-                    // indicatorSize:TabBarIndicatorSize.tab,
+                    indicatorSize:TabBarIndicatorSize.tab,
                     labelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                       fontWeight: FontWeight.w500,
