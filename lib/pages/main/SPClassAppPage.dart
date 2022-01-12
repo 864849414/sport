@@ -20,6 +20,7 @@ import 'package:sport/pages/competition/scheme/SPClassSchemeDetailPage.dart';
 import 'package:sport/pages/dialogs/SPClassPrivacyDialogDialog.dart';
 import 'package:sport/pages/expert/SPClassExpertHomePage.dart';
 import 'package:sport/pages/game/SPClassGamePage.dart';
+import 'package:sport/pages/home/HomePage.dart';
 import 'package:sport/pages/home/SPClassHomePage.dart';
 import 'package:sport/pages/hot/SPClassHotHomePage.dart';
 import 'package:sport/pages/news/SPClassWebPageState.dart';
@@ -229,6 +230,7 @@ class SPClassAppPageState extends State<SPClassAppPage>
 
     if(SPClassApplicaion.spProShowMenuList.contains("home")){
       spProPageList.add(SPClassHomePage());
+      // spProPageList.add(HomePage());
       tabs.add(SPClassQNavTab( spProTabText: "推荐",spProTabImage:SPClassImageUtil.spFunGetImagePath("ic_homepage")));
     }
     if(SPClassApplicaion.spProShowMenuList.contains("match")){

@@ -175,6 +175,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage>{
                     Container(
                       height: width(132),
                       color: MyColors.main1,
+                      
                     )
                   ]
               ),

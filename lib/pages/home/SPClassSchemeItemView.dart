@@ -409,7 +409,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                           style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),)
                       ),
                     ),
-                    padding: EdgeInsets.only(left: width(35)),
+                    padding: EdgeInsets.only(left: width(18+SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay).length*9)),
                   ),
                   Positioned(top: width(6),left: 0,child:
                   Container(
