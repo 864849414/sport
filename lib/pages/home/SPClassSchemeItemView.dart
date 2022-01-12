@@ -237,7 +237,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                                         letterSpacing: 1),
                                   ),
                                 ),
-                                visible: item.spProCanReturn&&item.spProDiamond!="0"&&item.spProIsOver!="0",
+                                visible: item.spProCanReturn&&item.spProDiamond!="0"&&item.spProIsOver=="0",
                               ),
                               // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
                               //   children: <Widget>[
