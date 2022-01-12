@@ -118,7 +118,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(left: width(15),right: width(15),top: width(15),bottom: width(23)),
+                            margin: EdgeInsets.only(left: width(15),right: width(15),bottom: width(23)),
                             child: Column(
                               children: <Widget>[
                                 autoInfo(),
@@ -171,11 +171,30 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                                                 matchInfoTop(),
                                                 SizedBox(height: width(18),),
                                                 matchInfoWidget(),
-                                                ///
-                                                // scoreWidget(),
-                                                ///
-                                                // SizedBox(height: height(13),),
+                                                scoreWidget(),
                                                 schemeContent(),
+                                                Visibility(
+                                                  visible: widget.spProSchemeDetail.scheme.spProCanReturn&&(widget.spProSchemeDetail.spProCanViewAll!=1),
+                                                  child: Container(
+                                                    padding: EdgeInsets.only(top: width(15)),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                          style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),
+                                                          text: "此方案享有不中退特权，若比赛结果方案不一致，在比赛后",
+                                                          children: [
+                                                            TextSpan(
+                                                                text: "两小时自动返回",
+                                                              style: TextStyle(fontSize: sp(12),color: Color(0xFFEB3E1C)),
+                                                            ),
+                                                            TextSpan(
+                                                                text: "账户，请注意查收。",
+                                                              style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),
+                                                            ),
+                                                          ]
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                                 (widget.spProSchemeDetail.spProCanViewAll!=1&&double.parse(widget.spProSchemeDetail.scheme.spProBuyUserNum)>0)?Row(
                                                   mainAxisAlignment: MainAxisAlignment.end,
                                                   children: <Widget>[
@@ -247,7 +266,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                           ),
                           Container(height: width(6),color: Color(0xFFF2F2F2),),
                           ///该专家其他推荐
-                          recommendOtherScheme(),
+                          // recommendOtherScheme(),
                           ///其他专家本场推荐
                           recommendOtherExpert(),
                         ],
@@ -261,6 +280,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
           ],
         ),
       ),
+      bottomNavigationBar: bottomWidget(),
     );
     // TODO: implement build
   }
@@ -707,623 +727,92 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
   //  比分
   Widget scoreWidget() {
     return Visibility(
-      child:  Row(
-        children: <Widget>[
-          SizedBox(width: width(17),),
-          Visibility(
-            visible: (widget.spProSchemeDetail.scheme.spProPlayingWay.contains("让球")&&(widget.spProSchemeDetail.scheme.spProGuessType =="竞彩")),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(double.parse(widget.spProSchemeDetail.scheme.spProAddScore) ==0
-                    ? "0": double.parse(widget.spProSchemeDetail.scheme.spProAddScore) >0
-                    ? ("+"+SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProAddScore)): SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProAddScore),style: TextStyle(fontSize: sp(13),color: Color(0xFF333333),),)
-              ],
-            ),
-          ),
-          Expanded(
-            child:Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(width(5)),
-                  boxShadow:[
-                    BoxShadow(
-                      offset: Offset(2,5),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),),
-                    BoxShadow(
-                      offset: Offset(-5,1),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),
-                    )
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.only(bottom: width(31)),
+        child:  Row(
+          children: <Widget>[
+            Visibility(
+              visible: (widget.spProSchemeDetail.scheme.spProPlayingWay.contains("让球")&&(widget.spProSchemeDetail.scheme.spProGuessType =="竞彩")),
+              child: Container(
+                margin: EdgeInsets.only(right: width(8)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(double.parse(widget.spProSchemeDetail.scheme.spProAddScore) ==0
+                        ? "0": double.parse(widget.spProSchemeDetail.scheme.spProAddScore) >0
+                        ? ("+"+SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProAddScore)): SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProAddScore),style: TextStyle(fontSize: sp(13),color: Color(0xFF333333),),)
                   ],
                 ),
-                child:Row(
-                  children: <Widget>[
-                    widget.spProSchemeDetail.scheme.spProPlayingWay.contains("大小") ?
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child:Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(left:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("大",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white :Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white : Color(0xFF333333)),),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFF6F6F6),
-                                  border: Border(top: BorderSide(color: Colors.grey[300],width: 0.4),bottom:  BorderSide(color: Colors.grey[300],width: 0.4))
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(SPClassStringUtils.spFunSqlitZero(SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProMidScore).replaceAll("+", ""))+(widget.spProSchemeDetail.scheme.spProMatchType=="足球"? "球":""),style: TextStyle(fontSize: sp(13),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF333333)),),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(right:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width(43),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("小",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white : Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white :Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ):
-                    (widget.spProSchemeDetail.scheme.spProPlayingWay=="让球胜负")?
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child:Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(left:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("胜",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white :Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white : Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFF6F6F6),
-                                  border: Border(top: BorderSide(color: Colors.grey[300],width: 0.4),bottom:  BorderSide(color: Colors.grey[300],width: 0.4))
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProAddScore),style: TextStyle(fontSize: sp(13),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(right:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width(43),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("负",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ):
-                    (widget.spProSchemeDetail.scheme.spProPlayingWay=="让分胜负"||widget.spProSchemeDetail.scheme.spProPlayingWay=="让局胜负")?
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child:Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(left:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(  widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ? (widget.spProSchemeDetail.spProGuessMatch.spProTeamOne):"主队",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white :Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white : Color(0xFF333333)),),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFF6F6F6),
-                                  border: Border(top: BorderSide(color: Colors.grey[300],width: 0.4),bottom:  BorderSide(color: Colors.grey[300],width: 0.4))
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(SPClassStringUtils.spFunSqlitZero(SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProAddScore,)),style: TextStyle(fontSize: sp(13),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(right:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width(43),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?(widget.spProSchemeDetail.spProGuessMatch.spProTeamTwo):"客队",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-
-
-                        ],
-                      ),
-                    ):
-                    (widget.spProSchemeDetail.scheme.spProPlayingWay=="总时长"||widget.spProSchemeDetail.scheme.spProPlayingWay=="总击杀")?
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child:Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(left:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text( "大于",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white :Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white : Color(0xFF333333)),),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFF6F6F6),
-                                  border: Border(top: BorderSide(color: Colors.grey[300],width: 0.4),bottom:  BorderSide(color: Colors.grey[300],width: 0.4))
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text((SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProMidScore)+(widget.spProSchemeDetail.scheme.spProPlayingWay=="总时长"? "分钟":"")),style: TextStyle(fontSize: sp(13),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(right:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width(43),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("小于",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1")? Colors.white : Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1")? Colors.white :Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-
-
-                        ],
-                      ),
-                    ):
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child:Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(left:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text( widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?widget.spProSchemeDetail.spProGuessMatch.spProTeamOne:"胜",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white :Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="1"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="1")? Colors.white : Color(0xFF333333)),),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border(top: BorderSide(color: Colors.grey[300],width: 0.4),bottom:  BorderSide(color: Colors.grey[300],width: 0.4))
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: width(43),
-                                    width: double.infinity,
-
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(widget.spProSchemeDetail.scheme.spProPlayingWay.contains("平")? "平":"",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF999999)),),
-                                        Text(widget.spProSchemeDetail.scheme.spProDrawOdds,style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="0"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="0")? Colors.white : Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="0")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: width(43),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  gradient:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")?LinearGradient(
-                                      colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
-                                  ):null,
-                                  border: Border.all(color: Colors.grey[300],width: 0.4),
-                                  borderRadius: BorderRadius.horizontal(right:Radius.circular(width(3)) )
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width(43),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text( widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?widget.spProSchemeDetail.spProGuessMatch.spProTeamTwo:"负",style: TextStyle(fontSize: sp(13),height:1.0,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white : Color(0xFF999999)),),
-                                        Text(double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),style: TextStyle(fontSize: sp(13),height:1.2,color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2"||widget.spProSchemeDetail.scheme.spProSupportWhich2=="2")? Colors.white :Color(0xFF333333)),),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: SPClassEncryptImage.asset(
-                                      (widget.spProSchemeDetail.scheme.spProWhichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                                      width: width(18),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ) ),),
-          SizedBox(width: width(22),),
-
-        ],
+              ),
+            ),
+            Expanded(
+              child:Container(
+                alignment: Alignment.center,
+                  child:widget.spProSchemeDetail.scheme.spProPlayingWay.contains("大小") ?
+                  guessItem(
+                      text1: '大',
+                      value1: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),
+                      text2: '总',
+                      value2: SPClassStringUtils.spFunSqlitZero(SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProMidScore).replaceAll("+", "")),
+                      text3: '小',
+                      value3: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),
+                      supportWhich:widget.spProSchemeDetail.scheme.spProSupportWhich,
+                      supportWhich2: widget.spProSchemeDetail.scheme.spProSupportWhich2,
+                      whichWin: widget.spProSchemeDetail.scheme.spProWhichWin
+                  )
+                      :
+                  (widget.spProSchemeDetail.scheme.spProPlayingWay=="让球胜负")?
+                  guessItem(
+                    text1: '主胜',
+                    value1: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),
+                    text2: '让',
+                    value2: SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProAddScore),
+                    text3: '主负',
+                    value3: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),
+                    supportWhich:widget.spProSchemeDetail.scheme.spProSupportWhich,
+                    supportWhich2: widget.spProSchemeDetail.scheme.spProSupportWhich2,
+                    whichWin: widget.spProSchemeDetail.scheme.spProWhichWin
+                  ):
+                  (widget.spProSchemeDetail.scheme.spProPlayingWay=="让分胜负"||widget.spProSchemeDetail.scheme.spProPlayingWay=="让局胜负")?
+                  guessItem(
+                      text1: widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ? (widget.spProSchemeDetail.spProGuessMatch.spProTeamOne):"主队",
+                      value1: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),
+                      text2: '让',
+                      value2: SPClassStringUtils.spFunSqlitZero(SPClassStringUtils.spFunPanKouData(widget.spProSchemeDetail.scheme.spProAddScore,)),
+                      text3: widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?(widget.spProSchemeDetail.spProGuessMatch.spProTeamTwo):"客队",
+                      value3: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),
+                      supportWhich:widget.spProSchemeDetail.scheme.spProSupportWhich,
+                      supportWhich2: widget.spProSchemeDetail.scheme.spProSupportWhich2,
+                      whichWin: widget.spProSchemeDetail.scheme.spProWhichWin
+                  ) :
+                  (widget.spProSchemeDetail.scheme.spProPlayingWay=="总时长"||widget.spProSchemeDetail.scheme.spProPlayingWay=="总击杀")?
+                  guessItem(
+                      text1: '大于',
+                      value1: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),
+                      text2: '',
+                      value2: (SPClassStringUtils.spFunSqlitZero(widget.spProSchemeDetail.scheme.spProMidScore)+(widget.spProSchemeDetail.scheme.spProPlayingWay=="总时长"? "分钟":"")),
+                      text3: '小于',
+                      value3: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),
+                      supportWhich:widget.spProSchemeDetail.scheme.spProSupportWhich,
+                      supportWhich2: widget.spProSchemeDetail.scheme.spProSupportWhich2,
+                      whichWin: widget.spProSchemeDetail.scheme.spProWhichWin
+                  ):
+                  guessItem(
+                      text1: widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?widget.spProSchemeDetail.spProGuessMatch.spProTeamOne:"胜",
+                      value1: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsOne).toStringAsFixed(2),
+                      text2: widget.spProSchemeDetail.scheme.spProPlayingWay.contains("平")? "平":"",
+                      value2: widget.spProSchemeDetail.scheme.spProDrawOdds,
+                      text3:  widget.spProSchemeDetail.scheme.spProMatchType.toLowerCase()=="lol" ?widget.spProSchemeDetail.spProGuessMatch.spProTeamTwo:"负",
+                      value3: double.tryParse(widget.spProSchemeDetail.scheme.spProWinOddsTwo).toStringAsFixed(2),
+                      supportWhich:widget.spProSchemeDetail.scheme.spProSupportWhich,
+                      supportWhich2: widget.spProSchemeDetail.scheme.spProSupportWhich2,
+                      whichWin: widget.spProSchemeDetail.scheme.spProWhichWin
+                  )
+                ,),),
+          ],
+        ),
       ),
       visible: widget.spProSchemeDetail.spProCanViewAll==1,
     );
@@ -1355,7 +844,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                         SPClassImageUtil.spFunGetImagePath("lock"),
                         width: width(23),
                       ),
-                      Text(widget.spProSchemeDetail.scheme.spProDiamond+"钻石购买方案",style: TextStyle(fontSize: sp(13),color: Colors.white),),
+                      Text("购买方案",style: TextStyle(fontSize: sp(13),color: Colors.white),),
                     ],
                   ),
                 ),
@@ -1456,27 +945,12 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: height(35),
-            padding: EdgeInsets.only(left: width(13),right: width(13)),
+            padding: EdgeInsets.only(left: width(15),bottom: width(12),top: width(23)),
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
             ),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: height(4),
-                  height: height(15),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFDE3C31),
-                      borderRadius: BorderRadius.circular(100)
-                  ),
-                ),
-                SizedBox(width: 4,),
-                Text("其他专家本场次推荐",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: width(16)),),
-                Text(" "+spProSchemeListmatch.length.toString(),style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: width(14),textStyle: TextStyle(color: Color(0xFFDE3C31))),),
+            child: Text("本场其他推荐",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.bold,fontSize: width(17)),),
 
-              ],
-            ),
           ),
           ListView.builder(
               physics: NeverScrollableScrollPhysics(),
@@ -1492,12 +966,179 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
     );
   }
 
+  Widget bottomWidget(){
+    return (widget.spProSchemeDetail.spProCanViewAll!=1)?Container(
+      color: Color(0xFFF5F6F7),
+      height: width(46),
+      child: Row(
+        children: <Widget>[
+          SizedBox(width:width(15) ,),
+          Text('需支付:',style: TextStyle(fontSize: sp(15)),),
+          SPClassEncryptImage.asset(
+            SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+            width: width(17),
+          ),
+          Text(
+            '${widget.spProSchemeDetail.scheme.spProDiamond}',
+            style: TextStyle(
+                color: MyColors.main1, fontSize: sp(13)),
+          ),
+          SizedBox(width:width(19) ,),
+          Expanded(
+            child: Text(
+              widget.spProSchemeDetail.scheme.spProCanReturn&&(widget.spProSchemeDetail.spProCanViewAll!=1)?'不中包退':'',
+              style: TextStyle(
+                  color: Color(0xFFEB3E1C), fontSize: sp(15),fontWeight: FontWeight.w500),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              spFunShowConfirmDialog();
+            },
+            child: Stack(
+              children: <Widget>[
+                SPClassEncryptImage.asset(
+                  SPClassImageUtil.spFunGetImagePath("zhifubg"),
+                  height: width(46),
+                ),
+                Positioned(
+                  right: width(21),
+                  child: Container(
+                    height: width(46),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '立即支付',
+                      style: TextStyle(
+                        color: Colors.white, fontSize: sp(15),),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    ):null;
+  }
+
+  Widget guessItem({String text1,String value1,String text2,String value2,String text3,String value3,String supportWhich,String supportWhich2,String whichWin}){
+    print('哈哈哈：${whichWin}');
+    return Expanded(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child:Container(
+              height: width(43),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: supportWhich=="1"?MyColors.main1:Color(0xFFF2F2F2),
+                  borderRadius: BorderRadius.all(Radius.circular(4))
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    height: width(43),
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("$text1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white :Color(0xFF303133)),),
+                        Text("$value1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white : Color(0xFF303133)),),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: SPClassEncryptImage.asset(
+                      (whichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
+                      width: width(18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: width(4),),
+          Expanded(
+            child: Container(
+              height: width(43),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Color(0xFFF2F2F2),
+                  borderRadius: BorderRadius.all(Radius.circular(4))
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    height: width(43),
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text('$text2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
+                        Text('$value2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: width(4),),
+          Expanded(
+            child: Container(
+              height: width(43),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: (supportWhich=="2"||supportWhich2=="2")?MyColors.main1:Color(0xFFF2F2F2),
+                  borderRadius: BorderRadius.all(Radius.circular(4))
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    height: width(43),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("$text3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF303133)),),
+                        Text("$value3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF303133)),),
+
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: SPClassEncryptImage.asset(
+                      (whichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
+                      width: width(18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
 
   void spFunShowConfirmDialog() {
     SPClassDialogUtils.spFunShowConfirmDialog(
         context,
-        RichText(
+        Text('本次购买需消耗${widget.spProSchemeDetail.scheme.spProDiamond}钻石，是否确认购买？',style: TextStyle(fontSize: sp(17), color: Color(0xFF333333)),textAlign: TextAlign.center,)
+        /*RichText(
           text: TextSpan(
             text: "确认后将扣除",
             style: TextStyle(fontSize: 16, color: Color(0xFF333333)),
@@ -1508,7 +1149,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
               TextSpan(text: "钻石"),
             ],
           ),
-        ), () {
+        )*/, () {
       SPClassApiManager.spFunGetInstance().spFunSchemeBuy(
           queryParameters: {
             "scheme_id": widget.spProSchemeDetail.scheme.spProSchemeId

@@ -8,60 +8,72 @@ class SPClassDialogUtils {
     showDialog<void>(context: context, barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
            return WillPopScope(
-          child: Dialog(
-              child: Container(
-                height: width(210),
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Flexible(flex: 1,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child:showChild ,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        showCancelBtn? Expanded(
-                         child:  GestureDetector(
-                           child: Container(
-                             alignment: Alignment.center,
-                             height: width(45),
-                             decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(5),
-                                 border: Border.all(color: Colors.grey[200],width: 1)
-                             ),
-                             child: Text("取消",style: TextStyle(fontSize: sp(16),color: Color(0xFF333333)),),
-                           ),
-                           onTap: (){
-                             Navigator.of(context).pop();
-                           },
-                         ),
-                       ):SizedBox(),
-                        showCancelBtn?  SizedBox(width: width(20),):SizedBox(),
-                        Expanded(child: GestureDetector(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: width(45),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Color(0xFFE3494B),
-                            ),
-                            child: Text("确定",style: TextStyle(fontSize: sp(16),color: Colors.white),),
+          child: Material(
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: width(133),
+                  margin: EdgeInsets.symmetric(horizontal: width(46)),
+                  decoration:BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Flexible(flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.only(left: width(23),right: width(23)),
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color: Color(0xFFF2F2F2),width: 0.5))
                           ),
-                          onTap: (){
-                            callback();
-                            Navigator.of(context).pop();
-                          },
-                        ),)
-                      ],
-                    ),
-                  ],
-                ),
-              )
+                          alignment: Alignment.center,
+                          child:showChild ,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          showCancelBtn? Expanded(
+                            child:  GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: width(45),
+                                decoration: BoxDecoration(
+                                    // borderRadius: BorderRadius.circular(5),
+                                    // border: Border.all(color: Colors.grey[200],width: 1)
+                                      border: Border(right: BorderSide(color: Colors.grey[200],width: 1))
+                                ),
+                                child: Text("取消",style: TextStyle(fontSize: sp(15),color: Color(0xFF333333)),),
+                              ),
+                              onTap: (){
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ):SizedBox(),
+                          Expanded(child: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: width(45),
+                              child: Text("确定",style: TextStyle(fontSize: sp(15),color: Color(0xFFEB3E1C)),),
+                            ),
+                            onTap: (){
+                              callback();
+                              Navigator.of(context).pop();
+                            },
+                          ),)
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           onWillPop: () async {
             return barrierDismissible;
