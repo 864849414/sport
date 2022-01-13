@@ -1022,7 +1022,6 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
   }
 
   Widget guessItem({String text1,String value1,String text2,String value2,String text3,String value3,String supportWhich,String supportWhich2,String whichWin}){
-    print('哈哈哈：${whichWin}');
     return Expanded(
       child: Row(
         children: <Widget>[
