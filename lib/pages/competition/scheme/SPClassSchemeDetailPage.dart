@@ -98,15 +98,9 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
           children: <Widget>[
             Container(
               width: ScreenUtil.screenWidth,
-              height: MediaQuery.of(context).size.height,
-              child: Column(children: <Widget>[
-                Container(
-                  width: ScreenUtil.screenWidth,
-                  child: SPClassEncryptImage.asset(
-                    SPClassImageUtil.spFunGetImagePath("ditu1"),
-                  ),
-                ),
-              ]),
+              child: SPClassEncryptImage.asset(
+                SPClassImageUtil.spFunGetImagePath("ditu1"),
+              ),
             ),
             Column(
               children: <Widget>[

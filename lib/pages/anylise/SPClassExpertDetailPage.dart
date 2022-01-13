@@ -18,6 +18,8 @@ import 'package:sport/utils/SPClassLogUtils.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/pages/dialogs/SPClassExpertRuluTipDialog.dart';
 import 'package:sport/pages/home/SPClassSchemeItemView.dart';
+import 'package:sport/utils/colors.dart';
+import 'package:sport/utils/common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
@@ -40,16 +42,16 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
   List<SPClassSchemeListSchemeList> spProSchemeHistory=List();
   List<SPClassSchemeListSchemeList> spProSchemeList=List();
   List<SPClassChartData> spProChartData=List();
-
   List<int> spProDates;
-
   Container spProChartsCon;
+  List tabBarList = ['全部','亚洲杯','世锦赛','世锦赛',];
+  TabController _controller;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _controller = TabController(length:tabBarList.length,vsync: this);
     spFunGetRecentReport();
-
     spFunOnRefreshSelf();
 
     if(widget.spProIsStatics){
@@ -62,499 +64,465 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    ///
     return Scaffold(
-        appBar: new AppBar(
-          elevation: 0,
-          leading: FlatButton(
-           child: Icon(Icons.arrow_back_ios,size: width(20),color: Colors.white,),
-          onPressed: (){Navigator.of(context).pop();},
-          ),
-         centerTitle: true,
-          title: Text("${widget.info.spProNickName}"+
-              "专家",style: TextStyle(fontSize:  sp(16)),),
-    ),
-       body: Stack(
-         children: <Widget>[
-           Container(
-             color: Color(0xFFF1F1F1),
-             width: ScreenUtil.screenWidth,
-             height: ScreenUtil.screenHeight,
-           ),
-           Positioned(
-             top: 0,
-             right: 0,
-             left: 0,
-             child: Container(
-               color: Theme.of(context).primaryColor,
-               height: height(60),
-             ),
-           ),
-
-           Positioned(
-             right: 0,left: 0,top: 0,bottom: 0,
-             child: Container(
-               width: ScreenUtil.screenWidth,
-               height: ScreenUtil.screenHeight,
-               child: SingleChildScrollView(
-                 child: Column(
-                   children: <Widget>[
-                     Container(
-                       padding: EdgeInsets.all(width(10)),
-                       margin: EdgeInsets.only(left: width(13),right: width(13),bottom: height(8)),
-                       decoration: BoxDecoration(
-                           color: Colors.white,
-                           boxShadow:[
-                             BoxShadow(
-                               offset: Offset(2,5),
-                               color: Color(0x0D000000),
-                               blurRadius:width(6,),),
-                             BoxShadow(
-                               offset: Offset(-5,1),
-                               color: Color(0x0D000000),
-                               blurRadius:width(6,),
-                             )
-                           ],
-                           borderRadius: BorderRadius.circular(width(7))
-                       ),
-                       width: ScreenUtil.screenWidth,
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           Row(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: <Widget>[
-                               Expanded(
-                                 child:  Row(
-                                   children: <Widget>[
-                                     Container(
-                                       decoration: BoxDecoration(
-                                           border: Border.all(width: 0.4,color: Colors.grey[200]),
-                                           borderRadius: BorderRadius.circular(width(20))),
-                                       child:  ClipRRect(
-                                         borderRadius: BorderRadius.circular(width(20)),
-                                         child:( widget.info?.spProAvatarUrl==null||widget.info.spProAvatarUrl.isEmpty)? SPClassEncryptImage.asset(
-                                           SPClassImageUtil.spFunGetImagePath("ic_default_avater"),
-                                           width: width(40),
-                                           height: width(40),
-                                         ):Image.network(
-                                           widget.info.spProAvatarUrl,
-                                           width: width(40),
-                                           height: width(40),
-                                           fit: BoxFit.fill,
-                                         ),
-                                       ),
-                                     ),
-                                     SizedBox(width: width(5),),
-                                     Expanded(
-                                       child: Column(
-                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                         children: <Widget>[
-                                           SizedBox(width: 5,),
-                                           Row(
-                                             children: <Widget>[
-                                               Text(widget.info.spProNickName,style: TextStyle(fontSize: sp(14),color: Color(0xFF333333)),maxLines: 1,),
-                                               SizedBox(width: 5,),
-                                               Visibility(
-                                                 child: Container(
-                                                   padding: EdgeInsets.only(left: width(5),right:  width(5),top: width(0.8)),
-                                                   alignment: Alignment.center,
-                                                   height: width(16),
-                                                   constraints: BoxConstraints(
-                                                       minWidth: width(52)
-                                                   ),
-                                                   decoration: BoxDecoration(
-                                                     gradient: LinearGradient(
-                                                         colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                                     ),
-                                                     borderRadius: BorderRadius.circular(100),
-                                                   ),
-                                                   child:Text("近"+
-                                                       "${widget.info.spProLast10Result.length.toString()}"+
-                                                       "中"+
-                                                       "${widget.info.spProLast10CorrectNum}",style: TextStyle(fontSize: sp(9),color: Colors.white,letterSpacing: 1),),
-                                                 ),
-                                                 visible:  (widget.info.spProSchemeNum!=null&&(double.tryParse(widget.info.spProLast10CorrectNum)/double.tryParse(widget.info.spProLast10Result.length.toString()))>=0.6),
-                                               ),
-                                               SizedBox(width: 3,),
-                                               int.tryParse( widget.info.spProCurrentRedNum)>2?  Stack(
-                                                 children: <Widget>[
-                                                   SPClassEncryptImage.asset(widget.info.spProCurrentRedNum.length>1  ? SPClassImageUtil.spFunGetImagePath("ic_recent_red2"):SPClassImageUtil.spFunGetImagePath("ic_recent_red"),
-                                                     height:width(16) ,
-                                                     fit: BoxFit.fitHeight,
-                                                   ),
-                                                   Positioned(
-                                                     left: width(widget.info.spProCurrentRedNum.length>1  ? 5:7),
-                                                     bottom: 0,
-                                                     top: 0,
-                                                     child: Container(
-                                                       alignment: Alignment.center,
-                                                       child: Text("${widget.info.spProCurrentRedNum}",style: GoogleFonts.roboto(textStyle: TextStyle(color:Color(0xFFDE3C31) ,fontSize: sp(14.8),fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)),
-                                                     ),
-                                                   ),
-                                                   Positioned(
-                                                     right: width(7),
-                                                     bottom: 0,
-                                                     top: 0,
-                                                     child: Container(
-                                                       padding: EdgeInsets.only(top: width(0.8)),
-                                                       alignment: Alignment.center,
-                                                       child: Text("连红",style: TextStyle(color:Colors.white ,fontSize: sp(9),fontStyle: FontStyle.italic)),
-                                                     ),
-                                                   )
-                                                 ],
-                                               ):SizedBox()
-                                             ],
-                                           ),
-                                           Row(children: <Widget>[
-                                             Visibility(
-                                               child: Text(sprintf("粉丝数：%s   ",[widget.info.spProFollowerNum]),style: TextStyle(fontSize: sp(11),color: Color(0xFF999999)),),
-                                               visible: widget.info.spProFollowerNum!=null&&double.tryParse(widget.info.spProFollowerNum)>0,
-                                             ),
-                                           ],)
-                                         ],
-                                       ),
-                                     )
-                                   ],
-                                 ),
-                               ),
-                               GestureDetector(
-                                   child:  Container(
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(width(2)),
-                                       gradient: LinearGradient(
-                                           colors: widget.info.spProIsFollowing? [Color(0xFFC6C6C6),Color(0xFFC6C6C6)]:[Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                       ),
-                                       boxShadow:widget.info.spProIsFollowing?null:[
-                                         BoxShadow(
-                                           offset: Offset(3,3),
-                                           color: Color(0x4DF23B0C),
-                                           blurRadius:width(5,),),
-                                         BoxShadow(
-                                           offset: Offset(-2,1),
-                                           color: Color(0x4DF23B0C),
-                                           blurRadius:width(5,),),
-                                       ],
-                                     ),
-                                     width: width(58),
-                                     height: width(27),
-                                     child: Row(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       crossAxisAlignment: CrossAxisAlignment.center,
-                                       children: <Widget>[
-                                         Icon(widget.info.spProIsFollowing? Icons.check:Icons.add,color: Colors.white,size: width(15),),
-                                         Text( widget.info.spProIsFollowing? "已关注":"关注",style: TextStyle(fontSize: sp(11),color: Colors.white),),
-
-                                       ],
-                                     ),
-                                   ),
-                                   onTap: (){
-                                     if(spFunIsLogin(context: context)){
-                                       SPClassApiManager.spFunGetInstance().spFunFollowExpert(isFollow: !widget.info.spProIsFollowing,spProExpertUid: widget.info.spProUserId,context: context,spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
-                                           spProOnSuccess: (result){
-                                             if(!widget.info.spProIsFollowing){
-                                               SPClassToastUtils.spFunShowToast(msg: "关注成功");
-                                               widget.info.spProIsFollowing=true;
-                                             }else{
-                                               widget.info.spProIsFollowing=false;
-                                             }
-                                             if(mounted){
-                                               setState(() {});
-                                             }
-                                           }
-                                       ));
-                                     }
-                                   }
-                               ),
-                             ],
-                           ),
-                           SizedBox(height: 3,),
-                           Text("${SPClassStringUtils.spFunMaxLength(widget.info.intro,length: 50)}",style: TextStyle(fontSize: sp(12),color: Color(0xFF666666))),
-
-                         ],
-                       ),
-                     ),
-
-
-                     Container(
-                       padding: EdgeInsets.all(width(10)),
-                       margin: EdgeInsets.only(left: width(13),right: width(13)),
-                       decoration: BoxDecoration(
-                           color: Colors.white,
-                           boxShadow:[
-                             BoxShadow(
-                               offset: Offset(2,5),
-                               color: Color(0x0D000000),
-                               blurRadius:width(6,),),
-                             BoxShadow(
-                               offset: Offset(-5,1),
-                               color: Color(0x0D000000),
-                               blurRadius:width(6,),
-                             )
-                           ],
-                           borderRadius: BorderRadius.circular(width(7))
-                       ),
-                       width: ScreenUtil.screenWidth,
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           Row(
-                             children: <Widget>[
-                               Container(
-                                 width: height(4),
-                                 height: height(14),
-                                 decoration: BoxDecoration(
-                                     color: Color(0xFFDE3C31),
-                                     borderRadius: BorderRadius.circular(100)
-                                 ),
-                               ),
-                               SizedBox(width: 4,),
-                               Text("近期胜率",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: width(15)),),
-                               Expanded(
-                                 child: SizedBox(),
-                               ),
-                               GestureDetector(
-                                 behavior: HitTestBehavior.opaque,
-                                 child: Container(
-                                   padding: EdgeInsets.all(3),
-                                   child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_rulu_tip"),width: width(12),),
-                                 ),
-                                 onTap: (){
-                                   showDialog(context: context,child: SPClassExpertRuluTipDialog());
-                                 },
-                               )
-
-                             ],
-                           ),
-
-
-                           spProChartData.length==0? SizedBox():
-                           spFunBuildCharts(),
-                           SizedBox(height: 7,),
-                           Row(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: <Widget>[
-                               Expanded(
-                                 child: Container(
-                                   height: width(47),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFF6F6F6),
-                                       borderRadius: BorderRadius.circular(width(3))
-                                   ),
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                     children: <Widget>[
-                                       Text("${(double.tryParse(widget.info.spProRecentProfitSum)*100).toStringAsFixed(0)}%",style: GoogleFonts.roboto(fontSize: sp(16),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.w500),),
-                                       Text("近10场回报率",style: TextStyle(fontSize: sp(10),color: Color(0xFF666666)),),
-                                     ],
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(width: width(7),),
-                               Expanded(
-                                 child:Container(
-                                   height: width(47),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFF6F6F6),
-                                       borderRadius: BorderRadius.circular(width(3))
-                                   ),
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                     children: <Widget>[
-                                       Text("${widget.info.spProRecentAvgOdds}",style: GoogleFonts.roboto(fontSize: sp(16),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.w500),),
-                                       Text("SP均值",style: TextStyle(fontSize: sp(10),color: Color(0xFF666666)),),
-
-                                     ],
-                                   ),
-                                 ) ,
-                               ),
-                               SizedBox(width: width(7),),
-                               Expanded(
-                                 child: Container(
-                                   height: width(47),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFF6F6F6),
-                                       borderRadius: BorderRadius.circular(width(3))
-                                   ),
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                     children: <Widget>[
-                                       Text("${widget.info.spProCurrentRedNum}",style: GoogleFonts.roboto(fontSize: sp(16),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.w500),),
-                                       Text("最近连红",style: TextStyle(fontSize: sp(10),color: Color(0xFF666666)),),
-
-                                     ],
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(width: width(7),),
-                               Expanded(
-                                 child: Container(
-                                   height: width(47),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFF6F6F6),
-                                       borderRadius: BorderRadius.circular(width(3))
-                                   ),
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                     children: <Widget>[
-                                       Text("${widget.info.spProMaxRedNum}",style: GoogleFonts.roboto(fontSize: sp(16),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.w500),),
-                                       Text("历史最高连红",style: TextStyle(fontSize: sp(10),color: Color(0xFF666666)),),
-
-                                     ],
-                                   ),
-                                 ),
-                               )
-                             ],
-                           ),
-
-
-                         ],
-
-                       ),
-                     ),
-
-                     spProSchemeList.length==0?SizedBox():  Container(
-                       margin: EdgeInsets.only(left: width(13),right:  width(13),top:width(8) ),
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(width(7)),
-                         boxShadow:[
-                           BoxShadow(
-                             offset: Offset(2,5),
-                             color: Color(0x0D000000),
-                             blurRadius:width(6,),),
-                           BoxShadow(
-                             offset: Offset(-5,1),
-                             color: Color(0x0D000000),
-                             blurRadius:width(6,),
-                           )
-                         ],
-                       ),
-                       width: ScreenUtil.screenWidth,
-
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           Container(
-                             height: height(35),
-                             padding: EdgeInsets.only(left: width(13),right: width(13)),
-                             decoration: BoxDecoration(
-                                 border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                             ),
-                             child: Row(
-                               children: <Widget>[
-                                 Container(
-                                   width: height(4),
-                                   height: height(14),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFDE3C31),
-                                       borderRadius: BorderRadius.circular(100)
-                                   ),
-                                 ),
-                                 SizedBox(width: 4,),
-                                 Text("正在推荐",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: width(15)),),
-
-                               ],
-                             ),
-                           ),
-                           ListView.builder(
-                               physics: NeverScrollableScrollPhysics(),
-                               shrinkWrap: true,
-                               padding: EdgeInsets.only(bottom: width(5)),
-                               itemCount: spProSchemeList.length,
-                               itemBuilder: (c,index){
-                                 var item=spProSchemeList[index];
-                                 return SPClassSchemeItemView(item,spProCanClick: false,spProShowLine:spProSchemeList.length>(index+1));
-                               })
-                         ],
-                       ),
-                     ),
-                     Container(
-                       margin: EdgeInsets.only(left: width(13),right:  width(13),top:width(8),bottom:width(8) ),
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(width(7)),
-                         boxShadow:[
-                           BoxShadow(
-                             offset: Offset(2,5),
-                             color: Color(0x0D000000),
-                             blurRadius:width(6,),),
-                           BoxShadow(
-                             offset: Offset(-5,1),
-                             color: Color(0x0D000000),
-                             blurRadius:width(6,),
-                           )
-                         ],
-                       ),
-                       width: ScreenUtil.screenWidth,
-
-                       child:spProSchemeHistory.length==0?SizedBox(): Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           Container(
-                             height: height(35),
-                             padding: EdgeInsets.only(left: width(13),right: width(13)),
-                             decoration: BoxDecoration(
-                                 border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                             ),
-                             child: Row(
-                               children: <Widget>[
-                                 Container(
-                                   width: height(4),
-                                   height: height(14),
-                                   decoration: BoxDecoration(
-                                       color: Color(0xFFDE3C31),
-                                       borderRadius: BorderRadius.circular(100)
-                                   ),
-                                 ),
-                                 SizedBox(width: 4,),
-                                 Text("历史推荐",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: sp(15)),),
-
-                               ],
-                             ),
-                           ),
-                           ListView.builder(
-                               physics: NeverScrollableScrollPhysics(),
-                               shrinkWrap: true,
-                               padding: EdgeInsets.only(bottom: width(5)),
-                               itemCount: spProSchemeHistory.length,
-                               itemBuilder: (c,index){
-                                 var item=spProSchemeHistory[index];
-                                 return Stack(
-                                   children: <Widget>[
-                                     SPClassSchemeItemView(item,spProShowRate: false,spProShowLine:spProSchemeHistory.length>(index+1),),
-                                     Positioned(
-                                       top: 10,
-                                       right:  width(13) ,
-                                       child: SPClassEncryptImage.asset(
-                                         (item.spProIsWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_result_red"):
-                                         (item.spProIsWin=="0")? SPClassImageUtil.spFunGetImagePath("ic_result_hei"):
-                                         (item.spProIsWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_result_zou"):"",
-                                         width: width(40),
-                                       ),
-                                     ),
-                                   ],
-                                 );
-                               })
-                         ],
-                       ),
-                     ),
-
-
-                   ],
-                 ),
-               ),
-             ),
-           )
-         ],
-       ));
+      body: Container(
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: ScreenUtil.screenWidth,
+              child: SPClassEncryptImage.asset(
+                SPClassImageUtil.spFunGetImagePath("zhuanjiabg"),
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                appBarWidget(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          autoInfo(),
+                          chartWidget(),
+                          expertScheme(),
+                          historyScheme(),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 
+  Widget appBarWidget(){
+    return Container(
+      margin:
+      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      child: Commons.getAppBar(
+        title: '专家详情',
+        appBarLeft: InkWell(
+          child: Icon(
+            Icons.arrow_back_ios,
+            size: width(20),
+            color: Colors.white,
+          ),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
+  }
 
+  Widget autoInfo(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: width(15),right: width(15),top: width(8)),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    // border: Border.all(width: 2,color: Colors.white),
+                    borderRadius:
+                    BorderRadius.circular(width(150)),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.all(width(2)),
+                  child: ClipOval(
+                    child: (widget.info?.spProAvatarUrl ==
+                        null ||
+                        widget.info.spProAvatarUrl.isEmpty)
+                        ? SPClassEncryptImage.asset(
+                      SPClassImageUtil.spFunGetImagePath(
+                          "ic_default_avater"),
+                      width: width(46),
+                      height: width(46),
+                    )
+                        : Image.network(
+                      widget.info?.spProAvatarUrl,
+                      width: width(46),
+                      height: width(46),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: width(6)),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.start,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.info
+                              ?.spProNickName??'',
+                          style: TextStyle(
+                              fontSize: sp(15),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          height: width(4),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                '${ widget.info?.intro??''}',
+                                style: TextStyle(
+                                  fontSize: sp(12),
+                                  color: Colors.white,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: width(9)),
+                              color: Colors.white,
+                              height: height(width(8)),
+                              width: width(0.5),
+                            ),
+                            Text(
+                              '粉丝：${ widget.info?.spProFollowerNum??0}',
+                              style: TextStyle(
+                                fontSize: sp(12),
+                                color: Colors.white,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                // 关注
+                GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: width(13),vertical: width(6)),
+                      decoration: BoxDecoration(
+                          color:  widget.info.spProIsFollowing?Colors.transparent:Colors.white,
+                          borderRadius: BorderRadius.circular(width(13)),
+                          border: Border.all(width: width(1),color:  widget.info.spProIsFollowing?Color.fromRGBO(255, 255, 255, 0.6):Colors.transparent)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(widget.info.spProIsFollowing? Icons.check:Icons.add,color:  widget.info.spProIsFollowing?Color.fromRGBO(255, 255, 255, 0.6):MyColors.main1,size: width(12),),
+                          Text(  widget.info.spProIsFollowing? "已关注":"关注",style: TextStyle(fontSize: sp(12),color: widget.info.spProIsFollowing? Color.fromRGBO(255, 255, 255, 0.6):MyColors.main1),),
+
+                        ],
+                      ),
+                    ),
+                    onTap: (){
+                      if(spFunIsLogin(context: context)){
+                        SPClassApiManager.spFunGetInstance().spFunFollowExpert(isFollow: ! widget.info.spProIsFollowing,spProExpertUid:  widget.info.spProUserId,context: context,spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
+                            spProOnSuccess: (result){
+                              if(! widget.info.spProIsFollowing){
+                                SPClassToastUtils.spFunShowToast(msg: "关注成功");
+                                widget.info.spProIsFollowing=true;
+                              }else{
+                                widget.info.spProIsFollowing=false;
+                              }
+                              if(mounted){
+                                setState(() {});
+                              }
+                            }
+                        ));
+                      }
+                    }
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: width(15),right: width(15),top: width(12),bottom: width(12)),
+          child: Text('观看各种比赛，拥有丰富的购彩经验',style: TextStyle(color: Colors.white,fontSize: sp(13)),),
+        ),
+        Container(
+          height: width(28),
+          color: Color.fromRGBO(255, 255, 255, 0.1),
+          padding: EdgeInsets.symmetric(horizontal: width(15),),
+          child: Row(
+            children: <Widget>[
+              Text('擅长联赛:',style: TextStyle(color: Colors.white,fontSize: sp(12)),),
+              Expanded(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: width(8)),
+                          alignment: Alignment.center,
+                          child: Text('亚洲杯',style: TextStyle(color: MyColors.main1,fontSize: sp(12)),),
+                          padding: EdgeInsets.symmetric(horizontal: width(8)),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF1F8FE),
+                            borderRadius: BorderRadius.circular(width(9))
+                          ),
+                        )
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: width(8)),
+                          alignment: Alignment.center,
+                          child: Text('亚洲杯',style: TextStyle(color: MyColors.main1,fontSize: sp(12)),),
+                          padding: EdgeInsets.symmetric(horizontal: width(8)),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF1F8FE),
+                            borderRadius: BorderRadius.circular(width(9))
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget chartWidget(){
+    return  Container(
+      padding: EdgeInsets.all(width(10)),
+      margin: EdgeInsets.only(left: width(15),right: width(15),top: width(12)),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow:[
+            BoxShadow(
+              offset: Offset(2,5),
+              color: Color(0x0D000000),
+              blurRadius:width(6,),),
+            BoxShadow(
+              offset: Offset(-5,1),
+              color: Color(0x0D000000),
+              blurRadius:width(6,),
+            )
+          ],
+          borderRadius: BorderRadius.circular(width(7))
+      ),
+      width: ScreenUtil.screenWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 0.4,color: Color(0xFFF2F2F2)))
+            ),
+            child: TabBar(
+              labelColor: MyColors.main1,
+              labelPadding: EdgeInsets.zero,
+              unselectedLabelColor: MyColors.grey_66,
+              indicatorColor: MyColors.main1,
+              unselectedLabelStyle: GoogleFonts.notoSansSC(
+                fontSize: sp(15),
+              ),
+              isScrollable: false,
+              indicatorSize:TabBarIndicatorSize.label,
+              labelStyle: GoogleFonts.notoSansSC(
+                fontSize: sp(15),
+                fontWeight: FontWeight.bold,
+              ),
+              indicatorPadding: EdgeInsets.symmetric(horizontal: width(6)),
+              controller:_controller,
+              tabs: tabBarList.map((key) {
+                return Tab(
+                  text: key,
+                );
+              }).toList(),
+            ),
+          ),
+          spProChartData.length==0? SizedBox():
+          spFunBuildCharts(),
+          SizedBox(height: 7,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+               Expanded(
+                child: Container(
+                  height: width(66),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF6F6F6),
+                      borderRadius: BorderRadius.circular(width(6))
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("${widget.info.spProCurrentRedNum}",style: GoogleFonts.roboto(fontSize: sp(23),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.bold),),
+                      Text("最近连红",style: TextStyle(fontSize: sp(12),color: MyColors.grey_33),),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(width: width(8),),
+              //历史最高
+              Expanded(
+                child: Container(
+                  height: width(66),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF6F6F6),
+                      borderRadius: BorderRadius.circular(width(6))
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("${widget.info.spProMaxRedNum}",style: GoogleFonts.roboto(fontSize: sp(23),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.bold),),
+                      Text("历史最高连红",style: TextStyle(fontSize: sp(12),color: MyColors.grey_33),),
+
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(width: width(8),),
+              // 回报率
+              Expanded(
+                child: Container(
+                  height: width(66),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF6F6F6),
+                      borderRadius: BorderRadius.circular(width(6))
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      RichText(
+                        text: TextSpan(
+                          text: '${(double.tryParse(widget.info.spProRecentProfitSum)*100).toStringAsFixed(0)}',
+                          style: GoogleFonts.roboto(fontSize: sp(23),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.bold),
+                          children: [
+                            TextSpan(
+                              text: '%',
+                              style: GoogleFonts.roboto(fontSize: sp(13),textStyle: TextStyle(color: Color(0xFFE3494B)),fontWeight: FontWeight.bold),
+                            )
+                          ]
+                        ),
+                      ),
+                      Text("最近回报率",style: TextStyle(fontSize: sp(12),color: MyColors.grey_33),),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+
+        ],
+
+      ),
+    );
+  }
+
+  Widget expertScheme(){
+    return  spProSchemeList.length==0?SizedBox():  Container(
+      color: Colors.white,
+      width: ScreenUtil.screenWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: width(6),
+            color: Color(0xFFF2F2F2),
+          ),
+          Container(
+            width: ScreenUtil.screenWidth,
+            padding: EdgeInsets.only(left: width(15),bottom: width(12),top: width(23)),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 0.4,color: Color(0xFFF2F2F2)))
+            ),
+            child:Text("本专家方案(${spProSchemeList.length})",style: TextStyle(fontWeight: FontWeight.bold,fontSize: sp(17),color: MyColors.grey_33)),
+
+          ),
+          ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(bottom: width(5)),
+              itemCount: spProSchemeList.length,
+              itemBuilder: (c,index){
+                var item=spProSchemeList[index];
+                return SPClassSchemeItemView(item,spProCanClick: false,spProShowLine:spProSchemeList.length>(index+1));
+              })
+        ],
+      ),
+    );
+  }
+
+  Widget historyScheme(){
+    return  Container(
+      color: Colors.white,
+      width: ScreenUtil.screenWidth,
+      child:spProSchemeHistory.length==0?SizedBox(): Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: width(6),
+            color: Color(0xFFF2F2F2),
+          ),
+          Container(
+            width: ScreenUtil.screenWidth,
+            padding: EdgeInsets.only(left: width(15),right: width(15),top: width(23),bottom: width(12)),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 0.4,color: Color(0xFFF2F2F2)))
+            ),
+            child:  Text("历史推荐",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.bold,fontSize: sp(17)),),
+          ),
+          ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(bottom: width(5)),
+              itemCount: spProSchemeHistory.length,
+              itemBuilder: (c,index){
+                var item=spProSchemeHistory[index];
+                return Stack(
+                  children: <Widget>[
+                    SPClassSchemeItemView(item,spProShowRate: false,spProShowLine:spProSchemeHistory.length>(index+1),),
+                    Positioned(
+                      top: 10,
+                      right:  width(13) ,
+                      child: SPClassEncryptImage.asset(
+                        (item.spProIsWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_result_red"):
+                        (item.spProIsWin=="0")? SPClassImageUtil.spFunGetImagePath("ic_result_hei"):
+                        (item.spProIsWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_result_zou"):"",
+                        width: width(40),
+                      ),
+                    ),
+                  ],
+                );
+              })
+        ],
+      ),
+    );
+  }
 
   void spFunOnRefreshSelf() {
     SPClassApiManager.spFunGetInstance().spFunSchemeList(queryParameters: {"expert_uid":widget.info.spProUserId,"page":"1","fetch_type":"expert"},spProCallBack: SPClassHttpCallBack<SPClassSchemeListEntity>(
