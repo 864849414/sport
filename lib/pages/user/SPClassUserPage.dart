@@ -38,11 +38,11 @@ class SPClassUserPage extends StatefulWidget {
 
 class SPClassUserPageState extends State<SPClassUserPage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  var spProMyTitles = ["已购方案", "关注方案", "关注专家", "专家入驻"];
-  var spProMyTitleImages = ["bug", "follow", "follow_expert", "expert_apply"];
+  var spProMyTitles = ["已购方案", "关注专家","关注方案", "新人福利"];
+  var spProMyTitleImages = ["bug","follow_expert", "follow",  "new"];
   var spProOtherTitles = [
     "邀请好友",
-    "新人福利",
+    '专家入驻',
     /*"抽奖",*/
     "系统消息",
     "联系客服",
@@ -52,7 +52,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
   ];
   var spProOtherImages = [
     "invite",
-    "new",
+    "expert_apply",
 /*"turntable",*/
     "sys",
     "contact",
@@ -83,8 +83,8 @@ class SPClassUserPageState extends State<SPClassUserPage>
           spProMyTitles.remove("我的发布");
           spProMyTitles.remove("专家入驻");
           spProMyTitleImages.remove("expert_apply");
-          spProMyTitles.add("专家入驻");
-          spProMyTitleImages.add("expert_apply");
+          // spProMyTitles.add("专家入驻");
+          // spProMyTitleImages.add("expert_apply");
         }
         if (mounted) {
           setState(() {});
@@ -149,14 +149,14 @@ class SPClassUserPageState extends State<SPClassUserPage>
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Color(0xFFF1F1F1),
+              color: Colors.white,
             ),
             Positioned(
               left: 0,
               right: 0,
               top: 0,
               child: SPClassEncryptImage.asset(
-                SPClassImageUtil.spFunGetImagePath("bg_user_center_top"),
+                SPClassImageUtil.spFunGetImagePath("zhuanjiabg"),
                 width: MediaQuery.of(context).size.width,
                 height: height(180),
                 fit: BoxFit.fill,
@@ -175,14 +175,14 @@ class SPClassUserPageState extends State<SPClassUserPage>
                       elevation: 0,
                       title: Text("个人中心",
                           style:
-                              TextStyle(fontSize: sp(18), color: Colors.white)),
+                              TextStyle(fontSize: sp(19), color: Colors.white)),
                       centerTitle: true,
                     ),
                     GestureDetector(
                       child: Row(
                         children: <Widget>[
                           SizedBox(
-                            width: height(22),
+                            width: width(15),
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -199,15 +199,15 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                       ? SPClassEncryptImage.asset(
                                           SPClassImageUtil.spFunGetImagePath(
                                               "ic_default_avater"),
-                                          width: width(51),
-                                          height: width(51),
+                                          width: width(46),
+                                          height: width(46),
                                         )
                                       : Image.network(
                                           SPClassApplicaion
                                               .spProUserInfo.spProAvatarUrl,
                                           fit: BoxFit.cover,
-                                          width: width(51),
-                                          height: width(51),
+                                          width: width(46),
+                                          height: width(46),
                                         ),
                             ),
                           ),
@@ -227,14 +227,15 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                             .spProUserInfo.spProNickName,
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: sp(20)),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: sp(17)),
                                       ),
                                       Text(
                                         "UID:" +
                                             "${SPClassApplicaion.spProUserLoginInfo.spProUserId.toString()}",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: sp(12)),
+                                            fontSize: sp(13)),
                                       ),
                                     ]
                                   : <Widget>[
@@ -255,6 +256,46 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                     ],
                             ),
                           ),
+                          Visibility(
+                            visible: (SPClassApplicaion.spProShowMenuList
+                                .contains("pay") ||
+                                double.tryParse(SPClassApplicaion
+                                    .spProUserInfo.spProDiamond) >
+                                    0),
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                if (spFunIsLogin(context: context)) {
+                                  SPClassNavigatorUtils.spFunPushRoute(
+                                      context,
+                                      SPClassRechargeDiamondPage());
+                                }
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Text('立即充值', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFFEB3E1C),fontWeight: FontWeight.w500),fontSize: sp(13))),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF2F2F2),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(4)),
+                                  ),
+                                  Text('${SPClassApplicaion
+                                      .spFunIsExistUserInfo()
+                                      ? SPClassStringUtils
+                                      .spFunSqlitZero(
+                                      SPClassApplicaion
+                                          .spProUserInfo
+                                          .spProDiamond)
+                                      : "-"}:钻石',style: TextStyle(fontSize: sp(15),color: Colors.white),)
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: width(15),
+                          ),
                         ],
                       ),
                       onTap: () {
@@ -266,131 +307,6 @@ class SPClassUserPageState extends State<SPClassUserPage>
                     ),
                     SizedBox(
                       height: width(20),
-                    ),
-                    Visibility(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: width(10), right: width(10), top: width(10)),
-                        height: height(75),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(width(5)),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(2, 5),
-                              color: Color(0x0D000000),
-                              blurRadius: width(
-                                6,
-                              ),
-                            ),
-                            BoxShadow(
-                              offset: Offset(-5, 1),
-                              color: Color(0x0D000000),
-                              blurRadius: width(
-                                6,
-                              ),
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                                fit: FlexFit.tight,
-                                flex: 1,
-                                child: GestureDetector(
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          SPClassApplicaion
-                                                  .spFunIsExistUserInfo()
-                                              ? SPClassStringUtils
-                                                  .spFunSqlitZero(
-                                                      SPClassApplicaion
-                                                          .spProUserInfo
-                                                          .spProDiamond)
-                                              : "-",
-                                          style: GoogleFonts.roboto(
-                                              textStyle: TextStyle(
-                                                  color: Color(0xFF333333),
-                                                  fontSize: sp(24),
-                                                  fontWeight: FontWeight.w500)),
-                                        ),
-                                        Text(
-                                          "钻石",
-                                          style: TextStyle(
-                                              color: Color(0xFF888888),
-                                              fontSize: sp(14)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    if (spFunIsLogin(context: context)) {
-                                      SPClassNavigatorUtils.spFunPushRoute(
-                                          context, SPClassDiamondHistoryPage());
-                                    }
-                                  },
-                                )),
-                            Container(
-                              width: 0.4,
-                              height: width(47),
-                              color: Color(0xFFDDDDDD),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: GestureDetector(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: width(33),
-                                    width: width(73),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(width(3)),
-                                      gradient: LinearGradient(colors: [
-                                        Color(0xFFF2150C),
-                                        Color(0xFFF24B0C)
-                                      ]),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(3, 3),
-                                          color: Color(0x4DF23B0C),
-                                          blurRadius: width(
-                                            5,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Text(
-                                      "充值",
-                                      style: TextStyle(
-                                          fontSize: sp(15),
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                  onTap: () async {
-                                    if (spFunIsLogin(context: context)) {
-                                      SPClassNavigatorUtils.spFunPushRoute(
-                                          context,
-                                          SPClassRechargeDiamondPage());
-                                    }
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      visible: (SPClassApplicaion.spProShowMenuList
-                              .contains("pay") ||
-                          double.tryParse(SPClassApplicaion
-                                  .spProUserInfo.spProDiamond) >
-                              0),
                     ),
                     spProMyTitles.length > 0
                         ? Container(
@@ -414,38 +330,21 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                 ],
                                 borderRadius: BorderRadius.circular(width(7))),
                             margin: EdgeInsets.only(
-                                bottom: height(8),
+                                bottom: width(8),
                                 left: width(10),
                                 right: width(10),
                                 top: width(10)),
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  height: height(35),
                                   padding: EdgeInsets.only(
-                                      left: width(13), right: width(13)),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              width: 0.4,
-                                              color: Colors.grey[300]))),
+                                      left: width(15), right: width(13),top: width(19)),
                                   child: Row(
                                     children: <Widget>[
-                                      Container(
-                                        width: height(4),
-                                        height: height(15),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xFFDE3C31),
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
                                       Text(
-                                        "我的功能",
+                                        "常用功能",
                                         style: GoogleFonts.notoSansSC(
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.bold,
                                             fontSize: sp(15)),
                                       ),
                                     ],
@@ -470,12 +369,12 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                               SPClassImageUtil.spFunGetImagePath(
                                                   "ic_user_" +
                                                       "${spProMyTitleImages[index]}"),
-                                              width: width(47)),
+                                              width: width(36)),
                                           Text(
                                             item,
                                             style: TextStyle(
                                                 color: Color(0xFF333333),
-                                                fontSize: sp(12)),
+                                                fontSize: sp(13)),
                                           )
                                         ],
                                       ):SizedBox(),
@@ -488,139 +387,119 @@ class SPClassUserPageState extends State<SPClassUserPage>
                           )
                         : SizedBox(),
                     Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(2, 5),
-                              color: Color(0x0D000000),
-                              blurRadius: width(
-                                6,
-                              ),
-                            ),
-                            BoxShadow(
-                              offset: Offset(-5, 1),
-                              color: Color(0x0D000000),
-                              blurRadius: width(
-                                6,
-                              ),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(width(7))),
-                      margin: EdgeInsets.only(
-                        bottom: height(8),
-                        left: width(10),
-                        right: width(10),
-                      ),
+                      margin: EdgeInsets.only(top: width(10)),
                       child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: height(35),
-                            padding: EdgeInsets.only(
-                                left: width(13), right: width(13)),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        width: 0.4, color: Colors.grey[300]))),
-                            child: Row(
+                        children: spProOtherTitles.map((item) {
+                          var index = spProOtherTitles.indexOf(item);
+                          return GestureDetector(
+                            child: Stack(
+                              alignment: Alignment.center,
                               children: <Widget>[
-                                Container(
-                                  width: height(4),
-                                  height: height(15),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFDE3C31),
-                                      borderRadius: BorderRadius.circular(100)),
-                                ),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  "其他功能",
-                                  style: GoogleFonts.notoSansSC(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: sp(15)),
-                                ),
+                                spProOtherImages.length>index?
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          SPClassEncryptImage.asset(
+                                              SPClassImageUtil.spFunGetImagePath(
+                                                  "ic_user_" +
+                                                      "${spProOtherImages[index]}"),
+                                              width: width(23)),
+                                          SizedBox(
+                                            width: width(4),
+                                          ),
+                                          Stack(
+                                            overflow: Overflow.visible,
+                                            children: <Widget>[
+                                              Text(
+                                                item,
+                                                style: TextStyle(
+                                                    color: Color(0xFF333333),
+                                                    fontSize: sp(13)),
+                                              ),
+                                              item == "系统消息"
+                                                  ? Positioned(
+                                                right:-width(12),
+                                                top:0,
+                                                child: (spFunIsLogin() &&
+                                                    double.tryParse(SPClassApplicaion
+                                                        .spProUserLoginInfo
+                                                        .spProUnreadMsgNum) >
+                                                        0)
+                                                    ? Container(
+                                                  width: width(12),
+                                                  height: width(12),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      shape: BoxShape.circle),
+                                                  child: Text('${int.tryParse(SPClassApplicaion
+                                                      .spProUserLoginInfo
+                                                      .spProUnreadMsgNum)}',style: TextStyle(color: Colors.white,fontSize: sp(8)),),
+                                                )
+                                                    : SizedBox(),
+                                              )
+                                                  : SizedBox()
+                                            ],
+                                          ),
+                                          Expanded(
+                                            child: SizedBox(),
+                                          ),
+                                          SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                                            width: width(11),
+                                          ),
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(12)),
+                                      decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Color(0xFFF2F2F2),width: 0.4),),
+                                      ),
+                                    )
+                                // Column(
+                                //   crossAxisAlignment:
+                                //   CrossAxisAlignment.center,
+                                //   mainAxisAlignment:
+                                //   MainAxisAlignment.center,
+                                //   children: <Widget>[
+                                //     SPClassEncryptImage.asset(
+                                //         SPClassImageUtil.spFunGetImagePath(
+                                //             "ic_user_" +
+                                //                 "${spProOtherImages[index]}"),
+                                //         width: width(47)),
+                                //     Text(
+                                //       item,
+                                //       style: TextStyle(
+                                //           color: Color(0xFF333333),
+                                //           fontSize: sp(12)),
+                                //     )
+                                //   ],
+                                // )
+
+                                    :SizedBox(),
+                               
+                                // item == "系统消息"
+                                //     ? Positioned(
+                                //   top: width(20),
+                                //   right: width(20),
+                                //   child: (spFunIsLogin() &&
+                                //       double.tryParse(SPClassApplicaion
+                                //           .spProUserLoginInfo
+                                //           .spProUnreadMsgNum) >
+                                //           0)
+                                //       ? Container(
+                                //     height: width(8),
+                                //     width: width(8),
+                                //     decoration: BoxDecoration(
+                                //         color: Colors.red,
+                                //         shape: BoxShape.circle),
+                                //   )
+                                //       : SizedBox(),
+                                // )
+                                //     : SizedBox()
                               ],
                             ),
-                          ),
-                          GridView.count(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 4,
-                            padding: EdgeInsets.zero,
-                            childAspectRatio: 1,
-                            children: spProOtherTitles.map((item) {
-                              var index = spProOtherTitles.indexOf(item);
-                              return GestureDetector(
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: <Widget>[
-                                    spProOtherImages.length>index?
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SPClassEncryptImage.asset(
-                                            SPClassImageUtil.spFunGetImagePath(
-                                                "ic_user_" +
-                                                    "${spProOtherImages[index]}"),
-                                            width: width(47)),
-                                        Text(
-                                          item,
-                                          style: TextStyle(
-                                              color: Color(0xFF333333),
-                                              fontSize: sp(12)),
-                                        )
-                                      ],
-                                    ):SizedBox(),
-                                    item == "新人福利"
-                                        ? Positioned(
-                                            top: width(20),
-                                            right: width(6),
-                                            child: ScaleTransition(
-                                              alignment: Alignment.bottomLeft,
-                                              scale: spProScaleAnimation,
-                                              child: SPClassEncryptImage.asset(
-                                                SPClassImageUtil
-                                                    .spFunGetImagePath(
-                                                        "ic_anim_invite"),
-                                                fit: BoxFit.fitHeight,
-                                                height: width(10),
-                                              ),
-                                            ),
-                                          )
-                                        : SizedBox(),
-                                    item == "系统消息"
-                                        ? Positioned(
-                                            top: width(20),
-                                            right: width(20),
-                                            child: (spFunIsLogin() &&
-                                                    double.tryParse(SPClassApplicaion
-                                                            .spProUserLoginInfo
-                                                            .spProUnreadMsgNum) >
-                                                        0)
-                                                ? Container(
-                                                    height: width(8),
-                                                    width: width(8),
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.red,
-                                                        shape: BoxShape.circle),
-                                                  )
-                                                : SizedBox(),
-                                          )
-                                        : SizedBox()
-                                  ],
-                                ),
-                                onTap: () => spFunOnTap(item),
-                              );
-                            }).toList(),
-                          ),
-                          SizedBox(
-                            height: height(16),
-                          ),
-                        ],
+                            onTap: () => spFunOnTap(item),
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],
