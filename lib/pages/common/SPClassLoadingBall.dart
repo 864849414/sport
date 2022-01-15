@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/AnimationImagePage.dart';
 
 
 class SPClassLoadingBall extends StatefulWidget{
@@ -74,20 +75,24 @@ class SPClassLoadingBallState extends State<SPClassLoadingBall> with SingleTicke
         child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RotationTransition(
-              turns: spProController,
-              alignment: Alignment.center,
-              child:SPClassEncryptImage.asset(
-                SPClassImageUtil.spFunGetImagePath('ic_common_loading'),
-                width:  width(45),
-              ) ,
+            // RotationTransition(
+            //   turns: spProController,
+            //   alignment: Alignment.center,
+            //   child:SPClassEncryptImage.asset(
+            //     SPClassImageUtil.spFunGetImagePath('ic_common_loading'),
+            //     width:  width(45),
+            //   ) ,
+            // ),
+            // SizedBox(height: 5,),
+            // SPClassEncryptImage.asset(
+            //   SPClassImageUtil.spFunGetImagePath('ic_ball_shadow'),
+            //   width:  width(21),
+            // ),
+            // SizedBox(height: 5,),
+            AnimationImagePage(
+              width: width(100),
+              height: width(100),
             ),
-            SizedBox(height: 5,),
-            SPClassEncryptImage.asset(
-              SPClassImageUtil.spFunGetImagePath('ic_ball_shadow'),
-              width:  width(21),
-            ),
-            SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

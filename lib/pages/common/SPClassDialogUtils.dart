@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport/pages/common/SPClassLoadingBall.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/colors.dart';
 
 class SPClassDialogUtils {
 
@@ -60,7 +61,7 @@ class SPClassDialogUtils {
                             child: Container(
                               alignment: Alignment.center,
                               height: width(45),
-                              child: Text("确定",style: TextStyle(fontSize: sp(15),color: Color(0xFFEB3E1C)),),
+                              child: Text("确定",style: TextStyle(fontSize: sp(15),color: MyColors.main1),),
                             ),
                             onTap: (){
                               callback();

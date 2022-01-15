@@ -276,7 +276,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
                               child: Column(
                                 children: <Widget>[
                                   Container(
-                                    child: Text('立即充值', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFFEB3E1C),fontWeight: FontWeight.w500),fontSize: sp(13))),
+                                    child: Text('立即充值', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF1B8DE0),fontWeight: FontWeight.w500),fontSize: sp(13))),
                                     decoration: BoxDecoration(
                                       color: Color(0xFFF2F2F2),
                                       borderRadius: BorderRadius.circular(15),

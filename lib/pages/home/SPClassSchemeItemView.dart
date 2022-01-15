@@ -325,14 +325,14 @@ class SPClassSchemeItemView extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                           textStyle: TextStyle(
                                               fontSize: sp(27),
-                                              color: Color(0xFFEB3E1C))),
+                                              color: Color(0xFF1B8DE0))),
                                       children: [
                                         TextSpan(
                                             text: '%',
                                             style: GoogleFonts.roboto(
                                                 textStyle: TextStyle(
                                                     fontSize: sp(10),
-                                                    color: Color(0xFFEB3E1C),),),
+                                                    color: Color(0xFF1B8DE0),),),
                                         )
                                       ]
                                     ),

@@ -178,7 +178,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                                                           children: [
                                                             TextSpan(
                                                                 text: "两小时自动返回",
-                                                              style: TextStyle(fontSize: sp(12),color: Color(0xFFEB3E1C)),
+                                                              style: TextStyle(fontSize: sp(12),color: Color(0xFF1B8DE0)),
                                                             ),
                                                             TextSpan(
                                                                 text: "账户，请注意查收。",
@@ -982,7 +982,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
             child: Text(
               widget.spProSchemeDetail.scheme.spProCanReturn&&(widget.spProSchemeDetail.spProCanViewAll!=1)?'不中包退':'',
               style: TextStyle(
-                  color: Color(0xFFEB3E1C), fontSize: sp(15),fontWeight: FontWeight.w500),
+                  color: Color(0xFF1B8DE0), fontSize: sp(15),fontWeight: FontWeight.w500),
             ),
           ),
           GestureDetector(

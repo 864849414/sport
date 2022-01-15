@@ -16,6 +16,7 @@ import 'package:sport/pages/home/SPClassSchemeItemView.dart';
 import 'package:sport/widgets/SPClassBallFooter.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 import 'package:sport/SPClassEncryptImage.dart';
+import 'package:sport/utils/colors.dart';
 
 
 class SPClassFollowSchemeListPage extends StatefulWidget{
@@ -79,7 +80,7 @@ class SPClassFollowSchemeListPageState extends State<SPClassFollowSchemeListPage
                             child:!spProShowEdit? SizedBox(): Row(
                               children: <Widget>[
                                 SizedBox(width: width(10),),
-                                SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(18),color:schemeItem.check?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
+                                SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(18),color:schemeItem.check?  MyColors.main1: Color(0xFFCCCCCC)),
                                 SizedBox(width: width(5),),
                               ],
                             ),

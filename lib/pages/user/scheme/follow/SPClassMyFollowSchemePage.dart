@@ -119,9 +119,9 @@ class SPClassMyFollowSchemePageState extends State<SPClassMyFollowSchemePage> wi
                 behavior: HitTestBehavior.opaque,
                 child: Row(
                   children: <Widget>[
-                    SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(18),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
+                    SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(18),color:spProSelectAll?  MyColors.main1: Color(0xFFCCCCCC)),
                     SizedBox(width: width(3),),
-                    Text("全选",style: TextStyle(fontSize: sp(14),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                    Text("全选",style: TextStyle(fontSize: sp(14),color:spProSelectAll?  MyColors.main1: Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
                   ],
                 ),
                 onTap: (){
@@ -135,7 +135,7 @@ class SPClassMyFollowSchemePageState extends State<SPClassMyFollowSchemePage> wi
               Expanded(child: SizedBox(),),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                child:Text("删除",style: TextStyle(fontSize: sp(14),color: Color(0xFFDE3C31)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                child:Text("删除",style: TextStyle(fontSize: sp(14),color: MyColors.main1),maxLines: 1,overflow: TextOverflow.ellipsis,),
                 onTap: (){
                   views[spProTabController.index].spProState.spFunDeleteCollect((){
                     setState(() {
