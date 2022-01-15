@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sport/AnimationImagePage.dart';
 import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/pages/user/coupon/SPClassCouponPage.dart';
 import 'package:sport/pages/user/scheme/follow/SPClassMyFollowSchemePage.dart';
@@ -522,6 +523,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
     }
 
     if (value == "已购方案") {
+      // SPClassNavigatorUtils.spFunPushRoute(context, AnimationImagePage());
       SPClassNavigatorUtils.spFunPushRoute(context, SPClassMyBuySchemePage());
     }
 

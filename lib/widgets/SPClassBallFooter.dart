@@ -4,6 +4,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/AnimationImagePage.dart';
 
 
 
@@ -370,23 +371,31 @@ class SPClassBallFooterWidgetState extends State<SPClassBallFooterWidget>
         ? <Widget>[
       Container(
         alignment: Alignment.centerRight,
-        padding: EdgeInsets.only(
-          right: 10.0,
-        ),
+        // padding: EdgeInsets.only(
+        //   right: 10.0,
+        // ),
         child: (widget.spProLoadState == LoadMode.load ||
             widget.spProLoadState == LoadMode.armed) &&
             !widget.noMore
-            ? RotationTransition(
-          turns: spProControllerLoading,
-          alignment: Alignment.center,
-          child:SPClassEncryptImage.asset(
-            SPClassImageUtil.spFunGetImagePath('ic_ball_loadding'),
-            width:  height(24),
-          ) ,
-        ):SPClassEncryptImage.asset(
-           SPClassImageUtil.spFunGetImagePath(!widget.success ?  "ic_ball_loadding_fail":"ic_ball_loadding",) ,
-           width: height(24),
-        ),
+            ?
+        AnimationImagePage(width: width(50),height: width(50),)
+            :Image.asset(
+          'assets/animationImages/足球动效_00007.png',
+          width: width(50),
+          height: width(50),
+        )
+        // RotationTransition(
+        //   turns: spProControllerLoading,
+        //   alignment: Alignment.center,
+        //   child:SPClassEncryptImage.asset(
+        //     SPClassImageUtil.spFunGetImagePath('ic_ball_loadding'),
+        //     width:  height(24),
+        //   ) ,
+        // ):SPClassEncryptImage.asset(
+        //    SPClassImageUtil.spFunGetImagePath(!widget.success ?  "ic_ball_loadding_fail":"ic_ball_loadding",) ,
+        //    width: height(24),
+        // ),
+
       ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,

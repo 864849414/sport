@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/AnimationImagePage.dart';
 
 
 // The over-scroll distance that moves the indicator to its maximum
@@ -475,17 +476,24 @@ class SPClassNestedScrollViewRefreshBallStyleState
                     right: 10.0,
                   ),
                   child: (_mode== _RefreshIndicatorMode.refresh )
-                      ?  RotationTransition(
-                    turns: spProControllerLoading,
-                    alignment: Alignment.center,
-                    child:SPClassEncryptImage.asset(
-                      SPClassImageUtil.spFunGetImagePath('ic_ball_loadding'),
-                      width:  height(24),
-                    ) ,
-                  ):SPClassEncryptImage.asset(
-                    SPClassImageUtil.spFunGetImagePath("ic_ball_loadding"),
-                    width: height(24),
-                  ),
+                      ?
+                  AnimationImagePage(width: width(50),height: width(50),)
+                      :Image.asset(
+                    'assets/animationImages/足球动效_00007.png',
+                    width: width(50),
+                    height: width(50),
+                  )
+                  // RotationTransition(
+                  //   turns: spProControllerLoading,
+                  //   alignment: Alignment.center,
+                  //   child:SPClassEncryptImage.asset(
+                  //     SPClassImageUtil.spFunGetImagePath('ic_ball_loadding'),
+                  //     width:  height(24),
+                  //   ) ,
+                  // ):SPClassEncryptImage.asset(
+                  //   SPClassImageUtil.spFunGetImagePath("ic_ball_loadding"),
+                  //   width: height(24),
+                  // ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -16,26 +16,28 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin<HomePage>{
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin<HomePage> {
   List spProTabMatchTitles = ['关注', '足球', '篮球', 'AI分析'];
-  TabController spProTabMatchController;   //顶部导航栏
+  TabController spProTabMatchController; //顶部导航栏
   int spProTabMatchIndex = 1; //顶部栏的下标
   static String spProHomeMatchType = "足球";
   static String spProHomeMatchTypeKey = "is_zq_expert";
-  var spProTabMatchKeys = ['',"足球", "篮球"];
-  var spProTabExpertKeys = ['',"is_zq_expert", "is_lq_expert", "is_es_expert"];
+  var spProTabMatchKeys = ['', "足球", "篮球"];
+  var spProTabExpertKeys = ['', "is_zq_expert", "is_lq_expert", "is_es_expert"];
 
   @override
   void initState() {
-    spProTabMatchController =
-        TabController(length: spProTabMatchTitles.length,initialIndex: 1, vsync: this);
+    spProTabMatchController = TabController(
+        length: spProTabMatchTitles.length, initialIndex: 1, vsync: this);
     spProTabMatchController.addListener(() {
       if (spProTabMatchIndex == spProTabMatchController.index) {
         return;
       }
       spProTabMatchIndex = spProTabMatchController.index;
       setState(() {});
-      if (spProTabMatchTitles[spProTabMatchController.index]=='AI分析'||spProTabMatchTitles[spProTabMatchController.index]=='关注') {
+      if (spProTabMatchTitles[spProTabMatchController.index] == 'AI分析' ||
+          spProTabMatchTitles[spProTabMatchController.index] == '关注') {
         return;
       }
       spProHomeMatchType = spProTabMatchKeys[spProTabMatchController.index];
@@ -43,20 +45,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin<HomeP
 
       SPClassApplicaion.spProEventBus.fire("scheme:refresh" +
           "${spProTabMatchKeys[spProTabMatchController.index]}");
-
     });
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
+      appBar: PreferredSize(
         child: AppBar(
-        elevation: 0,
-    ), preferredSize: Size.fromHeight(0),),
+          elevation: 0,
+        ),
+        preferredSize: Size.fromHeight(0),
+      ),
       body: Container(
         color: Colors.white,
         child: Column(
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin<HomeP
                       fontSize: sp(17),
                     ),
                     isScrollable: false,
-                    indicatorSize:TabBarIndicatorSize.tab,
+                    indicatorSize: TabBarIndicatorSize.tab,
                     labelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                       fontWeight: FontWeight.w500,
@@ -112,5 +114,4 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin<HomeP
       ),
     );
   }
-
 }
