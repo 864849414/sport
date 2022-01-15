@@ -31,6 +31,7 @@ import 'SPClassMyFollowExpertPage.dart';
 import 'SPClassNewUserWalFarePage.dart';
 import 'SPClassRechargeDiamondPage.dart';
 import 'package:sport/SPClassEncryptImage.dart';
+import 'FollowExpertPage.dart';
 
 class SPClassUserPage extends StatefulWidget {
   @override
@@ -534,7 +535,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
 
     if (value == "关注专家") {
       SPClassNavigatorUtils.spFunPushRoute(
-          context, SPClassMyFollowExpertPage());
+          context, FollowExpertPage());
     }
 
     if (value == "专家入驻") {
