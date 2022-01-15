@@ -244,7 +244,7 @@ class SPClassAppPageState extends State<SPClassAppPage>
     }
     if(SPClassApplicaion.spProShowMenuList.contains("expert")){
         spProPageList.add(SPClassExpertHomePage());
-        tabs.add(SPClassQNavTab( spProTabText: "榜单",spProTabImage:SPClassImageUtil.spFunGetImagePath("ic_match")));
+        tabs.add(SPClassQNavTab( spProTabText: "专家",spProTabImage:SPClassImageUtil.spFunGetImagePath("ic_match")));
         spProExpertIndex=spProPageList.length-1;
     }
 

@@ -79,7 +79,7 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
           ),
         ],
       ),*/
-     appBar: SPClassToolBar(context,title: "榜单",showLead: false,
+     appBar: SPClassToolBar(context,title: "专家",showLead: false,
      actions: <Widget>[
        Container(
          margin: EdgeInsets.only(right: width(20)),
