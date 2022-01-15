@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
+import 'package:sport/utils/colors.dart';
 
 
 
@@ -80,7 +81,7 @@ class SPClassBottomLeaguePageState extends State<SPClassBottomLeaguePage> {
                           right: width(15)),
                       child: Text("确定", style: TextStyle(
                           fontSize: sp(14),
-                          color: Color(0xFFE3494B)),),
+                          color: MyColors.main1),),
                     ),
                     onTap: () {
                         Navigator.pop(context);

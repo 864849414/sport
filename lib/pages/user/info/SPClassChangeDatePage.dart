@@ -7,6 +7,7 @@ import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
+import 'package:sport/utils/colors.dart';
 
 import 'package:sport/widgets/SPClassToolBar.dart';
 
@@ -46,20 +47,14 @@ class SPClassChangeDatePageState extends State<SPClassChangeDatePage>{
       appBar: SPClassToolBar(
         context,
         title:"个人资料",
+        spProBgColor: MyColors.main1,
+        iconColor: 0xFFFFFFFF,
         actions: <Widget>[
           FlatButton(
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(width(3)),
-                gradient: LinearGradient(
-                    colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                ),
-                boxShadow:[
-                  BoxShadow(
-                    offset: Offset(3,3),
-                    color: Color(0x4DF23B0C),
-                    blurRadius:width(5,),),
-                ],
+                color: MyColors.main1
               ),
               padding: EdgeInsets.only(left: width(9),right: width(9),top: width(5),bottom: width(5)),
               child: Text("保存",style: TextStyle(color: Colors.white),),

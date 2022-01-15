@@ -76,7 +76,7 @@ class _AIAnalysisState extends State<AIAnalysis> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(title,style: TextStyle(fontSize: sp(17),fontWeight: FontWeight.bold),),
-                        Text('$hasBuy人已购',style: TextStyle(fontSize: sp(12),color:MyColors.grey_99),),
+                        // Text('$hasBuy人已购',style: TextStyle(fontSize: sp(12),color:MyColors.grey_99),),
                       ],
                     ),
                     // SizedBox(height: height(6),),

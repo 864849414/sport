@@ -17,6 +17,7 @@ import 'package:sport/utils/SPClassLogUtils.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/pages/common/SPClassCropImagePage.dart';
 import 'package:sport/pages/dialogs/SPClassBottomLeaguePage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 import 'SPClassChangeDatePage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
@@ -57,6 +58,8 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
       appBar: SPClassToolBar(
         context,
         title:"个人资料",
+        spProBgColor: MyColors.main1,
+        iconColor: 0xFFFFFFFF,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -90,15 +93,15 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                                 borderRadius: BorderRadius.circular(32.0)),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(30),
-                              child: spFunIsLogin()?   Image.network(
+                              child: spFunIsLogin()&&SPClassApplicaion.spProUserInfo.spProAvatarUrl!=''?   Image.network(
                                 SPClassApplicaion.spProUserInfo.spProAvatarUrl,
-                                width: 60,
-                                height: 60,
+                                width: 46,
+                                height: 46,
                               ):
                               SPClassEncryptImage.asset(
                                 SPClassImageUtil.spFunGetImagePath("ic_default_avater"),
-                                width: 60,
-                                height: 60,
+                                width: 46,
+                                height: 46,
                               ),
                             ),
                           ),
@@ -119,7 +122,6 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                  }
                  },
              ),
-              SizedBox(height: height(10),),
               GestureDetector(
                 behavior:HitTestBehavior.opaque ,
                 child:Container(
@@ -143,7 +145,7 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(SPClassApplicaion.spProUserInfo.spProNickName,style: TextStyle(fontSize:sp(14),color: Color(0xFF999999) ),),
+                            Text(SPClassApplicaion.spProUserInfo.spProNickName,style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
                             SPClassApplicaion.spProUserInfo.spProLockNickName=="1" ? Icon(Icons.keyboard_arrow_right,size: width(25),color: Colors.white,):Icon(Icons.keyboard_arrow_right,size: width(25),color: Colors.grey[400],),
                           ],
@@ -177,7 +179,7 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(SPClassApplicaion.spProUserInfo.gender=="unknown"?  "未知":SPClassApplicaion.spProUserInfo.gender=="male"? "男":"女",style: TextStyle(fontSize:sp(14),color: Color(0xFF999999) ),),
+                            Text(SPClassApplicaion.spProUserInfo.gender=="unknown"?  "未知":SPClassApplicaion.spProUserInfo.gender=="male"? "男":"女",style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
                             SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
                               width: width(11),
@@ -216,7 +218,7 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(SPClassApplicaion.spProUserInfo.birthday,style: TextStyle(fontSize:sp(14),color: Color(0xFF999999) ),),
+                            Text(SPClassApplicaion.spProUserInfo.birthday,style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
                             SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
                               width: width(11),
@@ -251,7 +253,7 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(SPClassApplicaion.spProUserInfo.province+SPClassApplicaion.spProUserInfo.city,style: TextStyle(fontSize:sp(14),color: Color(0xFF999999) ),),
+                            Text(SPClassApplicaion.spProUserInfo.province+SPClassApplicaion.spProUserInfo.city,style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
                           ],
                         ),
@@ -280,7 +282,7 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(SPClassApplicaion.spProUserInfo.spProPhoneNumber,style: TextStyle(fontSize:sp(14),color: Color(0xFF999999) ),),
+                            Text(SPClassApplicaion.spProUserInfo.spProPhoneNumber,style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
                           ],
                         ),

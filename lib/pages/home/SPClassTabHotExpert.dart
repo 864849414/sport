@@ -108,123 +108,123 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
             ),
           ),
 
-        //大数据H5
-        !SPClassApplicaion.spProShowMenuList.contains("bcw_data")? SizedBox():Container(
-            decoration: BoxDecoration(
-                border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]))
-            ),
-            padding: EdgeInsets.only(left: height(5),right: height(5),bottom: height(4),top:height(4)),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    height: width(40),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFEFBED),
-                      borderRadius: BorderRadius.circular(width(5))
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("AI大数据",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
-                              Text("AI全维度深度分析",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                            ],
-                          ),
-                          onTap: (){
-                            spFunGetBcwUrl("bigDataReport");
-                          },
-                        ),
-                        Positioned(right: 2,top: 2,child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_home_fire",format: ".gif"),height: width(9),),)
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(width: width(3),),
-
-                Expanded(
-                  child: Container(
-                    height: width(40),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFEFF9FE),
-                        borderRadius: BorderRadius.circular(width(5))
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("冷门分析",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
-                              Text("多角度分析爆冷",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                            ],
-                          ),
-                          onTap: (){
-                            spFunGetBcwUrl("coldJudge");
-                          },
-                        ),
-                        Positioned(right: 2,top: 2,child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_home_new",format: ".gif"),height: width(9),),)
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(width: width(3),),
-                Expanded(
-                  child: Container(
-                    height: width(40),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF7F3FE),
-                        borderRadius: BorderRadius.circular(width(5))
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("全维预测",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
-                          Text("AI预测主流玩法",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                        ],
-                      ),
-                      onTap: ()=>{
-                        spFunGetBcwUrl("allAnalysis")
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(width: width(3),),
-                Expanded(
-                  child: Container(
-                    height: width(40),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFEBFCED),
-                        borderRadius: BorderRadius.circular(width(5))
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("赔率波动",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
-                          Text("匹配赔率波动走势",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                        ],
-                      ),
-                      onTap: ()=>{
-                        spFunGetBcwUrl("oddsWave")
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        // //大数据H5
+        // !SPClassApplicaion.spProShowMenuList.contains("bcw_data")? SizedBox():Container(
+        //     decoration: BoxDecoration(
+        //         border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]))
+        //     ),
+        //     padding: EdgeInsets.only(left: height(5),right: height(5),bottom: height(4),top:height(4)),
+        //     child: Row(
+        //       children: <Widget>[
+        //         Expanded(
+        //           child: Container(
+        //             height: width(40),
+        //             decoration: BoxDecoration(
+        //               color: Color(0xFFFEFBED),
+        //               borderRadius: BorderRadius.circular(width(5))
+        //             ),
+        //             child: Stack(
+        //               alignment: Alignment.center,
+        //               children: <Widget>[
+        //                 GestureDetector(
+        //                   behavior: HitTestBehavior.opaque,
+        //                   child: Column(
+        //                     mainAxisAlignment: MainAxisAlignment.center,
+        //                     crossAxisAlignment: CrossAxisAlignment.center,
+        //                     children: <Widget>[
+        //                       Text("AI大数据",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
+        //                       Text("AI全维度深度分析",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //                     ],
+        //                   ),
+        //                   onTap: (){
+        //                     spFunGetBcwUrl("bigDataReport");
+        //                   },
+        //                 ),
+        //                 Positioned(right: 2,top: 2,child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_home_fire",format: ".gif"),height: width(9),),)
+        //               ],
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: width(3),),
+        //
+        //         Expanded(
+        //           child: Container(
+        //             height: width(40),
+        //             decoration: BoxDecoration(
+        //                 color: Color(0xFFEFF9FE),
+        //                 borderRadius: BorderRadius.circular(width(5))
+        //             ),
+        //             child: Stack(
+        //               alignment: Alignment.center,
+        //               children: <Widget>[
+        //                 GestureDetector(
+        //                   behavior: HitTestBehavior.opaque,
+        //                   child: Column(
+        //                     mainAxisAlignment: MainAxisAlignment.center,
+        //                     crossAxisAlignment: CrossAxisAlignment.center,
+        //                     children: <Widget>[
+        //                       Text("冷门分析",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
+        //                       Text("多角度分析爆冷",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //                     ],
+        //                   ),
+        //                   onTap: (){
+        //                     spFunGetBcwUrl("coldJudge");
+        //                   },
+        //                 ),
+        //                 Positioned(right: 2,top: 2,child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_home_new",format: ".gif"),height: width(9),),)
+        //               ],
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: width(3),),
+        //         Expanded(
+        //           child: Container(
+        //             height: width(40),
+        //             decoration: BoxDecoration(
+        //                 color: Color(0xFFF7F3FE),
+        //                 borderRadius: BorderRadius.circular(width(5))
+        //             ),
+        //             child: GestureDetector(
+        //               behavior: HitTestBehavior.opaque,
+        //               child: Column(
+        //                 mainAxisAlignment: MainAxisAlignment.center,
+        //                 children: <Widget>[
+        //                   Text("全维预测",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
+        //                   Text("AI预测主流玩法",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //                 ],
+        //               ),
+        //               onTap: ()=>{
+        //                 spFunGetBcwUrl("allAnalysis")
+        //               },
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: width(3),),
+        //         Expanded(
+        //           child: Container(
+        //             height: width(40),
+        //             decoration: BoxDecoration(
+        //                 color: Color(0xFFEBFCED),
+        //                 borderRadius: BorderRadius.circular(width(5))
+        //             ),
+        //             child: GestureDetector(
+        //               behavior: HitTestBehavior.opaque,
+        //               child: Column(
+        //                 mainAxisAlignment: MainAxisAlignment.center,
+        //                 children: <Widget>[
+        //                   Text("赔率波动",style: TextStyle(fontSize: sp(12),fontWeight: FontWeight.bold),),
+        //                   Text("匹配赔率波动走势",style: TextStyle(fontSize: sp(9),color: Color(0xFF999999)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //                 ],
+        //               ),
+        //               onTap: ()=>{
+        //                 spFunGetBcwUrl("oddsWave")
+        //               },
+        //             ),
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
 
         ],
 
