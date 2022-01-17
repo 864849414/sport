@@ -17,6 +17,7 @@ import "package:sport/utils/SPClassLogUtils.dart";
 import "package:sport/utils/SPClassCommonMethods.dart";
 
 import "package:sport/pages/common/SPClassDialogUtils.dart";
+import 'package:sport/utils/colors.dart';
 import "package:sport/widgets/SPClassToolBar.dart";
 
 class SPClassContactPage extends StatefulWidget{
@@ -66,48 +67,94 @@ class  SPClassContactPageState extends State<SPClassContactPage>
                 width: MediaQuery.of(context).size.width/2,
               ),
             ),
-            SizedBox(height: 10,),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GestureDetector(
-                  child:Text("复制微信号",style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),),
-                  onTap: (){
-                    try{
-                      ClipboardData data = new ClipboardData(text:spProWxId);
-                      Clipboard.setData(data);
-                      SPClassToastUtils.spFunShowToast(msg: "复制成功");
-                    }on PlatformException{
-                      SPClassToastUtils.spFunShowToast(msg: "复制失败");
-                    }
-                  },
-                ),
-                Container(width: 0.4,height: 15,color: Colors.grey,margin: EdgeInsets.only(left: 15,right: 15),),
-                GestureDetector(
-                  child:Text("保存二维码",style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),),
-                  onTap: () async {
-                    try {
-                      SPClassDialogUtils.spFunShowLoadingDialog(context,barrierDismissible: false,content:"保存中");
-                      var response = await Dio().get(spProWxQrcode, options: Options(responseType: ResponseType.bytes));
-                          ImageGallerySaver.saveImage(Uint8List.fromList(response.data)).then((result){
-                            SPClassLogUtils.spFunPrintLog(result.toString());
-                           Navigator.of(context).pop();
-                           if(result.toString().isNotEmpty){
-                             SPClassToastUtils.spFunShowToast(msg: "保存成功");
-                           }else{
-                             SPClassToastUtils.spFunShowToast(msg: "保存失败");
-                           }
-                         });
-                    } on PlatformException {
-                      Navigator.of(context).pop();
+            SizedBox(height: width(15),),
+            GestureDetector(
+              child:Container(
+                padding: EdgeInsets.symmetric(horizontal: width(23),vertical: width(15)),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(27, 141, 224, 0.05),
+                    borderRadius: BorderRadius.circular(32)
+                  ),
+                  child: Text("保存二维码",style: TextStyle(fontSize: sp(23),color: Theme.of(context).primaryColor),)),
+              onTap: () async {
+                try {
+                  SPClassDialogUtils.spFunShowLoadingDialog(context,barrierDismissible: false,content:"保存中");
+                  var response = await Dio().get(spProWxQrcode, options: Options(responseType: ResponseType.bytes));
+                  ImageGallerySaver.saveImage(Uint8List.fromList(response.data)).then((result){
+                    SPClassLogUtils.spFunPrintLog(result.toString());
+                    Navigator.of(context).pop();
+                    if(result.toString().isNotEmpty){
+                      SPClassToastUtils.spFunShowToast(msg: "保存成功");
+                    }else{
                       SPClassToastUtils.spFunShowToast(msg: "保存失败");
                     }
-                  },
-                )
-
-              ],
-            )
+                  });
+                } on PlatformException {
+                  Navigator.of(context).pop();
+                  SPClassToastUtils.spFunShowToast(msg: "保存失败");
+                }
+              },
+            ),
+            SizedBox(height: width(85),),
+            GestureDetector(
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text("去微信添加",style: TextStyle(fontSize: sp(17),color: Theme.of(context).primaryColor),textAlign: TextAlign.justify,),
+                  SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right",),
+                    width: width(12),
+                    color: MyColors.main1,
+                  ),
+                ],
+              ),
+              onTap: () async {
+                fluwx.openWeChatApp().then((value){
+                  SPClassLogUtils.spFunPrintLog(value.toString());
+                });
+              },
+            ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     GestureDetector(
+            //       child:Text("复制微信号",style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),),
+            //       onTap: (){
+            //         try{
+            //           ClipboardData data = new ClipboardData(text:spProWxId);
+            //           Clipboard.setData(data);
+            //           SPClassToastUtils.spFunShowToast(msg: "复制成功");
+            //         }on PlatformException{
+            //           SPClassToastUtils.spFunShowToast(msg: "复制失败");
+            //         }
+            //       },
+            //     ),
+            //     Container(width: 0.4,height: 15,color: Colors.grey,margin: EdgeInsets.only(left: 15,right: 15),),
+            //     GestureDetector(
+            //       child:Text("保存二维码",style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),),
+            //       onTap: () async {
+            //         try {
+            //           SPClassDialogUtils.spFunShowLoadingDialog(context,barrierDismissible: false,content:"保存中");
+            //           var response = await Dio().get(spProWxQrcode, options: Options(responseType: ResponseType.bytes));
+            //               ImageGallerySaver.saveImage(Uint8List.fromList(response.data)).then((result){
+            //                 SPClassLogUtils.spFunPrintLog(result.toString());
+            //                Navigator.of(context).pop();
+            //                if(result.toString().isNotEmpty){
+            //                  SPClassToastUtils.spFunShowToast(msg: "保存成功");
+            //                }else{
+            //                  SPClassToastUtils.spFunShowToast(msg: "保存失败");
+            //                }
+            //              });
+            //         } on PlatformException {
+            //           Navigator.of(context).pop();
+            //           SPClassToastUtils.spFunShowToast(msg: "保存失败");
+            //         }
+            //       },
+            //     )
+            //
+            //   ],
+            // )
 
           ],
         ),
@@ -115,61 +162,61 @@ class  SPClassContactPageState extends State<SPClassContactPage>
 
       ),
 
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            boxShadow:[BoxShadow(
-              offset: Offset(1,1),
-              color: Color(0x1a000000),
-              blurRadius:width(6,),
-            )]
-        ),
-        height: height(53),
-        child:GestureDetector(
-          child:  Container(
-            color: Colors.white,
-            height: height(53),
-            alignment: Alignment.center,
-            child:Container(
-              alignment: Alignment.center,
-              height: height(40),
-              width: width(320),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(width(3)),
-                gradient: LinearGradient(
-                    colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                ),
-                boxShadow:[
-                  BoxShadow(
-                    offset: Offset(3,3),
-                    color: Color(0x4DF23B0C),
-                    blurRadius:width(5,),),
-
-                ],
-
-              ),
-              child:Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SPClassEncryptImage.asset(
-                    SPClassImageUtil.spFunGetImagePath("ic_wx_login"),
-                    fit: BoxFit.contain,
-                    color: Colors.white,
-                    width: height(22),
-                  ),
-                  SizedBox(width: 10,),
-                  Text("去微信添加",style: TextStyle(fontSize: sp(15),color: Colors.white),)
-                ],
-              ),
-            ) ,
-          ),
-          onTap: () async {
-            fluwx.openWeChatApp().then((value){
-              SPClassLogUtils.spFunPrintLog(value.toString());
-            });
-          },
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   decoration: BoxDecoration(
+      //       boxShadow:[BoxShadow(
+      //         offset: Offset(1,1),
+      //         color: Color(0x1a000000),
+      //         blurRadius:width(6,),
+      //       )]
+      //   ),
+      //   height: height(53),
+      //   child:GestureDetector(
+      //     child:  Container(
+      //       color: Colors.white,
+      //       height: height(53),
+      //       alignment: Alignment.center,
+      //       child:Container(
+      //         alignment: Alignment.center,
+      //         height: height(40),
+      //         width: width(320),
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(width(3)),
+      //           gradient: LinearGradient(
+      //               colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
+      //           ),
+      //           boxShadow:[
+      //             BoxShadow(
+      //               offset: Offset(3,3),
+      //               color: Color(0x4DF23B0C),
+      //               blurRadius:width(5,),),
+      //
+      //           ],
+      //
+      //         ),
+      //         child:Row(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           crossAxisAlignment: CrossAxisAlignment.center,
+      //           children: <Widget>[
+      //             SPClassEncryptImage.asset(
+      //               SPClassImageUtil.spFunGetImagePath("ic_wx_login"),
+      //               fit: BoxFit.contain,
+      //               color: Colors.white,
+      //               width: height(22),
+      //             ),
+      //             SizedBox(width: 10,),
+      //             Text("去微信添加",style: TextStyle(fontSize: sp(15),color: Colors.white),)
+      //           ],
+      //         ),
+      //       ) ,
+      //     ),
+      //     onTap: () async {
+      //       fluwx.openWeChatApp().then((value){
+      //         SPClassLogUtils.spFunPrintLog(value.toString());
+      //       });
+      //     },
+      //   ),
+      // ),
     );
   }
 

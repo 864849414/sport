@@ -9,6 +9,7 @@ import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/utils/SPClassLogUtils.dart';
+import 'package:sport/utils/colors.dart';
 
 import 'package:sport/widgets/SPClassToolBar.dart';
 
@@ -67,25 +68,17 @@ class StateFeedback extends State<SPClassFeedbackPage>{
             SizedBox(height: 10,),
             GestureDetector(
               child:  Container(
-                height: height(53),
+                height: width(46),
                 alignment: Alignment.center,
                 child:Container(
                   alignment: Alignment.center,
-                  height: height(40),
-                  width: width(320),
+                  height: width(46),
+                  width: width(230),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(width(3)),
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                    ),
-                    boxShadow:[
-                      BoxShadow(
-                        offset: Offset(3,3),
-                        color: Color(0x4DF23B0C),
-                        blurRadius:width(5,),),
-                    ],
+                    borderRadius: BorderRadius.circular(width(4)),
+                    color: MyColors.main1
                   ),
-                  child:Text("提交",style: TextStyle(fontSize: sp(15),color: Colors.white),),
+                  child:Text("提交",style: TextStyle(fontSize: sp(19),color: Colors.white),),
                 ) ,
               ),
               onTap: () async {
