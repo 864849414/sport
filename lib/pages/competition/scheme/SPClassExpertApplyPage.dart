@@ -45,6 +45,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
   var spProTimer;
 
   var spProExpertType="足球";
+  List typeList =['足球','篮球'];
   TextEditingController spProNickTextEditingController;
   @override
   void initState() {
@@ -103,7 +104,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
               ),
               /// 专家类型
               Container(
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+                margin: EdgeInsets.only(left: width(20),right:width(20),top: width(17)),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -119,47 +120,90 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                         Text("*",style: TextStyle(fontSize:  sp(14),color: MyColors.main2),)
                       ],
                     ),
-
-                    GestureDetector(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(width: width(22)),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(spProExpertType,style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),)
-                                ],
-                              ),
-                            ),
-                            SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
-                              width: width(11),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: (){
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SPClassBottomLeaguePage(<String>["足球","篮球","电竞"],"请选择专家",(index){
+                    SizedBox(height: width(10),),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: (){
+                              spProExpertType='足球';
                               setState(() {
-                                spProExpertType=["足球","篮球","电竞"][index];
                               });
-                            },initialIndex:["足球","篮球","电竞"].indexOf(spProExpertType),);
-                          },
-                        );
-                      },
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: width(8)),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(width(16)),
+                                  color: spProExpertType=='足球'?MyColors.main1:Color(0xFFF5F6F7)
+                              ),
+                              child: Text('足球',style: TextStyle(fontSize: sp(13),color: spProExpertType=='足球'? Colors.white:MyColors.grey_99),),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: width(13),),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: (){
+                              spProExpertType='篮球';
+                              setState(() {
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: width(8)),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(width(16)),
+                                  color: spProExpertType=='篮球'?MyColors.main1:Color(0xFFF5F6F7)
+                              ),
+                              child: Text('篮球',style: TextStyle(fontSize: sp(13),color: spProExpertType=='篮球'? Colors.white:MyColors.grey_99),),
+                            ),
+                          ),
+                        ),
+                      ],
                     )
+                    // GestureDetector(
+                    //   child: Container(
+                    //     padding: EdgeInsets.symmetric(vertical: 10),
+                    //     child: Row(
+                    //       children: <Widget>[
+                    //         SizedBox(width: width(22)),
+                    //         Expanded(
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.start,
+                    //             children: <Widget>[
+                    //               Text(spProExpertType,style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),)
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                    //           width: width(11),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   onTap: (){
+                    //     showModalBottomSheet(
+                    //       context: context,
+                    //       builder: (BuildContext context) {
+                    //         return SPClassBottomLeaguePage(<String>["足球","篮球","电竞"],"请选择专家",(index){
+                    //           setState(() {
+                    //             spProExpertType=["足球","篮球","电竞"][index];
+                    //           });
+                    //         },initialIndex:["足球","篮球","电竞"].indexOf(spProExpertType),);
+                    //       },
+                    //     );
+                    //   },
+                    // )
 
                   ],
                 ),
               ),
               /// 实名认证
               Container(
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+                margin: EdgeInsets.only(left: width(20),right:width(20),top: width(25)),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -324,7 +368,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
 
               /// 上传身份证
               Container(
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+                margin: EdgeInsets.only(left: width(20),right:width(20),top: width(25)),
                 child: Column(
                   children: <Widget>[
                     Row(
