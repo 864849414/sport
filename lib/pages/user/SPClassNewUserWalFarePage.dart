@@ -8,6 +8,7 @@ import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 import 'SPClassRechargeDiamondPage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
@@ -55,7 +56,10 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
         // TODO: implement build
         return Scaffold(
                 appBar: SPClassToolBar(
-                  context,title: "新人福利",),
+                  context,title: "新人福利",
+                  spProBgColor: MyColors.main1,
+                  iconColor: 0xffffffff,
+                ),
           body: Container(
                 color: Color(0xFFF1F1F1),
                 width: MediaQuery.of(context).size.width,
@@ -118,15 +122,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                                     height: height(35),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(width(3)),
-                                      gradient: LinearGradient(
-                                          colors:(SPClassApplicaion.spProShowPListEntity!=null&&SPClassApplicaion.spProShowPListEntity.spProDoubleMoneys.length==0) ? [Colors.grey[300],Colors.grey[300]]:[Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                      ),
-                                      boxShadow:(SPClassApplicaion.spProShowPListEntity!=null&&SPClassApplicaion.spProShowPListEntity.spProDoubleMoneys.length==0) ?[]:[
-                                        BoxShadow(
-                                          offset: Offset(3,3),
-                                          color: Color(0x4DF23B0C),
-                                          blurRadius:width(5,),),
-                                      ],
+                                      color: MyColors.main1
                                     ),
                                     child: Text("领取",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
                                   )
@@ -209,18 +205,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                                     alignment: Alignment.center,
                                     width: width(75),
                                     height: height(35),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(width(3)),
-                                      gradient: LinearGradient(
-                                          colors:[Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                      ),
-                                      boxShadow:[
-                                        BoxShadow(
-                                          offset: Offset(3,3),
-                                          color: Color(0x4DF23B0C),
-                                          blurRadius:width(5,),),
-                                      ],
-                                    ),
+                                    color: MyColors.main1,
                                     child: Text("领取",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
                                   )
 
@@ -305,15 +290,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                                     height: height(35),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(width(3)),
-                                      gradient: LinearGradient(
-                                          colors:[Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                      ),
-                                      boxShadow:[
-                                        BoxShadow(
-                                          offset: Offset(3,3),
-                                          color: Color(0x4DF23B0C),
-                                          blurRadius:width(5,),),
-                                      ],
+                                      color: MyColors.main1,
                                     ),
                                     child: Text("领取",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
                                   )
@@ -398,15 +375,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                                     height: height(35),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(width(3)),
-                                      gradient: LinearGradient(
-                                          colors:[Color(0xFFF2150C),Color(0xFFF24B0C)]
-                                      ),
-                                      boxShadow:[
-                                        BoxShadow(
-                                          offset: Offset(3,3),
-                                          color: Color(0x4DF23B0C),
-                                          blurRadius:width(5,),),
-                                      ],
+                                      color: MyColors.main1,
                                     ),
                                     child: Text("领取",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
                                   )

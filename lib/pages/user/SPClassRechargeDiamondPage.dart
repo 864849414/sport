@@ -18,6 +18,7 @@ import "package:sport/utils/api/SPClassHttpCallBack.dart";
 import "package:sport/utils/SPClassStringUtils.dart";
 import "package:sport/utils/SPClassToastUtils.dart";
 import "package:sport/pages/user/SPClassContactPage.dart";
+import 'package:sport/utils/colors.dart';
 import "package:sport/widgets/SPClassPrecisionLimitFormatter.dart";
 import "package:fluwx/fluwx.dart" as fluwx;
 import "package:sport/widgets/SPClassToolBar.dart";
@@ -123,6 +124,8 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
         appBar:SPClassToolBar(
           context,
           title: "充值",
+          spProBgColor: MyColors.main1,
+          iconColor: 0xffffffff,
         ),
         body: Container(
           color: Color(0xFFF1F1F1),
@@ -130,62 +133,58 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                   Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow:[
-                        BoxShadow(
-                          offset: Offset(2,5),
-                          color: Color(0x0D000000),
-                          blurRadius:width(6,),),
-                        BoxShadow(
-                          offset: Offset(-5,1),
-                          color: Color(0x0D000000),
-                          blurRadius:width(6,),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(width(7))
+                Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.only(left: width(15),right: width(15),top: width(12),bottom: width(12)),
+                  margin: EdgeInsets.symmetric(vertical: width(6)),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('余额:  ',style: TextStyle(fontSize: sp(13),color: MyColors.grey_99),),
+                      Text('${SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond)}',style: TextStyle(fontSize: sp(23),color: Color(0xFF1B8DE0),),),
+                      SPClassEncryptImage.asset(
+                        SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                        width: width(17),
+                      ),
+
+                      Expanded(
+                        child: SizedBox(),
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.only(left: width(8),right: width(8),top: width(6),bottom: width(6)),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(width(15)),
+                              border: Border.all(width: 0.4,color: MyColors.grey_99)
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Text("查看明细",style: TextStyle(color: MyColors.grey_99,fontSize: sp(12)),),
+                              SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                                width: width(12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: (){
+                          SPClassNavigatorUtils.spFunPushRoute(context, SPClassDiamondHistoryPage());
+                        },
+                      )
+                    ],
                   ),
-                  margin: EdgeInsets.only(bottom: height(8),left: width(10),right: width(10),top: width(10)),
+                ),
+                   Container(
+                     color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: height(35),
-                        padding: EdgeInsets.only(left: width(13),right: width(13)),
-                        decoration: BoxDecoration(
-                            border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                        child: Text(
+                          '钻石充值',style: TextStyle(fontSize: sp(19),fontWeight: FontWeight.bold),
                         ),
-                        child: Row(
-                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: height(4),
-                              height: height(15),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFDE3C31),
-                                  borderRadius: BorderRadius.circular(100)
-                              ),
-                            ),
-                            SizedBox(width: 4,),
-                            Text("钻石充值",style: GoogleFonts.notoSansSC(fontWeight: FontWeight.w500,fontSize: sp(15)),),
-                            Text(" (余额"+SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond)+"钻石)",style: TextStyle(color: Color(0xFFB8B8B8),fontSize: sp(12)),),
-                            Expanded(
-                              child: SizedBox(),
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                padding: EdgeInsets.only(left: width(8),right: width(8),top: width(2),bottom: width(2)),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(width(3)),
-                                    border: Border.all(width: 0.4,color: Color(0xFF333333))
-                                ),
-                                child: Text("明细",style: TextStyle(color: Color(0xFF333333),fontSize: sp(14)),),
-                              ),
-                              onTap: (){
-                                SPClassNavigatorUtils.spFunPushRoute(context, SPClassDiamondHistoryPage());
-                              },
-                            )
-                          ],
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(10)),
+                        decoration: BoxDecoration(
+                          border: Border(bottom: BorderSide(width: 0.4,color:Color(0xFFF2F2F2),),)
                         ),
                       ),
                       Container(
@@ -214,10 +213,12 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
+                                        color: spProSelectIndex == rechargeString.indexOf(rechargeItem)
+                                        ?Color(0xFFFFEAE6):Color(0xFFF7F7F7),
                                         border: Border.all(
                                             color: spProSelectIndex == rechargeString.indexOf(rechargeItem)
-                                                ? Color(0xFFE36649)
-                                                : Color(0xFFA8A8A8),
+                                                ? Color(0xFFEB3E1C)
+                                                : Colors.transparent,
                                             width: 0.5)),
                                     child: isInput ? TextField(
                                       textAlign: TextAlign.center,
@@ -269,15 +270,15 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child:spProSelectIndex == rechargeString.indexOf(rechargeItem)
-                                        ? SPClassEncryptImage.asset(
-                                      SPClassImageUtil.spFunGetImagePath("ic_select_lab"),
-                                      width: width(18),
-                                    ):SizedBox(),
-                                  ),
+                                  // Positioned(
+                                  //   bottom: 0,
+                                  //   right: 0,
+                                  //   child:spProSelectIndex == rechargeString.indexOf(rechargeItem)
+                                  //       ? SPClassEncryptImage.asset(
+                                  //     SPClassImageUtil.spFunGetImagePath("ic_select_lab"),
+                                  //     width: width(18),
+                                  //   ):SizedBox(),
+                                  // ),
                                   Positioned(
                                     top: 0,
                                     left: 0,
@@ -556,27 +557,12 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
               ),*/
               GestureDetector(
                 child:  Container(
-                  height: width(64),
+                  height: width(61),
                   alignment: Alignment.topCenter,
-                  padding: EdgeInsets.only(top: width(5)),
                   child:Container(
                     alignment: Alignment.center,
-                    height: height(41),
-                    width: width(320),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(width(3)),
-                      gradient: LinearGradient(
-                          colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                      ),
-                      boxShadow:[
-                        BoxShadow(
-                          offset: Offset(3,3),
-                          color: Color(0x4DF23B0C),
-                          blurRadius:width(5,),),
-
-                      ],
-
-                    ),
+                    // height: height(41),
+                      color: MyColors.main1,
                     child:Text("立即支付",style: TextStyle(fontSize: sp(15),color: Colors.white),),
                   ) ,
                 ),

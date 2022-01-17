@@ -11,6 +11,7 @@ import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/pages/home/SPClassSchemeItemView.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassBallFooter.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 
@@ -64,7 +65,7 @@ class SPClassBuySchemeListPageState extends State<SPClassBuySchemeListPage>{
                   child: GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: spProItemIndex==0? Color(0xFFDE3C31):null,
+                          color: spProItemIndex==0? MyColors.main1:null,
                         borderRadius: BorderRadius.circular(100)
                       ),
                       height: height(27),
@@ -86,7 +87,7 @@ class SPClassBuySchemeListPageState extends State<SPClassBuySchemeListPage>{
                   child: GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: spProItemIndex==1? Color(0xFFDE3C31):null,
+                          color: spProItemIndex==1? MyColors.main1:null,
                           borderRadius: BorderRadius.circular(100)
                       ),
                       height: height(27),
@@ -108,7 +109,7 @@ class SPClassBuySchemeListPageState extends State<SPClassBuySchemeListPage>{
                   child: GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: spProItemIndex==2? Color(0xFFDE3C31):null,
+                          color: spProItemIndex==2? MyColors.main1:null,
                           borderRadius: BorderRadius.circular(100)
                       ),
                       height: height(27),
@@ -130,7 +131,7 @@ class SPClassBuySchemeListPageState extends State<SPClassBuySchemeListPage>{
                   child: GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: spProItemIndex==3? Color(0xFFDE3C31):null,
+                          color: spProItemIndex==3? MyColors.main1:null,
                           borderRadius: BorderRadius.circular(100)
                       ),
                       height: height(27),

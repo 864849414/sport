@@ -16,6 +16,7 @@ import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 
 import 'package:sport/pages/dialogs/SPClassBottomLeaguePage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 
 class SPClassExpertApplyPage extends StatefulWidget{
@@ -57,20 +58,24 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
     // TODO: implement build
     return Scaffold(
       appBar:SPClassToolBar(context,
-      title: "申请专家",),
+      title: "申请专家",
+      spProBgColor: MyColors.main1,
+        iconColor: 0xffffffff,
+      ),
       body:Container(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+
               AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 child: Container(
-                  color: Color(0xFFFFECC3),
+                  color: Color.fromRGBO(255, 106, 77, 0.1),
                   height: !spProCloseTitle ?height(33):0,
                   child: Row(
                     children: <Widget>[
-                    SizedBox(width:width(17) ,),
-                    Text("为了更好的为您服务，请务必填写真实信息",style: TextStyle(fontSize:  sp(13),color: Color(0xFFD7A843),)),
+                    SizedBox(width:width(15) ,),
+                    Text("为了更好的为您服务，请务必填写真实信息",style: TextStyle(fontSize:  sp(13),color: Color(0xFFEB3E1C),)),
                       spProCloseTitle ? Container(): Flexible(
                       flex: 1,
                       fit: FlexFit.tight,
@@ -79,7 +84,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           GestureDetector(
-                            child: Icon(Icons.close,color: Color(0xFFD7A843),size: width(20),),
+                            child: Icon(Icons.close,color: Color(0xFFCCCCCC),size: width(20),),
                             onTap: (){
                               if(mounted){
                                 setState(() {spProCloseTitle=true;});
@@ -96,11 +101,64 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                   ),
                 ),
               ),
-
+              /// 专家类型
               Container(
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        SPClassEncryptImage.asset(
+                          SPClassImageUtil.spFunGetImagePath("ic_edit_content"),
+                          fit: BoxFit.contain,
+                          width: width(18),
+                        ),
+                        SizedBox(width: width(5),),
+                        Text("专家类型",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+                        SizedBox(width: width(5),),
+                        Text("*",style: TextStyle(fontSize:  sp(14),color: MyColors.main2),)
+                      ],
+                    ),
+
+                    GestureDetector(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(width: width(22)),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(spProExpertType,style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),)
+                                ],
+                              ),
+                            ),
+                            SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                              width: width(11),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: (){
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SPClassBottomLeaguePage(<String>["足球","篮球","电竞"],"请选择专家",(index){
+                              setState(() {
+                                spProExpertType=["足球","篮球","电竞"][index];
+                              });
+                            },initialIndex:["足球","篮球","电竞"].indexOf(spProExpertType),);
+                          },
+                        );
+                      },
+                    )
+
+                  ],
                 ),
+              ),
+              /// 实名认证
+              Container(
                 margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
                 child: Column(
                   children: <Widget>[
@@ -112,126 +170,160 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                           width: width(18),
                         ),
                         SizedBox(width: width(5),),
-                        Text("真实姓名",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+                        Text("实名认证",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
                         SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+                        Text("*",style: TextStyle(fontSize:  sp(12),color:  MyColors.main2),)
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        SizedBox(width: width(22)),
                         Expanded(
                           flex: 1,
-                          child: TextField(
-                            maxLines: 1,
-                            style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                            decoration: InputDecoration(
-                              hintText: "请填写真实姓名，用于结算与认证",
-                              hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                              border: InputBorder.none,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: width(15),),
+                            margin: EdgeInsets.symmetric(vertical: width(8)),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF5F6F7),
+                              borderRadius: BorderRadius.circular(150)
                             ),
-                            onChanged: (value){
-                              spProRealName=value;
-                            },
+                            child: TextField(
+                              maxLines: 1,
+                              style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),
+                              decoration: InputDecoration(
+                                hintText: "请填写真实姓名，用于结算与认证",
+                                hintStyle: TextStyle(fontSize:  sp(12),color: Color(0xFFC6C6C6)),
+                                border: InputBorder.none,
+                              ),
+                              onChanged: (value){
+                                spProRealName=value;
+                              },
+                            ),
                           ),
                         )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_login_account"),
-                          fit: BoxFit.contain,
-                          width: width(18),
-                        ),
-                        SizedBox(width: width(5),),
-                        Text("昵称",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                        SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        SizedBox(width: width(22)),
                         Expanded(
                           flex: 1,
-                          child: TextField(
-                            maxLines: 1,
-                            controller: spProNickTextEditingController,
-                            style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                            decoration: InputDecoration(
-                              hintText: "请填写昵称",
-                              hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                              border: InputBorder.none,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: width(15),),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFF5F6F7),
+                                borderRadius: BorderRadius.circular(150)
                             ),
-                            onChanged: (value){
-                              spProNickName=value;
-                            },
-                          ),
+                            child: TextField(
+                              maxLines: 1,
+                              style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),
+                              decoration: InputDecoration(
+                                hintText: "请填写真实身份证号，用于结算与认证",
+                                hintStyle: TextStyle(fontSize:  sp(12),color: Color(0xFFC6C6C6)),
+                                border: InputBorder.none,
+                              ),
+                              onChanged: (value){
+                                spProIdNumber=value;
+                              },
+                            ),
+                          )
                         )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_user_id_num"),
-                          fit: BoxFit.contain,
-                          width: width(18),
-                        ),
-                        SizedBox(width: width(5),),
-                        Text("身份证号",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                        SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
                       ],
                     ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(22)),
-                        Expanded(
-                          flex: 1,
-                          child: TextField(
-                            maxLines: 1,
-                            style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                            decoration: InputDecoration(
-                              hintText: "请填写真实身份证号，用于结算与认证",
-                              hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                              border: InputBorder.none,
-                            ),
-                            onChanged: (value){
-                              spProIdNumber=value;
-                            },
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               ),
+              /// 昵称
+              // Container(
+              //   decoration: BoxDecoration(
+              //       border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+              //   ),
+              //   margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+              //   child: Column(
+              //     children: <Widget>[
+              //       Row(
+              //         children: <Widget>[
+              //           SPClassEncryptImage.asset(
+              //             SPClassImageUtil.spFunGetImagePath("ic_login_account"),
+              //             fit: BoxFit.contain,
+              //             width: width(18),
+              //           ),
+              //           SizedBox(width: width(5),),
+              //           Text("昵称",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+              //           SizedBox(width: width(5),),
+              //           Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+              //         ],
+              //       ),
+              //       Row(
+              //         children: <Widget>[
+              //           SizedBox(width: width(22)),
+              //           Expanded(
+              //             flex: 1,
+              //             child: TextField(
+              //               maxLines: 1,
+              //               controller: spProNickTextEditingController,
+              //               style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+              //               decoration: InputDecoration(
+              //                 hintText: "请填写昵称",
+              //                 hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+              //                 border: InputBorder.none,
+              //               ),
+              //               onChanged: (value){
+              //                 spProNickName=value;
+              //               },
+              //             ),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
 
+              /// 身份证号
+              // Container(
+              //   decoration: BoxDecoration(
+              //       border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+              //   ),
+              //   margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+              //   child: Column(
+              //     children: <Widget>[
+              //       Row(
+              //         children: <Widget>[
+              //           SPClassEncryptImage.asset(
+              //             SPClassImageUtil.spFunGetImagePath("ic_user_id_num"),
+              //             fit: BoxFit.contain,
+              //             width: width(18),
+              //           ),
+              //           SizedBox(width: width(5),),
+              //           Text("身份证号",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+              //           SizedBox(width: width(5),),
+              //           Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+              //         ],
+              //       ),
+              //       Row(
+              //         children: <Widget>[
+              //           SizedBox(width: width(22)),
+              //           Expanded(
+              //             flex: 1,
+              //             child: TextField(
+              //               maxLines: 1,
+              //               style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+              //               decoration: InputDecoration(
+              //                 hintText: "请填写真实身份证号，用于结算与认证",
+              //                 hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+              //                 border: InputBorder.none,
+              //               ),
+              //               onChanged: (value){
+              //                 spProIdNumber=value;
+              //               },
+              //             ),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+
+              /// 上传身份证
               Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
                 margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
                 child: Column(
                   children: <Widget>[
@@ -243,9 +335,10 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                           width: width(18),
                         ),
                         SizedBox(width: width(5),),
-                        Text("上传身份证",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+                        Text("比赛分析",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+                        Text("(截图在其他平台的分析)",style: TextStyle(fontSize:  sp(12),color: MyColors.grey_99),),
                         SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+                        Text("*",style: TextStyle(fontSize:  sp(12),color: MyColors.main2),)
                       ],
                     ),
                     Row(
@@ -332,301 +425,274 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
                 ),
               ),
 
-              Container(
-                  decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-          ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SPClassEncryptImage.asset(
-                    SPClassImageUtil.spFunGetImagePath("ic_edit_content"),
-                    fit: BoxFit.contain,
-                    width: width(18),
-                  ),
-                  SizedBox(width: width(5),),
-                  Text("申请理由",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                  SizedBox(width: width(5),),
-                  Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: width(22)),
-                  Expanded(
-                    flex: 1,
-                    child: TextField(
-                      maxLines: 5,
-                      style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                      decoration: InputDecoration(
-                        hintText: "请填写您成为专家的理由吧",
-                        hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                        border: InputBorder.none,
-                      ),
-                      onChanged: (value){
-                        spProApplyReason=value;
-                      },
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
+              /// 申请理由
+        //       Container(
+        //           decoration: BoxDecoration(
+        //       border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+        //   ),
+        //         margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+        //         child: Column(
+        //     children: <Widget>[
+        //       Row(
+        //         children: <Widget>[
+        //           SPClassEncryptImage.asset(
+        //             SPClassImageUtil.spFunGetImagePath("ic_edit_content"),
+        //             fit: BoxFit.contain,
+        //             width: width(18),
+        //           ),
+        //           SizedBox(width: width(5),),
+        //           Text("申请理由",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+        //           SizedBox(width: width(5),),
+        //           Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+        //         ],
+        //       ),
+        //       Row(
+        //         children: <Widget>[
+        //           SizedBox(width: width(22)),
+        //           Expanded(
+        //             flex: 1,
+        //             child: TextField(
+        //               maxLines: 5,
+        //               style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+        //               decoration: InputDecoration(
+        //                 hintText: "请填写您成为专家的理由吧",
+        //                 hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+        //                 border: InputBorder.none,
+        //               ),
+        //               onChanged: (value){
+        //                 spProApplyReason=value;
+        //               },
+        //             ),
+        //           )
+        //         ],
+        //       )
+        //     ],
+        //   ),
+        // ),
 
+              ///QQ号码
+              // Container(
+              //   decoration: BoxDecoration(
+              //       border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+              //   ),
+              //   margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+              //   child: Column(
+              //     children: <Widget>[
+              //       Row(
+              //         children: <Widget>[
+              //           SPClassEncryptImage.asset(
+              //             SPClassImageUtil.spFunGetImagePath("ic_login_account"),
+              //             fit: BoxFit.contain,
+              //             width: width(18),
+              //           ),
+              //           SizedBox(width: width(5),),
+              //           Text("QQ号码",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+              //           SizedBox(width: width(5),),
+              //           Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+              //         ],
+              //       ),
+              //       Row(
+              //         children: <Widget>[
+              //           SizedBox(width: width(22)),
+              //           Expanded(
+              //             flex: 1,
+              //             child: TextField(
+              //               maxLines: 1,
+              //               style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+              //               decoration: InputDecoration(
+              //                 hintText: "请填写QQ号码",
+              //                 hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+              //                 border: InputBorder.none,
+              //               ),
+              //               onChanged: (value){
+              //                 if(mounted){
+              //                   setState(() {
+              //                     QQNumber=value;
+              //                   });
+              //                 }
+              //               },
+              //             ),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+              ///手机号码
               Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
                 margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
                 child: Column(
                   children: <Widget>[
                     Row(
                       children: <Widget>[
                         SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_edit_content"),
+                          SPClassImageUtil.spFunGetImagePath("ic_login_account"),
+
                           fit: BoxFit.contain,
                           width: width(18),
                         ),
                         SizedBox(width: width(5),),
-                        Text("专家类型",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+                        Text("手机验证",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
                         SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+                        Text("*",style: TextStyle(fontSize:  sp(12),color: MyColors.main2),)
                       ],
                     ),
-
-                    GestureDetector(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(width: width(22)),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(spProExpertType,style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),)
-                                ],
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: width(15),),
+                            margin: EdgeInsets.symmetric(vertical: width(8)),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFF5F6F7),
+                                borderRadius: BorderRadius.circular(150)
+                            ),
+                            child: TextField(
+                              maxLines: 1,
+                              style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+                              decoration: InputDecoration(
+                                hintText: "请填写手机号码",
+                                hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+                                border: InputBorder.none,
                               ),
+                              onChanged: (value){
+                                if(mounted){
+                                  setState(() {
+                                    spProPhoneNumber=value;
+                                  });
+                                }
+                              },
                             ),
-                            SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
-                              width: width(11),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: width(15),),
+                            margin: EdgeInsets.only(right: width(89)),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFF5F6F7),
+                                borderRadius: BorderRadius.circular(150)
                             ),
-                          ],
+                            child: TextField(
+                              maxLines: 1,
+                              style: TextStyle(fontSize:  sp(12),color: Color(0xFF333333)),
+                              decoration: InputDecoration(
+                                hintText: "输入验证码",
+                                hintStyle: TextStyle(fontSize:  sp(12),color: Color(0xFFC6C6C6)),
+                                border: InputBorder.none,
+                              ),
+                              onChanged: (value){
+                                spProPhoneCode=value;
+                              },
+                            ),
+                          ),
                         ),
-                      ),
-                      onTap: (){
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SPClassBottomLeaguePage(<String>["足球","篮球","电竞"],"请选择专家",(index){
-                              setState(() {
-                                spProExpertType=["足球","篮球","电竞"][index];
-                              });
-                            },initialIndex:["足球","篮球","电竞"].indexOf(spProExpertType),);
+                        GestureDetector(
+                          onTap: (){
+                            if(spProPhoneNumber.length != 11 || spProCurrentSecond > 0){
+                              return;
+                            }
+                            spFunDoSendCode();
                           },
-                        );
-                      },
-                    )
-
-                  ],
-                ),
-              ),
-
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_login_account"),
-                          fit: BoxFit.contain,
-                          width: width(18),
-                        ),
-                        SizedBox(width: width(5),),
-                        Text("QQ号码",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                        SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(22)),
-                        Expanded(
-                          flex: 1,
-                          child: TextField(
-                            maxLines: 1,
-                            style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                            decoration: InputDecoration(
-                              hintText: "请填写QQ号码",
-                              hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                              border: InputBorder.none,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: width(9),vertical: width(10)),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xFFE6E6E6),width: 1),
+                              borderRadius: BorderRadius.circular(150),
                             ),
-                            onChanged: (value){
-                              if(mounted){
-                                setState(() {
-                                  QQNumber=value;
-                                });
-                              }
-                            },
+                            child: Text(spProCurrentSecond > 0
+                                ? "已发送" + spProCurrentSecond.toString() + "s"
+                                : "获取验证码",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
                           ),
                         )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_login_account"),
-
-                          fit: BoxFit.contain,
-                          width: width(18),
-                        ),
-                        SizedBox(width: width(5),),
-                        Text("手机号码",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                        SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
                       ],
                     ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(22)),
-                        Expanded(
-                          flex: 1,
-                          child: TextField(
-                            maxLines: 1,
-                            style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                            decoration: InputDecoration(
-                              hintText: "请填写手机号码",
-                              hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                              border: InputBorder.none,
-                            ),
-                            onChanged: (value){
-                              if(mounted){
-                                setState(() {
-                                  spProPhoneNumber=value;
-                                });
-                              }
-                            },
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               ),
-
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(
-                          SPClassImageUtil.spFunGetImagePath("ic_login_account"),
-                          fit: BoxFit.contain,
-                          width: width(18),
-                        ),
-                        SizedBox(width: width(5),),
-                        Text("验证码",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
-                        SizedBox(width: width(5),),
-                        Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(22)),
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: <Widget>[
-                              Flexible(
-                                flex: 1,
-                                fit: FlexFit.tight,
-                                child: TextField(
-                                  maxLines: 1,
-                                  style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
-                                  decoration: InputDecoration(
-                                    hintText: "请填写手机验证码",
-                                    hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
-                                    border: InputBorder.none,
-                                  ),
-                                  onChanged: (value){
-                                        spProPhoneCode=value;
-                                  },
-                                ),
-                              ),
-                              OutlineButton(
-                                padding: EdgeInsets.zero,
-                                child: Text(spProCurrentSecond > 0
-                                    ? "已发送" + spProCurrentSecond.toString() + "s"
-                                    : "获取验证码",style: TextStyle(fontSize: sp(11)),),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor, width: 1),
-                                textColor: Theme.of(context).primaryColor,
-                                disabledBorderColor: Colors.grey[300],
-                                onPressed: (spProPhoneNumber.length != 11 || spProCurrentSecond > 0)
-                                    ? null
-                                    : () {
-                                  spFunDoSendCode();
-                                },
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              ///验证码
+              // Container(
+              //   margin: EdgeInsets.only(left: width(20),right:width(20),top: height(10)),
+              //   child: Column(
+              //     children: <Widget>[
+              //       Row(
+              //         children: <Widget>[
+              //           SPClassEncryptImage.asset(
+              //             SPClassImageUtil.spFunGetImagePath("ic_login_account"),
+              //             fit: BoxFit.contain,
+              //             width: width(18),
+              //           ),
+              //           SizedBox(width: width(5),),
+              //           Text("验证码",style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),),
+              //           SizedBox(width: width(5),),
+              //           Text("*必填",style: TextStyle(fontSize:  sp(12),color: Color(0xFFFBA311)),)
+              //         ],
+              //       ),
+              //       Row(
+              //         children: <Widget>[
+              //           SizedBox(width: width(22)),
+              //           Expanded(
+              //             flex: 1,
+              //             child: Row(
+              //               children: <Widget>[
+              //                 Flexible(
+              //                   flex: 1,
+              //                   fit: FlexFit.tight,
+              //                   child: TextField(
+              //                     maxLines: 1,
+              //                     style: TextStyle(fontSize:  sp(13),color: Color(0xFF333333)),
+              //                     decoration: InputDecoration(
+              //                       hintText: "请填写手机验证码",
+              //                       hintStyle: TextStyle(fontSize:  sp(13),color: Color(0xFFC6C6C6)),
+              //                       border: InputBorder.none,
+              //                     ),
+              //                     onChanged: (value){
+              //                           spProPhoneCode=value;
+              //                     },
+              //                   ),
+              //                 ),
+              //                 OutlineButton(
+              //                   padding: EdgeInsets.zero,
+              //                   child: Text(spProCurrentSecond > 0
+              //                       ? "已发送" + spProCurrentSecond.toString() + "s"
+              //                       : "获取验证码",style: TextStyle(fontSize: sp(11)),),
+              //                   borderSide: BorderSide(
+              //                       color: Theme.of(context).primaryColor, width: 1),
+              //                   textColor: Theme.of(context).primaryColor,
+              //                   disabledBorderColor: Colors.grey[300],
+              //                   onPressed: (spProPhoneNumber.length != 11 || spProCurrentSecond > 0)
+              //                       ? null
+              //                       : () {
+              //                     spFunDoSendCode();
+              //                   },
+              //                 )
+              //               ],
+              //             ),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
       ),
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              boxShadow:[BoxShadow(
-                offset: Offset(1,1),
-                color: Color(0x1a000000),
-                blurRadius:width(6,),
-              )]
-          ),
-          height: height(53),
+          height: width(61),
           child:GestureDetector(
             child:  Container(
-              color: Colors.white,
-              height: height(53),
+              color: MyColors.main1,
               alignment: Alignment.center,
               child:Container(
                 alignment: Alignment.center,
-                height: height(40),
-                width: width(320),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(width(5)),
-                  gradient: LinearGradient(
-                      colors: [Color(0xFFF1585A),Color(0xFFF77273)]
-                  ),
-                ),
-                child:Text("提交认证",style: TextStyle(fontSize: sp(15),color: Colors.white),),
+                height: width(61),
+                child:Text("提交认证",style: TextStyle(fontSize: sp(19),color: Colors.white,fontWeight: FontWeight.w500),),
               ) ,
             ),
             onTap: () async {
@@ -677,26 +743,26 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
       SPClassToastUtils.spFunShowToast(msg: "请填写真实姓名");
       return;
     }
-    if(spProNickName.isEmpty){
-      SPClassToastUtils.spFunShowToast(msg: "请填写真实姓名");
-      return;
-    }
+    // if(spProNickName.isEmpty){
+    //   SPClassToastUtils.spFunShowToast(msg: "请填写真实姓名");
+    //   return;
+    // }
     if(spProIdNumber.isEmpty){
       SPClassToastUtils.spFunShowToast(msg: "请填写身份证号码");
       return;
     }
     if(spProBackFile==null||spProFrontFile==null){
-      SPClassToastUtils.spFunShowToast(msg: "请上传身份证正反面");
+      SPClassToastUtils.spFunShowToast(msg: "请上传比赛分析");
       return;
     }
-    if(spProApplyReason.isEmpty){
-      SPClassToastUtils.spFunShowToast(msg: "请填写申请理由");
-      return;
-    }
-    if(QQNumber.isEmpty){
-      SPClassToastUtils.spFunShowToast(msg: "请填写QQ号码");
-      return;
-    }
+    // if(spProApplyReason.isEmpty){
+    //   SPClassToastUtils.spFunShowToast(msg: "请填写申请理由");
+    //   return;
+    // }
+    // if(QQNumber.isEmpty){
+    //   SPClassToastUtils.spFunShowToast(msg: "请填写QQ号码");
+    //   return;
+    // }
     if(spProPhoneNumber.isEmpty){
       SPClassToastUtils.spFunShowToast(msg: "请填写手机号码");
       return;
@@ -706,7 +772,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
       return;
     }
 
-    if(spProIdFrontUrl.isEmpty||spProIdFrontUrl.isEmpty){
+    if(spProIdFrontUrl.isEmpty){
       SPClassApiManager.spFunGetInstance().spFunUploadFiles(context:context,files:[spProFrontFile,spProBackFile],params: {"is_multi":"1","is_private":"1"},
           spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
         spProOnSuccess: (result){

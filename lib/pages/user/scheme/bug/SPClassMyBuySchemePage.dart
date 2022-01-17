@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 
 
@@ -36,6 +37,8 @@ class SPClassMyBuySchemePageState extends State<SPClassMyBuySchemePage> with Tic
       appBar: SPClassToolBar(
         context,
         title:"已购的方案",
+        spProBgColor: MyColors.main1,
+        iconColor: 0xffffffff,
       ),
       body: Container(
         child: Column(
@@ -46,10 +49,10 @@ class SPClassMyBuySchemePageState extends State<SPClassMyBuySchemePage> with Tic
                   border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]),top: BorderSide(width: 0.4,color: Colors.grey[300]))
               ),
               child: TabBar(
-                  labelColor: Color(0xFFE3494B),
+                  labelColor: MyColors.main1,
                   unselectedLabelColor: Color(0xFF333333),
                   isScrollable: false,
-                  indicatorColor: Color(0xFFE3494B),
+                  indicatorColor: MyColors.main1,
                   labelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.bold),
                   unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.w400),
                   controller: spProTabController,

@@ -4,6 +4,7 @@ class MyColors {
 
   ///主色调
   static const Color main1 = Color(0xFF1B8DE0);
+  static const Color main2 = Color(0xFFEB3E1C);
   static const Color main1_down = Color(0x701172E9);
   ///
 
