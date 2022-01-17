@@ -6,10 +6,12 @@ import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/model/SPClassBaseModelEntity.dart';
 import 'package:sport/model/SPClassExpertListEntity.dart';
+import 'package:sport/utils/SPClassMatchDataUtils.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
+import 'package:sport/utils/colors.dart';
 import 'SPClassExpertDetailPage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/SPClassEncryptImage.dart';
@@ -140,6 +142,107 @@ class SPClassSearchExpertPageState extends State<SPClassSearchExpertPage>{
       body: ListView.builder(
           itemCount: spProExpertList.length,
           itemBuilder:(c,index){
+            var item=spProExpertList[index];
+            return GestureDetector(
+              child: Container(
+                padding: EdgeInsets.only(left: width(14),right: width(14),top: width(12),bottom: width(12)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(200),
+                          child:( item?.spProAvatarUrl==null||item.spProAvatarUrl.isEmpty)? SPClassEncryptImage.asset(
+                            SPClassImageUtil.spFunGetImagePath("ic_default_avater"),
+                            width: width(46),
+                            height: width(46),
+                          ):Image.network(
+                            item.spProAvatarUrl,
+                            width: width(46),
+                            height: width(46),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child:(item.spProNewSchemeNum!="null"&&int.tryParse(item.spProNewSchemeNum)>0)? Container(
+                            alignment: Alignment.center,
+                            width: width(12),
+                            height: width(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(width(6)),
+                              color: Color(0xFFE3494B),
+                            ),
+                            child:Text(item.spProNewSchemeNum,style: TextStyle(fontSize: sp(8),color: Colors.white),),
+                          ):Container(),
+                        )
+                      ],
+                    ),
+                    SizedBox(width: width(8),),
+                    Expanded(
+                      child: Text("${item.spProNickName}",style: TextStyle(fontSize: sp(17),color: Color(0xFF333333)),),
+                    ),
+                    // Text("胜率${(double.tryParse(item.spProCorrectRate) *100).toStringAsFixed(0)}%",
+                    Text("胜率${(SPClassMatchDataUtils.spFunCalcBestCorrectRate(item.spProLast10Result) * 100).toStringAsFixed(0)}%",
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w500,
+                        textStyle: TextStyle(
+                          letterSpacing: 0,
+                          wordSpacing: 0,
+                          fontSize: sp(17),
+                          color: Color(0xFFE3494B),),),
+                    ),
+                    SizedBox(width:width(15),),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: (){
+                        if(spFunIsLogin(context: context)){
+                          SPClassApiManager.spFunGetInstance().spFunFollowExpert(isFollow: !item.spProIsFollowing,spProExpertUid: item.spProUserId,context: context,spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
+                              spProOnSuccess: (result){
+                                if(!item.spProIsFollowing){
+                                  SPClassToastUtils.spFunShowToast(msg: "关注成功");
+                                  item.spProIsFollowing=true;
+                                }else{
+                                  item.spProIsFollowing=false;
+                                }
+                                setState(() {});
+                              }
+                          ));
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: width(8),vertical: width(4)),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,width: 0.5),
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(item.spProIsFollowing? Icons.check:Icons.add,color: item.spProIsFollowing?MyColors.grey_cc:MyColors.main1,size: width(15),),
+                            Text(item.spProIsFollowing? "已关注":"关注",style: TextStyle(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,fontSize: sp(12)),)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onTap: (){
+                SPClassApiManager.spFunGetInstance().spFunExpertInfo(queryParameters: {"expert_uid":item.spProUserId},
+                    context:context,spProCallBack: SPClassHttpCallBack(
+                        spProOnSuccess: (info){
+                          SPClassNavigatorUtils.spFunPushRoute(context,  SPClassExpertDetailPage(info));
+                        }
+                    ));
+              },
+
+            );
         return GestureDetector(
           child: Container(
             padding: EdgeInsets.all(width(10)),

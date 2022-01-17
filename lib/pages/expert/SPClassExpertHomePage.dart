@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sport/pages/expert/SPClassExpertLeaderboardPage.dart';
+import 'package:sport/pages/home/FollowPage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/pages/anylise/SPClassSearchExpertPage.dart';
 import 'package:sport/pages/expert/SPClassFollowHomePage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassSwitchTabBar.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 
@@ -31,13 +34,18 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
   List<Widget> views;
   static int index=1;
   PageController spProPageController;
+  TabController spProTabMatchController;   //顶部导航栏
+  List spProTabMatchTitles = ['关注', '足球', '篮球',];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    spProTabMatchController =
+        TabController(length: spProTabMatchTitles.length,initialIndex: 1, vsync: this);
     spProPageController=PageController(initialPage: index);
     //views=[/*FollowHomePage(),*/SPClassExpertLeaderboardPage()/*,ExpertListPage()*/];
-    views=[SPClassExpertLeaderboardPage()];
+    views=[FollowPage(),SPClassExpertLeaderboardPage(matchType: 'is_zq_expert',),SPClassExpertLeaderboardPage(matchType: 'is_lq_expert',)];
     /*if(index==1){
       ApiManager.getInstance().logAppEvent(spProEventName: "view_expert_ranking",);
     }*/
@@ -47,38 +55,83 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
     // TODO: implement build
     super.build(context);
     return Scaffold(
-     /* appBar: AppBar(
-        backgroundColor: Colors.white,
-        brightness: Brightness.light,
-        elevation: 0,
-        centerTitle: true,
-        title: SwitchTabBar(
-          spProTabTitles:titles,
-          index:index,
-          fontSize: sp(16),
-          width: width(67*titles.length),
-          height: width(29),
-          spProTabChanged: (index){
-            tapTopItem(index);
-          },
-        ),
-        actions: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: width(20)),
-            child:index==2 ? GestureDetector(
-              child: SPClassEncryptImage.asset(
-                ImageUtil.getImagePath("ic_search"),
-                width: width(16),
-                fit: BoxFit.fitWidth,
-                color: Color(0xFF333333),
-              ),
-              onTap: (){
-                NavigatorUtils.pushRoute(context, SearchExpertPage());
-              },
-            ):SizedBox(),
+      backgroundColor: Color(0xFFF2F2F2),
+      appBar: PreferredSize(
+          child: AppBar(
+            elevation: 0,
           ),
+          preferredSize: Size.fromHeight(0)),
+      body: Column(
+        children: <Widget>[
+          Container(
+            color: MyColors.main1,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    color: MyColors.main1,
+                    // padding:EdgeInsets.symmetric(vertical: height(11),horizontal: width(20)),
+                    padding: EdgeInsets.only(
+                        top: height(14),
+                        bottom: height(8),
+                        left: width(20),
+                        right: width(20)),
+                    child: Container(
+                      height: height(26),
+                      child: TabBar(
+                          indicator: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(width(150))),
+                          labelColor: MyColors.main1,
+                          labelPadding: EdgeInsets.zero,
+                          unselectedLabelColor: Colors.white,
+                          indicatorColor: MyColors.main1,
+                          unselectedLabelStyle: GoogleFonts.notoSansSC(
+                            fontSize: sp(17),
+                          ),
+                          isScrollable: false,
+                          indicatorSize:TabBarIndicatorSize.tab,
+                          labelStyle: GoogleFonts.notoSansSC(
+                            fontSize: sp(17),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          controller: spProTabMatchController,
+                          tabs: spProTabMatchTitles.map((key) {
+                            return Tab(
+                              text: key,
+                            );
+                          }).toList()),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: width(20)),
+                  child: GestureDetector(
+                    child: SPClassEncryptImage.asset(
+                      SPClassImageUtil.spFunGetImagePath("ic_search"),
+                      width: width(16),
+                      fit: BoxFit.fitWidth,
+                      color: Colors.white,
+                    ),
+                    onTap: (){
+                      SPClassNavigatorUtils.spFunPushRoute(context, SPClassSearchExpertPage());
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: width(6),),
+          Expanded(
+            child: TabBarView(
+              controller: spProTabMatchController,
+              children: views,
+            ),
+          )
         ],
-      ),*/
+      ),
+    );
+    return Scaffold(
      appBar: SPClassToolBar(context,title: "专家",showLead: false,
      actions: <Widget>[
        Container(
