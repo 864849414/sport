@@ -9,6 +9,7 @@ import 'package:sport/model/SPClassGuessMatchInfo.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
+import 'package:sport/utils/colors.dart';
 
 import 'SPClassMatchDateList.dart';
 
@@ -113,23 +114,25 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
         Column(
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(top: width(6)),
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
               ),
               child: TabBar(
-                  labelColor: Color(0xFFE3494B),
+                  labelColor: MyColors.main1,
                   unselectedLabelColor: Color(0xFF666666),
                   isScrollable: false,
-                  indicatorColor: Color(0xFFE3494B),
-                  labelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.bold),
-                  unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.w400),
+                  indicatorColor: MyColors.main1,
+                  labelStyle: GoogleFonts.notoSansSC(fontSize: sp(15),fontWeight: FontWeight.bold),
+                  unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(15),fontWeight: FontWeight.w400),
                   controller: spProTabController,
                   indicatorSize: TabBarIndicatorSize.label,
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: width(10)),
                   tabs:spProTabTitle.map((spProTabTitle){
                     return Container(
                       alignment: Alignment.center,
-                      height: height(35),
+                      height: width(35),
                       child:Text(spProTabTitle,style: TextStyle(letterSpacing: 0,wordSpacing: 0,fontSize: sp(15)),),
                     );
                   }).toList()

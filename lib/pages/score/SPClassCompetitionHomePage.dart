@@ -9,6 +9,7 @@ import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/pages/competition/filter/SPClassFilterHomePage.dart';
 import 'package:sport/pages/home/SPClassHomePage.dart';
 import 'package:sport/pages/score/SPClassTabMatchInfoPage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassSwitchTabBar.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 
@@ -69,7 +70,7 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
     return Scaffold(
       appBar:AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: MyColors.main1,
         elevation: 0,
         brightness: Brightness.light,
         leading: IconButton(
@@ -77,7 +78,7 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
           icon: SPClassEncryptImage.asset(
             SPClassImageUtil.spFunGetImagePath('ic_match_setting'),
             width: width(19),
-            color: Color(0xFF666666),
+            color: Colors.white,
           ),
           onPressed: (){
             if(spFunIsLogin(context: context)){
@@ -107,7 +108,7 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
             icon: SPClassEncryptImage.asset(
               SPClassImageUtil.spFunGetImagePath('ic_filter'),
               width: width(19),
-              color: Color(0xFF666666),
+              color: Colors.white,
             ),
             onPressed: (){
             SPClassNavigatorUtils.spFunPushRoute(context,SPClassFilterHomePage(
@@ -121,6 +122,7 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
           )
         ],
       ),
+      backgroundColor: Color(0xFFF2F2F2),
       body:PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: controller,

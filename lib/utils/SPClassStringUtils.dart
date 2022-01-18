@@ -56,12 +56,12 @@ class SPClassStringUtils{
     }
     if(decStatus!=null&&decStatus.trim().isNotEmpty){
       if(decStatus.trim()=="未"){
-        return "未开赛";
+        return "未";
       }
       return decStatus;
     }else{
         if(  DateTime.parse(spProStTime).difference(DateTime.now()).inSeconds>0){
-          return "未开赛";
+          return "未";
         }else{
           return "进行中";
         }

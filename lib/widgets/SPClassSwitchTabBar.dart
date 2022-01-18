@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sport/utils/colors.dart';
 
 class SPClassSwitchTabBar extends StatefulWidget{
    double height;
@@ -49,7 +50,7 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
            height: widget.height,
            decoration: BoxDecoration(
              borderRadius: BorderRadius.circular(widget.width),
-             color: Color(0xFFF2F2F2),
+             // color: Color(0xFFF2F2F2),
            ),
            child: Row(
              children:widget.spProTabTitles.map((item){
@@ -58,7 +59,7 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
                    behavior: HitTestBehavior.opaque,
                    child: Center(
                      child: Text(
-                       item,style: TextStyle(color: Color(0xFF818080),fontSize:widget.fontSize,fontWeight: FontWeight.w400),
+                       item,style: TextStyle(color: Colors.white,fontSize:widget.fontSize,fontWeight: FontWeight.w400),
                      ),
                    ),
                    onTap: ()=>spFunStartAnmat(widget.spProTabTitles.indexOf(item)),
@@ -75,15 +76,16 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
              margin: EdgeInsets.all(widget.height*0.07),
              decoration: BoxDecoration(
                  borderRadius: BorderRadius.circular(widget.width),
-                 gradient:LinearGradient(
-                     colors: [
-                       Color(0xFFF2150C),
-                       Color(0xFFF24B0C),
-                     ]
-                 ),
+                 color: Colors.white
+                 // gradient:LinearGradient(
+                 //     colors: [
+                 //       Color(0xFFF2150C),
+                 //       Color(0xFFF24B0C),
+                 //     ]
+                 // ),
              ),
              child:  Center(
-               child: Text(widget.spProTabTitles[spProPerIndex],style:TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: widget.fontSize),),
+               child: Text(widget.spProTabTitles[spProPerIndex],style:TextStyle(color: MyColors.main1,fontWeight: FontWeight.bold,fontSize: widget.fontSize),),
              ),
            ) ,
          ),
