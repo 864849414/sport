@@ -56,7 +56,7 @@ class SPClassMatchDetailSchemeListPageState extends State<SPClassMatchDetailSche
           ],
           borderRadius: BorderRadius.circular(width(7))
       ),
-      margin: EdgeInsets.only(left: width(10),right: width(10),top: width(7)),
+      // margin: EdgeInsets.only(left: width(10),right: width(10),top: width(7)),
       child: EasyRefresh.custom(
         controller: controller,
         onRefresh: spFunOnRefresh,

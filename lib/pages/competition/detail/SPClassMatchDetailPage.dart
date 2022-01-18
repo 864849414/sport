@@ -16,6 +16,7 @@ import 'package:sport/pages/competition/detail/basketball/SPClassMatchAnylizeBas
 import 'package:sport/pages/competition/detail/basketball/SPClassMatchLiveBasketballTeamPage.dart';
 import 'package:sport/pages/competition/detail/video/SPClassLiveVideoPage.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassMarqueeWidget.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -69,7 +70,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
       }
 
       if(SPClassApplicaion.spProShowMenuList.contains("match_scheme")){
-        spProTabTitles.add("推荐");
+        spProTabTitles.add("方案");
         views.add(SPClassMatchRecomPage(widget.spProSportMatch));
       }
     }
@@ -487,13 +488,15 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
                     border: Border(bottom: BorderSide(width: 0.4,color: Color(0xFFCCCCCC)))
                 ),
                 child: TabBar(
-                  labelColor: Color(0xFFE3494B),
+                  indicatorColor: Colors.blue,
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: width(5)),
+                  labelColor: MyColors.main1,
                   labelPadding: EdgeInsets.zero,
-                  unselectedLabelColor: Color(0xFF333333),
-                  indicatorColor: Colors.red[500],
+                  unselectedLabelColor: MyColors.grey_66,
+                  unselectedLabelStyle: TextStyle(color: MyColors.grey_66,fontWeight: FontWeight.w400),
                   isScrollable: false,
                   indicatorSize:TabBarIndicatorSize.label,
-                  labelStyle: TextStyle(fontSize: sp(16)),
+                  labelStyle: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),
                   controller: spProTabController,
                   tabs:spProTabTitles.map((key){
                     return    Tab(text: key,);
