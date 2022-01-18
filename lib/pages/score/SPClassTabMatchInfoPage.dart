@@ -29,7 +29,7 @@ class SPClassTabMatchInfoPage extends StatefulWidget {
 class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with TickerProviderStateMixin{
   TabController spProTabController;
   List<SPClassMatchDateList> views=List();
-  var spProTabTitle =["全部","即时","赛果","赛程","关注"];
+  var spProTabTitle =["全部","热门","即时","赛果","赛程","关注"];
   var spProReFreshTime;
   static int spProReTime=30;
    int follow = 0;
@@ -40,6 +40,7 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
     spFollowlist();
     var match_key=(widget.spProMatchType=="足球"? "zq":widget.spProMatchType=="篮球"? "lq":"dj");
     views.add(SPClassMatchDateList(status: "all",spProMatchType:widget.spProMatchType));
+    views.add(SPClassMatchDateList(status: "all",spProMatchType:widget.spProMatchType,isHot: true,));
     views.add(SPClassMatchDateList(status: "in_progress",spProMatchType:widget.spProMatchType));
     views.add(SPClassMatchDateList(status: "over",spProMatchType:widget.spProMatchType,));
     views.add(SPClassMatchDateList(status: "not_started",spProMatchType:widget.spProMatchType));
@@ -128,7 +129,7 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
                   unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(15),fontWeight: FontWeight.w400),
                   controller: spProTabController,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.symmetric(horizontal: width(10)),
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: width(5)),
                   tabs:spProTabTitle.map((spProTabTitle){
                     return Container(
                       alignment: Alignment.center,

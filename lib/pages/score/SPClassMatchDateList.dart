@@ -33,8 +33,9 @@ import 'SPClassMatchFootballView.dart';
 class SPClassMatchDateList extends StatefulWidget{
   String status;
   String spProMatchType;
+  bool isHot;
   SPClassMatchDateListState spProState;
-  SPClassMatchDateList({this.status,this.spProMatchType});
+  SPClassMatchDateList({this.status,this.spProMatchType,this.isHot});
 
   @override
   State<StatefulWidget> createState() {
@@ -65,6 +66,9 @@ class SPClassMatchDateListState extends State<SPClassMatchDateList> {
     super.initState();
     controller=EasyRefreshController();
     spProListScrollController=ScrollController();
+    if(widget.isHot==true){
+      spProIsHot = '1';
+    }
     if(SPClassMatchListSettingPageState.spProMatchShowType==0||widget.status=="my_collected"){
       showLeagueGroupType=false;
     }else{
@@ -231,29 +235,29 @@ class SPClassMatchDateListState extends State<SPClassMatchDateList> {
           ],
         ),
       ),
-      floatingActionButton:(widget.status=="my_collected"|| widget.spProMatchType=="lol"||showLeagueGroupType) ? SizedBox():GestureDetector(
-        child: Container(
-          height: width(40),
-          width: width(40),
-          decoration: ShapeDecoration(
-            shape: CircleBorder(),
-            color:spProIsHot=="1"? Colors.grey[400].withOpacity(0.7):Color(0xFFDE3C31),
-          ),
-          alignment: Alignment.center,
-          child: Text(spProIsHot=="1"? "全部":"热门",style: TextStyle(fontSize: sp(12),color: Colors.white),),
-        ),
-        onTap: (){
-          setState(() {
-            spProIsHot=spProIsHot=="" ? "1":"";
-            this.spProIsLottery="";
-          });
-          if(widget.status=="all"){
-            SPClassApplicaion.spProEventBus.fire("match:"+(spProIsHot=="1"? "热门":"全部"));
-          }
-          controller.callRefresh();
-
-        },
-      ),
+      // floatingActionButton:(widget.status=="my_collected"|| widget.spProMatchType=="lol"||showLeagueGroupType) ? SizedBox():GestureDetector(
+      //   child: Container(
+      //     height: width(40),
+      //     width: width(40),
+      //     decoration: ShapeDecoration(
+      //       shape: CircleBorder(),
+      //       color:spProIsHot=="1"? Colors.grey[400].withOpacity(0.7):Color(0xFFDE3C31),
+      //     ),
+      //     alignment: Alignment.center,
+      //     child: Text(spProIsHot=="1"? "全部":"热门",style: TextStyle(fontSize: sp(12),color: Colors.white),),
+      //   ),
+      //   onTap: (){
+      //     setState(() {
+      //       spProIsHot=spProIsHot=="" ? "1":"";
+      //       this.spProIsLottery="";
+      //     });
+      //     if(widget.status=="all"){
+      //       SPClassApplicaion.spProEventBus.fire("match:"+(spProIsHot=="1"? "热门":"全部"));
+      //     }
+      //     controller.callRefresh();
+      //
+      //   },
+      // ),
     );
   }
 
