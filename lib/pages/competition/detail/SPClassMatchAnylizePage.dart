@@ -432,22 +432,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             milliseconds: 300
         ),
         child:Container(
-          decoration: BoxDecoration(
               color: Colors.white,
-              boxShadow:[
-                BoxShadow(
-                  offset: Offset(2,5),
-                  color: Color(0x0C000000),
-                  blurRadius:width(6,),),
-                BoxShadow(
-                  offset: Offset(-5,1),
-                  color: Color(0x0C000000),
-                  blurRadius:width(6,),
-                )
-              ],
-              borderRadius: BorderRadius.circular(width(7))
-          ),
-          margin: EdgeInsets.only(left: width(10),right: width(10),top: width(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[

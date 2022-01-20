@@ -84,7 +84,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
       },)
       );
       if(SPClassApplicaion.spProShowMenuList.contains("match_analyse")){
-        spProTabTitles.add("分析");
+        spProTabTitles.add("数据");
         views.add(SPClassMatchAnylizeBasketBallPage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId},widget.spProSportMatch));
       }
 
@@ -154,7 +154,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-  return Scaffold(
+    return Scaffold(
     body:((widget.spProSportMatch.spProVideoUrl!=null&&widget.spProSportMatch.spProVideoUrl.isNotEmpty)&&SPClassMatchDataUtils.spFunShowLive(widget.spProSportMatch.status)&&spProPlayVideo) ?
     Container(
      child: Column(
