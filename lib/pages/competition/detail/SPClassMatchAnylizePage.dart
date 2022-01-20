@@ -20,6 +20,7 @@ import 'package:sport/utils/SPClassStringUtils.dart';
 import 'package:sport/pages/common/SPClassLoadingPage.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -110,7 +111,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
         child: Column(
           children: [
 
-            SizedBox(height:width(10)),
+            // SizedBox(height:width(10)),
 
 //            预测
             calculate(),
@@ -131,6 +132,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
 //            能力对比
             ability(),
+            myDivider(),
 //        积分排名
             scoreRanking(),
 //            历史战绩
@@ -436,233 +438,164 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_match_statc_title"),width: width(319),),
-                  Text("能力对比",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),)
-                ],
-              ),
-
-              Container(
-                child: Column(
-                  children: <Widget>[
-
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(11),),
-                        Text((
-                            spFunGetMatchAllPointsScore(1,"全部")
-                                +spFunGetMatchAllPointsScore(1,"同主客")
-                                +spFunAvgWinOrLose25Score(true,1)
-                                +spFunAvgWinOrLose25Score(false,1)
-
-                        ).toStringAsFixed(0),
-                          style: TextStyle(fontSize: sp(12)),),
-                        Expanded(
-                          child: Center(
-                            child:  Text("能力指数",
-                              style: TextStyle(fontSize: sp(12)),),
-                          ),
-                        ),
-                        Text((
-                            spFunGetMatchAllPointsScore(2,"全部")
-                                +spFunGetMatchAllPointsScore(2,"同主客")
-                                +spFunAvgWinOrLose25Score(true,2)
-                                +spFunAvgWinOrLose25Score(false,2)
-
-
-
-                        ).toStringAsFixed(0),
-                          style: TextStyle(fontSize: sp(12)),),
-                        SizedBox(width: width(11),),
-
-                      ],
-                    ),
-                    SizedBox(height: width(7),),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: width(11),),
-                        Expanded(
-                          flex:(spFunGetMatchAllPointsScore(1,"全部")+
-                              spFunGetMatchAllPointsScore(1,"同主客")+
-                              spFunAvgWinOrLose25Score(true,1)+
-                              spFunAvgWinOrLose25Score(false,1)).toInt(),
-                          child: Container(
-                            margin: EdgeInsets.only(right: 2),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFDE3C31),
-                                borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
-                            ),
-                            height: width(13),
-                          ),
-                        ),
-                        Expanded(
-                          flex:(spFunGetMatchAllPointsScore(2,"全部")+
-                              spFunGetMatchAllPointsScore(2,"同主客")+
-                              spFunAvgWinOrLose25Score(true,2)+
-                              spFunAvgWinOrLose25Score(false,2)).toInt() ,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFF5D8AF7),
-                                borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
-                            ),
-                            alignment: Alignment.center,
-                            height: width(13),
-                          ),
-                        ),
-                        SizedBox(width: width(11),),
-                      ],
-                    ),
-                    SizedBox(height: width(7),),
-                  ],
-                ),
-              ),
-
+              // Stack(
+              //   alignment: Alignment.center,
+              //   children: <Widget>[
+              //     SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_match_statc_title"),width: width(319),),
+              //     Text("能力对比",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),)
+              //   ],
+              // ),
+              ///近期战绩
               (spFunGetMatchAllPointsScore(1,"全部")+spFunGetMatchAllPointsScore(2,"全部")==0) ?SizedBox():Container(
-                child: Column(
+                padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(20)),
+                child: Row(
                   children: <Widget>[
-                    Text("近期战绩",
-                      style: TextStyle(fontSize: sp(12)),),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          width: width(62),
-                          child: Text(sprintf("%d胜%d平%d负",
-                              [
-                                spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 1),
-                                spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 0),
-                                spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 2),
-                              ]
-                          ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
-                          ),
-                        ),
-                        Expanded(
-                          child:  Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex:(spFunGetMatchAllPointsScore(1,"全部") *100).toInt(),
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 2),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFDE3C31),
-                                      borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
-                                  ),
-                                  height: width(7),
-                                ),
-                              ),
-                              Expanded(
-                                flex:(spFunGetMatchAllPointsScore(2,"全部") *100).toInt() ,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFF5D8AF7),
-                                      borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
-                                  ),
-                                  alignment: Alignment.center,
-                                  height: width(7),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ) ,
-                        Container(
-                          alignment: Alignment.center,
-                          width: width(62),
-                          child: Text(sprintf("%d胜%d平%d负",
-                              [
-                                spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 1,winTeam: 2),
-                                spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 0,winTeam: 2),
-                                spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 2,winTeam: 2),
-                              ]
-                          ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(sprintf("%d胜%d平%d负",
+                          [
+                            spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 1),
+                            spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 0),
+                            spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 2),
+                          ]
+                      ),
+                        style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    SizedBox(height: width(7),),
+                    Expanded(
+                      child: Text("近期战绩",
+                        style: TextStyle(fontSize: sp(12)),textAlign: TextAlign.center,),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(sprintf("%d胜%d平%d负",
+                          [
+                            spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 1,winTeam: 2),
+                            spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 0,winTeam: 2),
+                            spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 2,winTeam: 2),
+                          ]
+                      ),
+                        style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-              (spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList().length==0)? SizedBox(): Container(
-                child: Column(
+              (spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList().length==0)?SizedBox():Container(
+                padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(20)),
+                child: Row(
                   children: <Widget>[
-                    Text("同主客战绩",
-                      style: TextStyle(fontSize: sp(12)),),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          width: width(62),
-                          child: Text(sprintf("%d胜%d平%d负",
-                              [
-                                spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1),
-                                spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0),
-                                spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2),
-                              ]
-                          ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
-                          ),
-                        ),
-                        Expanded(
-                          child:  Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex:(spFunGetMatchAllPointsScore(1,"同主客")*100).toInt(),
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 2),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFDE3C31),
-                                      borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
-                                  ),
-                                  height: width(7),
-                                ),
-                              ),
-                              Expanded(
-                                flex:(spFunGetMatchAllPointsScore(2,"同主客")*100).toInt(),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFF5D8AF7),
-                                      borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
-                                  ),
-                                  alignment: Alignment.center,
-                                  height: width(7),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ) ,
-                        Container(
-                          alignment: Alignment.center,
-                          width: width(62),
-                          child: Text(sprintf("%d胜%d平%d负",
-                              [
-                                spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1,winTeam: 2),
-                                spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0,winTeam: 2),
-                                spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2,winTeam: 2),
-                              ]
-                          ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(sprintf("%d胜%d平%d负",
+                          [
+                            spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1),
+                            spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0),
+                            spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2),
+                          ]
+                      ),
+                        style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    SizedBox(height: width(7),),
+                    Expanded(
+                      child: Text("近期战绩",
+                        style: TextStyle(fontSize: sp(12)),textAlign: TextAlign.center,),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(sprintf("%d胜%d平%d负",
+                          [
+                            spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1,winTeam: 2),
+                            spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0,winTeam: 2),
+                            spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2,winTeam: 2),
+                          ]
+                      ),
+                        style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
+              ///能力指数
               Container(
                 child: Column(
                   children: <Widget>[
-                    Text("场均进球",
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.centerRight,
+                          width: width(62),
+                          child: Text((
+                              spFunGetMatchAllPointsScore(1,"全部")
+                                  +spFunGetMatchAllPointsScore(1,"同主客")
+                                  +spFunAvgWinOrLose25Score(true,1)
+                                  +spFunAvgWinOrLose25Score(false,1)
+                          ).toStringAsFixed(0),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                          ),
+                        ),
+                        SizedBox(width: width(8),),
+                        Expanded(
+                          child:  Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex:(spFunGetMatchAllPointsScore(1,"全部")+
+                                    spFunGetMatchAllPointsScore(1,"同主客")+
+                                    spFunAvgWinOrLose25Score(true,1)+
+                                    spFunAvgWinOrLose25Score(false,1)).toInt(),
+
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 2),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: MyColors.main1,
+                                      borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
+                                  ),
+                                  height: width(7),
+                                ),
+                              ),
+                              Expanded(
+                                flex:(spFunGetMatchAllPointsScore(2,"全部")+
+                                    spFunGetMatchAllPointsScore(2,"同主客")+
+                                    spFunAvgWinOrLose25Score(true,2)+
+                                    spFunAvgWinOrLose25Score(false,2)).toInt() ,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFFF5F40),
+                                      borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
+                                  ),
+                                  alignment: Alignment.center,
+                                  height: width(7),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ) ,
+                        SizedBox(width: width(8),),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          width: width(62),
+                          child: Text((
+                              spFunGetMatchAllPointsScore(2,"全部")
+                                  +spFunGetMatchAllPointsScore(2,"同主客")
+                                  +spFunAvgWinOrLose25Score(true,2)
+                                  +spFunAvgWinOrLose25Score(false,2)
+                          ).toStringAsFixed(0),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text("能力指数",
                       style: TextStyle(fontSize: sp(12)),),
+                    SizedBox(height: width(8),),
+                  ],
+                ),
+              ),
+              ///场均进球
+              Container(
+                child: Column(
+                  children: <Widget>[
                     Row(
                       children: <Widget>[
                         Container(
@@ -673,9 +606,10 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                 SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreOne(true).toStringAsFixed(2))
                               ]
                           ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
                           ),
                         ),
+                        SizedBox(width: width(8),),
                         Expanded(
                           child:  Row(
                             children: <Widget>[
@@ -686,7 +620,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                   margin: EdgeInsets.only(right: 2),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                      color: Color(0xFFDE3C31),
+                                      color: MyColors.main1,
                                       borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
                                   ),
                                   height: width(7),
@@ -696,7 +630,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                 flex:(spFunAvgWinOrLoseScoreTwo(true)*100).toInt() ,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: Color(0xFF5D8AF7),
+                                      color: Color(0xFFFF5F40),
                                       borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
                                   ),
                                   alignment: Alignment.center,
@@ -706,6 +640,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                             ],
                           ),
                         ) ,
+                        SizedBox(width: width(8),),
                         Container(
                           alignment: Alignment.centerLeft,
                           width: width(62),
@@ -716,21 +651,21 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
                               ]
                           ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: width(7),),
+                    Text("场均进球",
+                      style: TextStyle(fontSize: sp(12)),),
+                    SizedBox(height: width(8),),
                   ],
                 ),
               ),
-
+              ///场均失球
               Container(
                 child: Column(
                   children: <Widget>[
-                    Text("场均失球",
-                      style: TextStyle(fontSize: sp(12)),),
                     Row(
                       children: <Widget>[
                         Container(
@@ -741,9 +676,10 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                 SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreOne(false).toStringAsFixed(2))
                               ]
                           ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
                           ),
                         ),
+                        SizedBox(width: width(8),),
                         Expanded(
                           child:  Row(
                             children: <Widget>[
@@ -753,7 +689,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                   margin: EdgeInsets.only(right: 2),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                      color: Color(0xFFDE3C31),
+                                      color: MyColors.main1,
                                       borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
                                   ),
                                   height: width(7),
@@ -763,7 +699,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                 flex:(spFunAvgWinOrLoseScoreOne(false)*100).toInt() ,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: Color(0xFF5D8AF7),
+                                      color: Color(0xFFFF5F40),
                                       borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
                                   ),
                                   alignment: Alignment.center,
@@ -773,6 +709,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                             ],
                           ),
                         ) ,
+                        SizedBox(width: width(8),),
                         Container(
                           alignment: Alignment.centerLeft,
                           width: width(62),
@@ -781,12 +718,14 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                 SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreTwo(false).toStringAsFixed(2))
                               ]
                           ),
-                            style: TextStyle(fontSize: sp(11),color: Color(0xFF666666)),
+                            style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: width(7),),
+                    Text("场均失球",
+                      style: TextStyle(fontSize: sp(12)),),
+                    SizedBox(height: width(8),),
                   ],
                 ),
               ),
@@ -1082,31 +1021,67 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
   Widget history(){
     return Visibility(
       child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow:[
-              BoxShadow(
-                offset: Offset(2,5),
-                color: Color(0x0C000000),
-                blurRadius:width(6,),),
-              BoxShadow(
-                offset: Offset(-5,1),
-                color: Color(0x0C000000),
-                blurRadius:width(6,),
-              )
-            ],
-            borderRadius: BorderRadius.circular(width(7))
-        ),
-        margin: EdgeInsets.only(left: width(10),right: width(10),top: width(10)),
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_match_statc_title"),width: width(319),),
-                Text("对赛往绩",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),)
-              ],
+            Container(
+              padding: EdgeInsets.only(left: width(15),right: width(15),top: width(24),bottom: width(10)),
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: Text("对赛往绩",style: TextStyle(fontSize: sp(17),fontWeight: FontWeight.bold),)),
+                  Container(
+                    width: width(93),
+                    height: width(27),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: FlatButton(
+                            padding: EdgeInsets.zero,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(width(12)),topLeft: Radius.circular(width(12))),
+                                  // border: Border.all(color: spProHistoryKey=="全部"? MyColors.main1:Color(0xFFF2F2F2),width: 0.4),
+                                  color: spProHistoryKey=="全部"? MyColors.main1:Color(0xFFF2F2F2)
+                              ),
+                              alignment: Alignment.center,
+                              child: Text("全部",style: TextStyle(fontSize: sp(14),color: spProHistoryKey=="全部"? Colors.white :Color(0xFF999999)),),
+                            ),
+                            onPressed: (){
+                              setState(() {
+                                spProHistoryKey="全部";
+                              });
+
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: FlatButton(
+                            padding: EdgeInsets.zero,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight:Radius.circular(width(12)),
+                                      topRight: Radius.circular(width(12))),
+                                  // border: Border.all(color: spProHistoryKey=="主场"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
+                                  color: spProHistoryKey=="主场"? MyColors.main1:Color(0xFFF2F2F2)
+
+                            ),
+                              alignment: Alignment.center,
+                              child: Text("主场",style: TextStyle(fontSize: sp(14),color:spProHistoryKey=="主场"? Colors.white :Color(0xFF999999)),),
+                            ),
+                            onPressed: (){
+                              setState(() {
+                                spProHistoryKey="主场";
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1117,10 +1092,8 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: <Widget>[
-                      Text(widget.spProGuessMatch.spProTeamOne,style: TextStyle(fontSize: sp(13)),),
-                      Text("  vs  ",style: TextStyle(fontSize: sp(13),color: Color(0xFF999999)),),
-                      Text(widget.spProGuessMatch.spProTeamTwo,style: TextStyle(fontSize: sp(13)),),
-                      Text(sprintf("  (%d场交锋)",[
+                      Text('${widget.spProGuessMatch.spProTeamOne}VS${widget.spProGuessMatch.spProTeamTwo}',style: TextStyle(fontSize: sp(13)),),
+                      Text(sprintf("  (%d场)",[
                         spFunGetHistoryList(spProHistoryKey).length
                       ]
                       ),
@@ -1128,56 +1101,6 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(right:  height(11)),
-                  width: width(93),
-                  height: width(27),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: FlatButton(
-                          padding: EdgeInsets.zero,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(bottomLeft:Radius.circular(width(5)),topLeft: Radius.circular(width(5))),
-                                border: Border.all(color: spProHistoryKey=="全部"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
-                                color: spProHistoryKey=="全部"? Color(0xFFDE3C31):Colors.white
-                            ),
-                            alignment: Alignment.center,
-                            child: Text("全部",style: TextStyle(fontSize: sp(14),color: spProHistoryKey=="全部"? Colors.white :Color(0xFF666666)),),
-                          ),
-                          onPressed: (){
-                            setState(() {
-                              spProHistoryKey="全部";
-                            });
-
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: FlatButton(
-                          padding: EdgeInsets.zero,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomRight:Radius.circular(width(5)),
-                                    topRight: Radius.circular(width(5))),
-                                border: Border.all(color: spProHistoryKey=="主场"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
-                                color: spProHistoryKey=="主场"? Color(0xFFDE3C31):Colors.white
-                            ),
-                            alignment: Alignment.center,
-                            child: Text("主场",style: TextStyle(fontSize: sp(14),color:spProHistoryKey=="主场"? Colors.white :Color(0xFF666666)),),
-                          ),
-                          onPressed: (){
-                            setState(() {
-                              spProHistoryKey="主场";
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
             SizedBox(height:width(10) ,),
@@ -1187,18 +1110,17 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(widget.spProGuessMatch.spProTeamOne,
+                      Text('${widget.spProGuessMatch.spProTeamOne}:',
                         style: TextStyle(
-                          fontSize: sp(13),
-                          color: Color(0xFFDE3C31),
+                          fontSize: sp(15),
+                          color: Color(0xFF333333),
                         ),),
                       Text(sprintf("  %d胜%d平%d负",[
                         spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),1),
                         spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),0),
                         spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),2),
-                      ]
+                      ],
                       ),
-
                         style: TextStyle(fontSize: sp(12)),),
                     ],
                   ),
@@ -1206,31 +1128,62 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                   Row(
                     children: <Widget>[
                       spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1)==0? SizedBox(): Container(
-                        margin: EdgeInsets.only(right: 2),
+                        margin: EdgeInsets.only(right: width(4)),
+                        decoration: BoxDecoration(
+                          color: MyColors.main1,
+                          borderRadius: BorderRadius.horizontal(left: Radius.circular(width(4)))
+                        ),
                         alignment: Alignment.center,
                         width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1),
-                        height: width(21),
-                        color: Color(0xFFDE3C31),
+                        height: width(10),
+                      ),
+
+                      spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0)==0? SizedBox(): Container(
+                        margin: EdgeInsets.only(right: width(4)),
+                        alignment: Alignment.center,
+                        width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0),
+                        height: width(10),
+                        color: Color(0xFF5FB349),
+                      ),
+
+                      spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2)==0? SizedBox(): Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2),
+                          height: width(10),
+                          decoration: BoxDecoration(
+                              color: Color(0xFFFF5F40),
+                              borderRadius: BorderRadius.horizontal(right: Radius.circular(width(4)))
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1)==0? SizedBox(): Container(
+                        margin: EdgeInsets.only(right: width(4)),
+                        alignment: Alignment.center,
+                        width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1),
                         child: Text(
                           sprintf("%d胜",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),1),]),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sp(10),
+                            color: Color(0xFF333333),
+                            fontSize: sp(12),
                           ),
                         ),
                       ),
 
                       spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0)==0? SizedBox(): Container(
-                        margin: EdgeInsets.only(right: 2),
+                        margin: EdgeInsets.only(right: width(4)),
                         alignment: Alignment.center,
                         width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0),
-                        height: width(21),
-                        color: Color(0xFF888888),
                         child: Text(
                           sprintf("%d平",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),0),]),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sp(10),
+                            color: Color(0xFF333333),
+                            fontSize: sp(12),
                           ),
                         ),
                       ),
@@ -1239,23 +1192,22 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                         child: Container(
                           alignment: Alignment.center,
                           width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2),
-                          height: width(21),
-                          color: Color(0xFF5FB349),
                           child: Text(
                             sprintf("%d负",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),2),]),
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: sp(10),
+                              color: Color(0xFF333333),
+                              fontSize: sp(12),
                             ),
                           ),
                         ),
                       ),
 
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
+            // 盘口
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal:  height(11),
@@ -1264,10 +1216,10 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(widget.spProGuessMatch.spProTeamOne,
+                      Text('${widget.spProGuessMatch.spProTeamOne}:',
                         style: TextStyle(
-                          fontSize: sp(13),
-                          color: Color(0xFFDE3C31),
+                          fontSize: sp(15),
+                          color: Color(0xFF333333),
                         ),),
                       Text(sprintf("  盘路 %d赢%d走%d输 %s%s",[
                         spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
@@ -1276,69 +1228,96 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                         (spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),3)==0? "":(" "+(spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),3).toString()+"大"))),
                         (spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),4)==0? "":(" "+(spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),4).toString()+"小"))),
 
-                      ])
-                        ,style: TextStyle(fontSize: sp(12)),),
+                      ]),
+                        style: TextStyle(fontSize: sp(12)),),
                     ],
                   ),
                   SizedBox(height:3),
                   Row(
                     children: <Widget>[
-
                       spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1)==0? SizedBox(): Container(
-                        margin: EdgeInsets.only(right: 2),
+                        margin: EdgeInsets.only(right: width(4)),
+                        decoration: BoxDecoration(
+                            color: MyColors.main1,
+                            borderRadius: BorderRadius.horizontal(left: Radius.circular(width(4)))
+                        ),
                         alignment: Alignment.center,
                         width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
-                        height: width(21),
-                        color: Color(0xFFDE3C31),
+                        height: width(10),
+                      ),
+
+                      spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0)==0? SizedBox(): Container(
+                        margin: EdgeInsets.only(right: width(4)),
+                        alignment: Alignment.center,
+                        width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
+                        height: width(10),
+                        color: Color(0xFF5FB349),
+                      ),
+
+                      spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2)==0? SizedBox(): Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                          height: width(10),
+                          decoration: BoxDecoration(
+                              color: Color(0xFFFF5F40),
+                              borderRadius: BorderRadius.horizontal(right: Radius.circular(width(4)))
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1)==0? SizedBox(): Container(
+                        margin: EdgeInsets.only(right: width(4)),
+                        alignment: Alignment.center,
+                        width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
                         child:
                         Text(sprintf("%d赢",[
                           spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
                         ]),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sp(10),
+                            color: Color(0xFF333333),
+                            fontSize: sp(12),
                           ),
-
                         ),
                       ),
+
                       spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0)==0? SizedBox(): Container(
-                        margin: EdgeInsets.only(right: 2),
+                        margin: EdgeInsets.only(right: width(4)),
                         alignment: Alignment.center,
                         width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
-
-                        height: width(21),
-                        color: Color(0xFF1C9FB3),
-                        child:
-                        Text(sprintf("%d走",[
+                        child: Text(sprintf("%d走",[
                           spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
                         ]),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sp(10),
+                            color: Color(0xFF333333),
+                            fontSize: sp(12),
                           ),
-
                         ),
                       ),
 
-                      spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2)==0? SizedBox(): Container(
-                        alignment: Alignment.center,
-                        width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
-                        height: width(21),
-                        color: Color(0xFF5FB349),
-                        child:
-                        Text(sprintf("%d输",[
-                          spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
-                        ]),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sp(10),
+                      spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2)==0? SizedBox(): Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                          child: Text(sprintf("%d输",[
+                            spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                          ]),
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: sp(12),
+                            ),
                           ),
-
                         ),
                       ),
 
                     ],
-                  )
+                  ),
+
+
                 ],
               ),
             ),
@@ -2832,6 +2811,13 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
         ),
       ),
       visible:(SPClassListUtil.spFunIsNotEmpty(spProFutureListOne)||SPClassListUtil.spFunIsNotEmpty(spProFutureListTwo)),
+    );
+  }
+
+  Widget myDivider(){
+    return Container(
+      height: width(6),
+      color: Color(0xFFF2F2F2),
     );
   }
 

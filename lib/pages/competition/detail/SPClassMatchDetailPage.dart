@@ -60,7 +60,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
         });
       }));
       if(SPClassApplicaion.spProShowMenuList.contains("match_analyse")){
-        spProTabTitles.add("分析");
+        spProTabTitles.add("数据");
         views.add(SPClassMatchAnylizePage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId,},widget.spProSportMatch));
       }
 
@@ -111,7 +111,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
     if(widget.spProInitIndex>2){
       spProIndexInit=widget.spProInitIndex;
     }else{
-      spProIndexInit=SPClassApplicaion.spProShowMenuList.contains("match_analyse")? spProTabTitles.indexOf("分析"):0;
+      spProIndexInit=SPClassApplicaion.spProShowMenuList.contains("match_analyse")? spProTabTitles.indexOf("数据"):0;
     }
 
     if(spProIndexInit>spProTabTitles.length-1 ||spProIndexInit==-1){
