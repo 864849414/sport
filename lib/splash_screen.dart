@@ -77,14 +77,20 @@ class _SplashScreenState extends State<SplashScreen> {
             });
           });
         });
-//        SPClassNavigatorUtils.spFunPushRoute(context, SPClassPrivacyDialogDialog( ()async{
-//          await init();
-//          Future.delayed(Duration(milliseconds: 100)).then((value) {
-//            SPClassNavigatorUtils.pushAndRemoveAll(context, SPClassAppPage());
-//            SPClassUtil.spFunRequestPermission();
-//          });
-//        }));
       });
+    }
+
+    if(Platform.isAndroid){
+      FlutterToolplugin.channelId.then((channel){
+        SPClassApplicaion.spProChannelId=channel;
+        if(SPClassApplicaion.spProChannelId=="2"){
+          SPClassApplicaion.spProAndroidAppId="105";
+        }
+        spFunInitUserData();
+      });
+    }else{
+      SPClassApplicaion.spProShowMenuList=
+      ["home","match","expert","info","match_scheme","match_analyse","game"];
     }
   }
 
@@ -108,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen> {
       spFunInitConnectivity();
       spFunInitPush();
       spFunInitWx();
-      spFunInitUserData();
+      // spFunInitUserData();
     }
   }
 
@@ -384,7 +390,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void spFunInitMenuList() {
-    var channels=["1","2","7","5","6","4","13"];
+    var channels=["1","2","7","5","6","4","13",'9'];
     if(channels.contains(SPClassApplicaion.spProChannelId)){
       SPClassApplicaion.spProShowMenuList=["circle","match"];
     }
