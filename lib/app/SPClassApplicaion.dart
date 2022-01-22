@@ -22,7 +22,7 @@ import 'package:sport/pages/login/SPClassVideoLoginPage.dart';
 
 class SPClassApplicaion
 {
-  static var spProAppName="红胜体育";
+  static var spProAppName="常胜体育";
   static String spProImei="";
   static String spProChannelId="11";
   static  String spProAndroidAppId="100";

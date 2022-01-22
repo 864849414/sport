@@ -1,21 +1,25 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/model/SPClassBaseModelEntity.dart';
 import 'package:sport/model/SPClassListEntity.dart';
+import 'package:sport/model/SPClassOddsHistoryListEntity.dart';
 import 'package:sport/model/SPClassSchemePlayWay.dart';
 import 'package:sport/model/SPClassSsOddsList.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassDateUtils.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassStringUtils.dart';
+import 'package:sport/utils/colors.dart';
 
 import 'SPClassOddsHistoryDetail.dart';
 
-class SPClassOddsPage extends StatefulWidget{
-  Map<String,dynamic> params;
+class SPClassOddsPage extends StatefulWidget {
+  Map<String, dynamic> params;
   String spProGuessId;
   @override
   State<StatefulWidget> createState() {
@@ -23,50 +27,56 @@ class SPClassOddsPage extends StatefulWidget{
     return SPClassOddsPageState();
   }
 
-  SPClassOddsPage(this.params,this.spProGuessId);
-
+  SPClassOddsPage(this.params, this.spProGuessId);
 }
 
-class SPClassOddsPageState extends State<SPClassOddsPage> with AutomaticKeepAliveClientMixin{
+class SPClassOddsPageState extends State<SPClassOddsPage>
+    with AutomaticKeepAliveClientMixin {
   SPClassSsOddsList spProOddsList;
-  var spProIndex=0;
-  var spProOddTypes=["欧赔","亚盘","大小"];
+  var spProIndex = 0;
+  var spProOddTypes = ["欧赔", "亚盘", "大小"];
+  String selectCompany;
+  String spProOddsType;
 
-  List<SPClassSchemePlayWay> spProJcList=[];
+  List<SPClassSchemePlayWay> spProJcList = [];
+  List<SPClassOddsHistoryListOddsHistoryList> spProOddsHistoryList;
+
+  List list =['','',''];
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    SPClassApiManager().spFunMatchOddsList(queryParameters:widget.params,spProCallBack: SPClassHttpCallBack<SPClassSsOddsList> (
-      spProOnSuccess: (list){
-          if(mounted){
-            setState(() {
-              spProOddsList=list;
-            });
-          }
-
-      },onError: (result){
-    }
-    ));
-   spFunGetPlayList();
+    SPClassApiManager().spFunMatchOddsList(
+        queryParameters: widget.params,
+        spProCallBack: SPClassHttpCallBack<SPClassSsOddsList>(
+            spProOnSuccess: (list) {
+              if (mounted) {
+                setState(() {
+                  spProOddsList = list;
+                });
+              }
+            },
+            onError: (result) {}));
+    spFunGetPlayList();
   }
 
   void spFunGetPlayList() {
-
-    SPClassApiManager.spFunGetInstance().spFunPlayingWayOdds<SPClassBaseModelEntity>(queryParameters: {"guess_match_id":widget.spProGuessId},
-        spProCallBack: SPClassHttpCallBack(
-            spProOnSuccess: (value){
-              var spProOddsList=new SPClassListEntity<SPClassSchemePlayWay>(key: "playing_way_list",object: new SPClassSchemePlayWay());
+    SPClassApiManager.spFunGetInstance()
+        .spFunPlayingWayOdds<SPClassBaseModelEntity>(
+            queryParameters: {"guess_match_id": widget.spProGuessId},
+            spProCallBack: SPClassHttpCallBack(spProOnSuccess: (value) {
+              var spProOddsList = new SPClassListEntity<SPClassSchemePlayWay>(
+                  key: "playing_way_list", object: new SPClassSchemePlayWay());
               spProOddsList.fromJson(value.data);
               spProOddsList.spProDataList.forEach((item) {
-                    if(item.spProGuessType=="竞彩"){
-                      spProJcList.add(item);
-                    }
-                    setState(() {
-                    });
-                 });
-            }
-        ));
+                if (item.spProGuessType == "竞彩") {
+                  spProJcList.add(item);
+                }
+                setState(() {});
+              });
+            }));
   }
 
   @override
@@ -74,339 +84,155 @@ class SPClassOddsPageState extends State<SPClassOddsPage> with AutomaticKeepAliv
     super.build(context);
     // TODO: implement build
     return Container(
-      color: Color(0xFFF1F1F1),
+      color: Colors.white,
       width: ScreenUtil.screenWidth,
       child: Column(
-       children: <Widget>[
-         Container(
-           margin: EdgeInsets.only(top: height(7),bottom: height(7)),
-           width: width(320),
-           height: width(33),
-           child: Row(
-             children: <Widget>[
-               Expanded(
-                 child: FlatButton(
-                   padding: EdgeInsets.zero,
-                   child: Container(
-                     decoration: BoxDecoration(
-                         borderRadius: BorderRadius.only(bottomLeft:Radius.circular(width(5)),topLeft: Radius.circular(width(5))),
-                         border: Border.all(color: Color(0xFFDE3C31),width: 0.4),
-                         color: spProIndex==0? Color(0xFFDE3C31):Colors.white
-                     ),
-                     alignment: Alignment.center,
-                     child: Text("欧指",style: TextStyle(fontSize: sp(14),color: spProIndex==0? Colors.white :Color(0xFFDE3C31)),),
-                   ),
-                   onPressed: (){
-                     setState(() {
-                       spProIndex=0;
-                     });
-                   },
-                 ),
-               ),
-               Expanded(
-                 child: FlatButton(
-                   padding: EdgeInsets.zero,
-                   child: Container(
-                     decoration: BoxDecoration(
-                         border: Border(top: BorderSide(color: Color(0xFFDE3C31),width: 0.4),bottom: BorderSide(color: Color(0xFFDE3C31),width: 0.4)),
-                         color: spProIndex==1? Color(0xFFDE3C31):Colors.white
-                     ),
-                     alignment: Alignment.center,
-                     child: Text("亚指",style: TextStyle(fontSize: sp(14),color: spProIndex==1? Colors.white :Color(0xFFDE3C31)),),
-                   ),
-                   onPressed: (){
-                     setState(() {
-                       spProIndex=1;
-                     });
-
-                   },
-                 ),
-               ),
-               Expanded(
-                 child: FlatButton(
-                   padding: EdgeInsets.zero,
-                   child: Container(
-                     decoration:spProJcList.length>0?BoxDecoration(
-                         border: Border(
-                             top: BorderSide(color: Color(0xFFDE3C31),width: 0.4),
-                             left: BorderSide(color: Color(0xFFDE3C31),width: 0.4),
-                             bottom: BorderSide(color: Color(0xFFDE3C31),width: 0.4)),
-                         color: spProIndex==2? Color(0xFFDE3C31):Colors.white
-                     ):BoxDecoration(
-                         borderRadius: BorderRadius.only(bottomRight:Radius.circular(width(5)),topRight: Radius.circular(width(5))),
-                         border: Border.all(color: Color(0xFFDE3C31),width: 0.4),
-                         color: spProIndex==2? Color(0xFFDE3C31):Colors.white
-                     ),
-                     alignment: Alignment.center,
-                     child: Text("大小",style: TextStyle(fontSize: sp(14),color: spProIndex==2? Colors.white :Color(0xFFDE3C31)),),
-                   ),
-                   onPressed: (){
-                     setState(() {
-                       spProIndex=2;
-                     });
-
-                   },
-                 ),
-               ),
-
-               spProJcList.length>0?  Expanded(
-                 child: FlatButton(
-                   padding: EdgeInsets.zero,
-                   child: Container(
-                     decoration: BoxDecoration(
-                         borderRadius: BorderRadius.only(bottomRight:Radius.circular(width(5)),topRight: Radius.circular(width(5))),
-                         border: Border.all(color: Color(0xFFDE3C31),width: 0.4),
-                         color: spProIndex==3? Color(0xFFDE3C31):Colors.white
-                     ),
-                     alignment: Alignment.center,
-                     child: Text("竞彩",style: TextStyle(fontSize: sp(14),color: spProIndex==3? Colors.white :Color(0xFFDE3C31)),),
-                   ),
-                   onPressed: (){
-                     setState(() {
-                       spProIndex=3;
-                     });
-
-                   },
-                 ),
-               ):SizedBox(),
-             ],
-           ),
-         ),
-         spProOddsList!=null? Flexible(
-           fit: FlexFit.tight,
-           flex: 1,
-           child: SingleChildScrollView(
-             child:spProIndex==3?
-             Container(
-               margin: EdgeInsets.only(left: width(13),right: width(13),bottom: width(7)),
-               decoration: BoxDecoration(
-                   color: Colors.white,
-                   border: Border.all(width: 0.4,color: Colors.grey[300]),
-                   borderRadius: BorderRadius.all(Radius.circular(width(8)))
-               ),
-               child:Column(
-                 children: <Widget>[
-                   Container(
-                     decoration: BoxDecoration(
-                         color: Color(0xFFF7F7F7),
-                         border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
-                     ),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: <Widget>[
-                         Expanded(
-                           child: Container(
-                             alignment: Alignment.center,
-                             height: width(40),
-                             child: Text("玩法",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
-                           ),
-                         ) ,
-
-
-
-
-
-                         Expanded(
-                           child: Container(
-                             alignment: Alignment.center,
-                             height: width(40),
-                             child: Text("主胜",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
-                           ),
-                         ) ,
-
-
-                         Expanded(
-                           child: Container(
-                             alignment: Alignment.center,
-                             width: width(40),
-                             child: Text("平",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
-                           ),
-                         ) ,
-
-                         Expanded(
-                           child: Container(
-                             alignment: Alignment.center,
-                             width: width(40),
-                             child: Text("客胜",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
-                           ),
-                         ) ,
-
-
-                       ],
-                     ),
-                   ),
-                   Container(
-                     child: Column(
-                       children: spProJcList.map((item){
-                         return Container(
-                           decoration: BoxDecoration(
-                               color: Colors.white,
-                               border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
-                           ),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: <Widget>[
-                               Expanded(
-                                 child: Container(
-                                   alignment: Alignment.center,
-                                   height: width(40),
-                                   child: Text("让球"+SPClassStringUtils.spFunSqlitZero(item.spProAddScore),style: TextStyle(fontSize: sp(11)),),
-                                 ),
-                               ) ,
-
-
-
-
-                               Expanded(
-                                 child: Container(
-                                   alignment: Alignment.center,
-                                   height: width(40),
-                                   child: Text(item.spProWinOddsOne,style: TextStyle(fontSize: sp(11)),),
-                                 ),
-                               ) ,
-
-                               Expanded(
-                                 child: Container(
-                                   alignment: Alignment.center,
-                                   height: width(40),
-                                   child: Text(item.spProDrawOdds,style: TextStyle(fontSize: sp(11)),),
-                                 ),
-                               ) ,
-
-
-                               Expanded(
-                                 child: Container(
-                                   alignment: Alignment.center,
-                                   width: width(40),
-                                   child: Text(item.spProWinOddsTwo,style: TextStyle(fontSize: sp(11)),),
-                                 ),
-                               ) ,
-
-
-                             ],
-                           ),
-                         );
-                       }).toList(),
-                     ),
-                   )
-                 ],
-               ),
-             ):
-             Column(
-               children: spProOddsList.getListItem(spProIndex).map((item){
-                 return GestureDetector(
-                   child: Container(
-                     margin: EdgeInsets.only(left: width(13),right: width(13),bottom: width(7)),
-                     height: height(65),
-                     decoration: BoxDecoration(
-                         color: Colors.white,
-                         border: Border.all(width: 0.4,color: Colors.grey[300]),
-                         borderRadius: BorderRadius.all(Radius.circular(width(8)))
-                     ),
-                     child: Row(
-                       children: <Widget>[
-                         Container(
-                           alignment: Alignment.centerLeft,
-                           padding: EdgeInsets.only(left: width(13)),
-                           width: width(93),
-                           child: Text(item.company,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 2,overflow: TextOverflow.ellipsis,),
-                         ),
-                         Flexible(
-                           flex: 1,
-                           fit: FlexFit.tight,
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.center,
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: <Widget>[
-                               Row(
-                                 children: <Widget>[
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text("即指",style: TextStyle(fontSize: sp(12),color: Color(0xFF999999),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text("${item.spProWinOddsOne} ${spFunGetOddsText(item.spProWinOddsOne,item.spProInitWinOddsOne)}" ,style: TextStyle(fontSize: sp(12),color:spFunGetOddsColor(item.spProWinOddsOne,item.spProInitWinOddsOne),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text( spProIndex==0 ? "${item.spProDrawOdds} ${spFunGetOddsText(item.spProDrawOdds,item.spProInitDrawOdds)}": spProIndex==1 ? item.add_score_desc:item.mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color:spProIndex==0 ? spFunGetOddsColor(item.spProDrawOdds, item.spProInitDrawOdds): Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text("${item.spProWinOddsTwo} ${spFunGetOddsText(item.spProWinOddsTwo,item.spProInitWinOddsTwo)}" ,style: TextStyle(fontSize: sp(12),color: spFunGetOddsColor(item.spProWinOddsTwo, item.spProInitWinOddsTwo),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                 ],
-                               ),
-                               SizedBox(height: height(5),),
-                               Row(
-                                 children: <Widget>[
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text("初指",style: TextStyle(fontSize: sp(12),color: Color(0xFF999999),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text(item.spProInitWinOddsOne,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text( spProIndex==0 ? "${item.spProInitDrawOdds}": spProIndex==1 ? item.init_add_score_desc:item.init_mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                   Flexible(
-                                     flex: 1,
-                                     fit: FlexFit.tight,
-                                     child: Container(
-                                       child: Text(item.spProInitWinOddsTwo,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                     ),
-                                   ),
-                                 ],
-                               ),
-                             ],
-                           ),
-                         ),
-                         Icon(
-                           Icons.chevron_right,
-                           color: Color(0xFFBCBCBC),
-                           size: width(20),
-                         ),
-                         SizedBox(width: 5,)
-                       ],
-                     ),
-                   ),
-                   onTap: (){
-                          SPClassNavigatorUtils.spFunPushRoute(context, SPClassOddsHistoryDetail( spProOddsList.getListItem(spProIndex).map((item){
-                          return item.company;
-                        }).toList(),spProOddsList.getListItem(spProIndex).indexOf(item),spProOddTypes[spProIndex],widget.spProGuessId));
-                   },
-                 );
-               }).toList(),
-             ) ,
-           ),
-         ):Container(),
-       ],
-     ),
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: width(25)),
+            margin: EdgeInsets.only(top: width(23), bottom: width(12)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        spProIndex = 0;
+                        selectCompany=null;
+                      });
+                    },
+                    child: Container(
+                      height: width(29),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: spProIndex == 0
+                                ? MyColors.main1
+                                : Color(0xFFE6E6E6),
+                            width: width(1)),
+                        borderRadius: BorderRadius.circular(width(150)),
+                      ),
+                      child: Text(
+                        '欧指',
+                        style: TextStyle(
+                          color: spProIndex == 0
+                              ? MyColors.main1
+                              : MyColors.grey_66,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: width(20),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        spProIndex = 1;
+                        selectCompany=null;
+                      });
+                    },
+                    child: Container(
+                      height: width(29),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: spProIndex == 1
+                                ? MyColors.main1
+                                : Color(0xFFE6E6E6),
+                            width: width(1)),
+                        borderRadius: BorderRadius.circular(width(150)),
+                      ),
+                      child: Text(
+                        '亚指',
+                        style: TextStyle(
+                          color: spProIndex == 1
+                              ? MyColors.main1
+                              : MyColors.grey_66,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: width(20),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        spProIndex = 2;
+                        selectCompany=null;
+                      });
+                    },
+                    child: Container(
+                      height: width(29),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: spProIndex == 2
+                                ? MyColors.main1
+                                : Color(0xFFE6E6E6),
+                            width: width(1)),
+                        borderRadius: BorderRadius.circular(width(150)),
+                      ),
+                      child: Text(
+                        '大小',
+                        style: TextStyle(
+                          color: spProIndex == 2
+                              ? MyColors.main1
+                              : MyColors.grey_66,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                spProJcList.length > 0
+                    ? SizedBox(
+                        width: width(20),
+                      )
+                    : SizedBox(),
+                spProJcList.length > 0
+                    ? Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              spProIndex = 3;
+                              selectCompany=null;
+                            });
+                          },
+                          child: Container(
+                            height: width(29),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: spProIndex == 3
+                                      ? MyColors.main1
+                                      : Color(0xFFE6E6E6),
+                                  width: width(1)),
+                              borderRadius: BorderRadius.circular(width(150)),
+                            ),
+                            child: Text(
+                              '竞彩',
+                              style: TextStyle(
+                                color: spProIndex == 3
+                                    ? MyColors.main1
+                                    : MyColors.grey_66,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : SizedBox(),
+              ],
+            ),
+          ),
+          oddsList(),
+        ],
+      ),
     );
   }
 
@@ -414,33 +240,448 @@ class SPClassOddsPageState extends State<SPClassOddsPage> with AutomaticKeepAliv
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  Widget oddsList(){
+    return spProOddsList != null
+        ? Flexible(
+      fit: FlexFit.tight,
+      flex: 1,
+      child: SingleChildScrollView(
+          child: spProIndex == 3
+              ? Container(
+            margin: EdgeInsets.only(
+                left: width(13),
+                right: width(13),
+                bottom: width(7)),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                    width: 0.4, color: Colors.grey[300]),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(width(8)))),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF7F7F7),
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color(0xFFDDDDDD),
+                              width: 0.4))),
+                  child: Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: width(40),
+                          child: Text(
+                            "玩法",
+                            style: TextStyle(
+                                fontSize: sp(11),
+                                color: Color(0xFF888888)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: width(40),
+                          child: Text(
+                            "主胜",
+                            style: TextStyle(
+                                fontSize: sp(11),
+                                color: Color(0xFF888888)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: width(40),
+                          child: Text(
+                            "平",
+                            style: TextStyle(
+                                fontSize: sp(11),
+                                color: Color(0xFF888888)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: width(40),
+                          child: Text(
+                            "客胜",
+                            style: TextStyle(
+                                fontSize: sp(11),
+                                color: Color(0xFF888888)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: spProJcList.map((item) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Color(0xFFDDDDDD),
+                                    width: 0.4))),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: width(40),
+                                child: Text(
+                                  "让球" +
+                                      SPClassStringUtils
+                                          .spFunSqlitZero(item
+                                          .spProAddScore),
+                                  style: TextStyle(
+                                      fontSize: sp(11)),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: width(40),
+                                child: Text(
+                                  item.spProWinOddsOne,
+                                  style: TextStyle(
+                                      fontSize: sp(11)),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: width(40),
+                                child: Text(
+                                  item.spProDrawOdds,
+                                  style: TextStyle(
+                                      fontSize: sp(11)),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width(40),
+                                child: Text(
+                                  item.spProWinOddsTwo,
+                                  style: TextStyle(
+                                      fontSize: sp(11)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
+            ),
+          )
+              : Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Color(0xFFF5F6F7),
+                  height: width(29),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: width(29),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color: Color(0xFFE6E6E6),width: 0.4)),
+                          ),
+                          child: Text(
+                            '公司',
+                            style: TextStyle(
+                                fontSize: sp(13),
+                                color: MyColors.grey_66),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: selectCompany==null?Container(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  '初',
+                                  style: TextStyle(
+                                      fontSize: sp(13),
+                                      color:
+                                      MyColors.grey_66),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  '即',
+                                  style: TextStyle(
+                                      fontSize: sp(13),
+                                      color:
+                                      MyColors.grey_66),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ):
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child:Container(
+                                    child: Text('详细变化数据',style: TextStyle(fontSize: sp(13),color: MyColors.grey_66),textAlign: TextAlign.center,maxLines: 1,overflow: TextOverflow.ellipsis,),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: (){
+                                    selectCompany=null;
+                                    setState(() {
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: width(15)),
+                                    child: SPClassEncryptImage.asset(
+                                      SPClassImageUtil.spFunGetImagePath("ic_close"),
+                                      width: width(17),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                            children: spProOddsList
+                                .getListItem(spProIndex)
+                                .map(
+                                  (item) {
+                                return GestureDetector(
+                                  onTap: (){
+                                    selectCompany = item.company;
+                                    spFunGetOddHistory();
+                                    setState(() {
+                                    });
+                                   },
+                                  child: Container(
+                                    width: double.maxFinite,
+                                    height: width(38),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: selectCompany==item.company?MyColors.main1:Color(0xFFF5F6F7),
+                                      border: Border(bottom: BorderSide(color: Color(0xFFE6E6E6),width: 0.4)),
+                                    ),
+                                    child: Text('${item.company}',style: TextStyle(color:selectCompany==item.company?Colors.white:MyColors.grey_33 ),),
+                                  ),
+                                );
+                              },
+                            ).toList()),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: selectCompany==null?Column(
+                              children: spProOddsList
+                                  .getListItem(spProIndex)
+                                  .map(
+                                    (item) {
+                                  return Container(
+                                    width: double.maxFinite,
+                                    height: width(38),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border(bottom: BorderSide(color: Color(0xFFE6E6E6),width: 0.4)),
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(item.spProInitWinOddsOne,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text( spProIndex==0 ? "${item.spProInitDrawOdds}": spProIndex==1 ? item.init_add_score_desc:item.init_mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(item.spProInitWinOddsTwo,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text("${item.spProWinOddsOne}" ,style: TextStyle(fontSize: sp(12),color:spFunGetOddsColor(item.spProWinOddsOne,item.spProInitWinOddsOne),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text( spProIndex==0 ? "${item.spProDrawOdds}": spProIndex==1 ? item.add_score_desc:item.mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color:spProIndex==0 ? spFunGetOddsColor(item.spProDrawOdds, item.spProInitDrawOdds): Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text("${item.spProWinOddsTwo}" ,style: TextStyle(fontSize: sp(12),color: spFunGetOddsColor(item.spProWinOddsTwo, item.spProInitWinOddsTwo),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ).toList()):Container(
+                            child: Column(
+                              children: spProOddsHistoryList.map((e) {
+                                return Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          color: Colors.white,
+                                          height: height(38),
+                                          child: Text(SPClassDateUtils.spFunDateFormatByString(e.spProChangeTime, "MM-dd HH:mm"),style: TextStyle(color: Color(0xFF999999),fontSize: sp(12)),),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border(right: BorderSide(width: 0.4,color: Colors.grey[300]))
+                                          ),
+                                          height: height(38),
+                                          child: Text(e.spProWinOddsOne,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border(right: BorderSide(width: 0.4,color: Colors.grey[300]))
+                                          ),
+                                          alignment: Alignment.center,
+                                          height: height(38),
+                                          child: Text(spProOddTypes[spProIndex].contains("欧")? e.spProDrawOdds:spProOddTypes[spProIndex].contains("亚")? e.spProAddScoreDesc:e.spProMidScoreDesc,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border(right: BorderSide(width: 0.4,color: Colors.grey[300]))
+                                          ),
+                                          height: height(38),
+                                          child: Text(e.spProWinOddsTwo,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
+    )
+        : Container();
+  }
+
+  void spFunGetOddHistory() {
+
+    SPClassApiManager.spFunGetInstance().spFunOddsHistoryList(spProOddsType:spProOddTypes[spProIndex],company:selectCompany,spProGuessMatchId:widget.spProGuessId,context: context,
+        spProCallBack: SPClassHttpCallBack<SPClassOddsHistoryListEntity>(
+            spProOnSuccess: (list){
+              if(mounted){
+                setState(() {
+                  spProOddsHistoryList=list.spProOddsHistoryList;
+                });
+              }
+            }
+        )
+    );
+
+  }
+
   spFunGetOddsColor(String spProWinOddsOne, String spProInitWinOddsOne) {
-    if(spProWinOddsOne.isEmpty||spProWinOddsOne.isEmpty){
+    if (spProWinOddsOne.isEmpty || spProWinOddsOne.isEmpty) {
       return Color(0xFF333333);
     }
-    if( (double.tryParse(spProWinOddsOne)>double.tryParse(spProInitWinOddsOne))){
-      return  Color(0xFFE3494B);
-    }else if((double.tryParse(spProWinOddsOne)<double.tryParse(spProInitWinOddsOne))){
+    if ((double.tryParse(spProWinOddsOne) >
+        double.tryParse(spProInitWinOddsOne))) {
+      return Color(0xFFE3494B);
+    } else if ((double.tryParse(spProWinOddsOne) <
+        double.tryParse(spProInitWinOddsOne))) {
       return Color(0xFF3D9827);
-    }else{
+    } else {
       return Color(0xFF333333);
     }
   }
 
   spFunGetOddsText(String spProWinOddsOne, String spProInitWinOddsOne) {
-     if(spProWinOddsOne.isEmpty||spProWinOddsOne.isEmpty){
-       return "";
-     }
+    if (spProWinOddsOne.isEmpty || spProWinOddsOne.isEmpty) {
+      return "";
+    }
 
-    if( (double.tryParse(spProWinOddsOne)>double.tryParse(spProInitWinOddsOne))){
+    if ((double.tryParse(spProWinOddsOne) >
+        double.tryParse(spProInitWinOddsOne))) {
       return "↑";
-    }else if((double.tryParse(spProWinOddsOne)<double.tryParse(spProInitWinOddsOne))){
+    } else if ((double.tryParse(spProWinOddsOne) <
+        double.tryParse(spProInitWinOddsOne))) {
       return "↓";
-    }else{
+    } else {
       return "";
     }
   }
-
-
-
 }

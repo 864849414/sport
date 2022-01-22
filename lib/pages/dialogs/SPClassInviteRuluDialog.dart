@@ -55,7 +55,7 @@ class SPClassInviteRuluDialogState extends State<SPClassInviteRuluDialog>{
                          "3.被邀请人需在注册时填写分享者的邀请码才算邀请成功 "+
                              "\n"+
                              " \n"+
-                         "4.本次活动红胜体育官方具有解释权，任何以不正当手段获得利益红胜体育官方有权收回。",
+                         "4.本次活动常胜体育官方具有解释权，任何以不正当手段获得利益常胜体育官方有权收回。",
                        style: TextStyle(fontSize: sp(12)),),
                    )
 

@@ -1311,7 +1311,7 @@ class SPClassMatchLiveStatisPageState extends State<SPClassMatchLiveStatisPage> 
     eventList.sort((left,right)=>double.parse(right.spProSeqNum).compareTo(double.parse(left.spProSeqNum)));
 
     var fisrtItem=SPClassMatchEventMatchEventItem()
-      ..content="大家好，欢迎来到红胜体育观看本场直播，比赛即将开始"
+      ..content="大家好，欢迎来到常胜体育观看本场直播，比赛即将开始"
       ..time="-"
       ..spProEventImage="ic_match_live_whistle";
     eventList.add(fisrtItem);
@@ -1319,7 +1319,7 @@ class SPClassMatchLiveStatisPageState extends State<SPClassMatchLiveStatisPage> 
     if(widget.spProGuessInfo.status=="over"){
       var endItem=SPClassMatchEventMatchEventItem()
         ..content=sprintf(
-            "随着裁判一声哨响，本场比赛结束，总比分%s-%s，感谢大家关注红胜体育，下次再会！",
+            "随着裁判一声哨响，本场比赛结束，总比分%s-%s，感谢大家关注常胜体育，下次再会！",
             [
               widget.spProGuessInfo.spProScoreOne,
               widget.spProGuessInfo.spProScoreTwo,
