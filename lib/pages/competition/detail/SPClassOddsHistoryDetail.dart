@@ -31,7 +31,7 @@ class SPClassOddsHistoryDetailState extends State<SPClassOddsHistoryDetail>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    spFunGetOddHistory();
+    // spFunGetOddHistory();
   }
   @override
   Widget build(BuildContext context) {
@@ -143,9 +143,10 @@ class SPClassOddsHistoryDetailState extends State<SPClassOddsHistoryDetail>{
                         ],
                       ),
                     ),
-                    (spProOddsHistoryList==null||spProOddsHistoryList.length==0)?SPClassNoDataView():
+                    (spProOddsHistoryList==null||spProOddsHistoryList.length==0)?SPClassNoDataView(
+                      height: width(400),
+                    ):
                      Expanded(
-                       flex: 1,
                        child: ListView.builder(
                            itemCount: spProOddsHistoryList.length,
                            itemBuilder: (c,index){

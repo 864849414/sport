@@ -396,7 +396,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage> with AutomaticKeepAliv
                      ),
                    ),
                    onTap: (){
-                        SPClassNavigatorUtils.spFunPushRoute(context, SPClassOddsHistoryDetail( spProOddsList.getListItem(spProIndex).map((item){
+                          SPClassNavigatorUtils.spFunPushRoute(context, SPClassOddsHistoryDetail( spProOddsList.getListItem(spProIndex).map((item){
                           return item.company;
                         }).toList(),spProOddsList.getListItem(spProIndex).indexOf(item),spProOddTypes[spProIndex],widget.spProGuessId));
                    },
