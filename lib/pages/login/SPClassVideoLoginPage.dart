@@ -192,7 +192,7 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                (spProLoginType == 2 && spProOneLogin)
+                                /*(spProLoginType == 2 && spProOneLogin)
                                     ? Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -261,7 +261,9 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                     )
                                   ],
                                 )
-                                    : Column(
+                                    :*/
+
+                                Column(
                                   children: <Widget>[
                                     // spProLoginType == 0
                                     //     ? Container(

@@ -51,7 +51,7 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
     // TODO: implement build
     return  Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: width(18),/*left: width(10),right: width(10),*/bottom:  width(12)),
+      margin: EdgeInsets.only(top: width(18),/*left: width(10),right: width(10),*/bottom:  width(8)),
       child: Column(
         children: <Widget>[
           Container(
@@ -80,7 +80,7 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
                     unselectedLabelStyle:  TextStyle(fontSize: sp(13)),
                     controller: spProTabExpertController,
                     tabs:spProTabExpertTitles.map((key){
-                      return    Tab(text: key,);
+                      return  Tab(text: key,);
                     }).toList() ,
                   ),
                 ),

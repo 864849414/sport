@@ -41,8 +41,8 @@ class SPClassSchemeItemView extends StatelessWidget {
         padding: EdgeInsets.only(
             left: width(13),
             right: width(13),
-            top: height(15),
-            bottom: height(12)),
+            top: width(12),
+            bottom: width(12)),
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -112,166 +112,166 @@ class SPClassSchemeItemView extends StatelessWidget {
                 SizedBox(
                   width: width(5),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "${item.expert.spProNickName}",
-                              style: GoogleFonts.notoSansSC(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF333333),
-                                ),
-                                fontSize: sp(15),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(width: 4,),
-                            Text(
-                              "7分钟前",
-                              style: GoogleFonts.notoSansSC(
-                                textStyle: TextStyle(
-                                  color: MyColors.grey_99,
-                                ),
-                                fontSize: sp(10),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: width(6)),
-                          child: Row(
+                Container(
+                  height: width(40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
                             children: <Widget>[
-                              Visibility(
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: width(8),
-                                      right: width(8),
-                                      top: width(0.8)),
-                                  alignment: Alignment.center,
-                                  height: width(16),
-                                  // constraints:
-                                  //     BoxConstraints(minWidth: width(52)),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      gradient: LinearGradient(colors: [
-                                        Color(0xFFFF6A4C),
-                                        Color(0xFFFF8D66),
-                                      ])),
-                                  child: Text(
-                                    "近" +
-                                        "${item.expert.spProLast10Result.length.toString()}" +
-                                        "中" +
-                                        "${item.expert.spProLast10CorrectNum}",
-                                    style: TextStyle(
-                                        fontSize: sp(9),
-                                        color: Color(0xFFF7F7F7),
-                                        letterSpacing: 1),
+                              Text(
+                                "${item.expert.spProNickName}",
+                                style: GoogleFonts.notoSansSC(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF333333),
                                   ),
+                                  fontSize: sp(15),
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                visible: (item.expert.spProSchemeNum != null &&
-                                    (double.tryParse(item
-                                                .expert.spProLast10CorrectNum) /
-                                            double.tryParse(item
-                                                .expert.spProLast10Result.length
-                                                .toString())) >=
-                                        0.6),
                               ),
-                              SizedBox(
-                                width: width(4),
-                              ),
-                              Visibility(
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: width(8),
-                                      right: width(8),
-                                      top: width(0.8)),
-                                  alignment: Alignment.center,
-                                  height: width(16),
-                                  // constraints:
-                                  //     BoxConstraints(minWidth: width(52)),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      gradient: LinearGradient(colors: [
-                                        Color(0xFFFFB44D),
-                                        Color(0xFFFFA64D),
-                                      ])),
-                                  child: Text(
-                                    "${item.expert.spProCurrentRedNum}连红",
-                                    style: TextStyle(
-                                        fontSize: sp(9),
-                                        color: Color(0xFFF7F7F7),
-                                        letterSpacing: 1),
+                              SizedBox(width: 4,),
+                              Text(
+                                "7分钟前",
+                                style: GoogleFonts.notoSansSC(
+                                  textStyle: TextStyle(
+                                    color: MyColors.grey_99,
                                   ),
+                                  fontSize: sp(10),
                                 ),
-                                visible:
-                                    int.tryParse(item.expert.spProCurrentRedNum) >
-                                        2,
                               ),
-                              SizedBox(
-                                width: width(8),
-                              ),
-                              Visibility(
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: width(6),
-                                      right: width(6),
-                                      top: width(0.8)),
-                                  alignment: Alignment.center,
-                                  height: width(16),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color(0xFF1B8DE0), width: 0.5),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text(
-                                    "不中退",
-                                    style: TextStyle(
-                                        fontSize: sp(9),
-                                        color: Color(0xFF1B8DE0),
-                                        letterSpacing: 1),
-                                  ),
-                                ),
-                                visible: item.spProCanReturn&&item.spProDiamond!="0"&&item.spProIsOver=="0",
-                              ),
-                              // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
-                              //   children: <Widget>[
-                              //     SPClassEncryptImage.asset(item.expert.spProCurrentRedNum.length>1  ? SPClassImageUtil.spFunGetImagePath("ic_recent_red2"):SPClassImageUtil.spFunGetImagePath("ic_recent_red"),
-                              //       height:width(16) ,
-                              //       fit: BoxFit.fitHeight,
-                              //     ),
-                              //     Positioned(
-                              //       left: width(item.expert.spProCurrentRedNum.length>1  ? 5:7),
-                              //       bottom: 0,
-                              //       top: 0,
-                              //       child: Container(
-                              //         alignment: Alignment.center,
-                              //         child: Text("${item.expert.spProCurrentRedNum}",style: GoogleFonts.roboto(textStyle: TextStyle(color:Color(0xFFDE3C31) ,fontSize: sp(14.8),fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)),
-                              //       ),
-                              //     ),
-                              //     Positioned(
-                              //       right: width(7),
-                              //       bottom: 0,
-                              //       top: 0,
-                              //       child: Container(
-                              //         padding: EdgeInsets.only(top: width(0.8)),
-                              //         alignment: Alignment.center,
-                              //         child: Text("连红",style: TextStyle(color:Colors.white ,fontSize: sp(9),fontStyle: FontStyle.italic)),
-                              //       ),
-                              //     )
-                              //   ],
-                              // ):SizedBox()
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                          Container(
+                            margin: EdgeInsets.only(top: width(2)),
+                            child: Row(
+                              children: <Widget>[
+                                Visibility(
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                        left: width(8),
+                                        right: width(8),
+                                        top: width(0.8)),
+                                    margin: EdgeInsets.only(right: width(4)),
+                                    alignment: Alignment.center,
+                                    height: width(16),
+                                    // constraints:
+                                    //     BoxConstraints(minWidth: width(52)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        gradient: LinearGradient(colors: [
+                                          Color(0xFFFF6A4C),
+                                          Color(0xFFFF8D66),
+                                        ])),
+                                    child: Text(
+                                      "近" +
+                                          "${item.expert.spProLast10Result.length.toString()}" +
+                                          "中" +
+                                          "${item.expert.spProLast10CorrectNum}",
+                                      style: TextStyle(
+                                          fontSize: sp(9),
+                                          color: Color(0xFFF7F7F7),
+                                          letterSpacing: 1),
+                                    ),
+                                  ),
+                                  visible: (item.expert.spProSchemeNum != null &&
+                                      (double.tryParse(item
+                                          .expert.spProLast10CorrectNum) /
+                                          double.tryParse(item
+                                              .expert.spProLast10Result.length
+                                              .toString())) >=
+                                          0.6),
+                                ),
+
+                                Visibility(
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: width(4)),
+                                    padding: EdgeInsets.only(
+                                        left: width(8),
+                                        right: width(8),
+                                        top: width(0.8)),
+                                    alignment: Alignment.center,
+                                    height: width(16),
+                                    // constraints:
+                                    //     BoxConstraints(minWidth: width(52)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        gradient: LinearGradient(colors: [
+                                          Color(0xFFFFA64D),
+                                          Color(0xFFFFB44D),
+                                        ])),
+                                    child: Text(
+                                      "${item.expert.spProCurrentRedNum}连红",
+                                      style: TextStyle(
+                                          fontSize: sp(9),
+                                          color: Color(0xFFF7F7F7),
+                                          letterSpacing: 1),
+                                    ),
+                                  ),
+                                  visible:
+                                  int.tryParse(item.expert.spProCurrentRedNum) >
+                                      2,
+                                ),
+                                Visibility(
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                        left: width(6),
+                                        right: width(6),
+                                        top: width(0.8)),
+                                    alignment: Alignment.center,
+                                    height: width(16),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color(0xFF1B8DE0), width: 0.5),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      "不中退",
+                                      style: TextStyle(
+                                          fontSize: sp(9),
+                                          color: Color(0xFF1B8DE0),
+                                          letterSpacing: 1),
+                                    ),
+                                  ),
+                                  visible: item.spProCanReturn&&item.spProDiamond!="0"&&item.spProIsOver=="0",
+                                ),
+                                // int.tryParse( item.expert.spProCurrentRedNum)>2?  Stack(
+                                //   children: <Widget>[
+                                //     SPClassEncryptImage.asset(item.expert.spProCurrentRedNum.length>1  ? SPClassImageUtil.spFunGetImagePath("ic_recent_red2"):SPClassImageUtil.spFunGetImagePath("ic_recent_red"),
+                                //       height:width(16) ,
+                                //       fit: BoxFit.fitHeight,
+                                //     ),
+                                //     Positioned(
+                                //       left: width(item.expert.spProCurrentRedNum.length>1  ? 5:7),
+                                //       bottom: 0,
+                                //       top: 0,
+                                //       child: Container(
+                                //         alignment: Alignment.center,
+                                //         child: Text("${item.expert.spProCurrentRedNum}",style: GoogleFonts.roboto(textStyle: TextStyle(color:Color(0xFFDE3C31) ,fontSize: sp(14.8),fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)),
+                                //       ),
+                                //     ),
+                                //     Positioned(
+                                //       right: width(7),
+                                //       bottom: 0,
+                                //       top: 0,
+                                //       child: Container(
+                                //         padding: EdgeInsets.only(top: width(0.8)),
+                                //         alignment: Alignment.center,
+                                //         child: Text("连红",style: TextStyle(color:Colors.white ,fontSize: sp(9),fontStyle: FontStyle.italic)),
+                                //       ),
+                                //     )
+                                //   ],
+                                // ):SizedBox()
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 spProShowProFit
                     ? Flexible(
@@ -325,14 +325,14 @@ class SPClassSchemeItemView extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                           textStyle: TextStyle(
                                               fontSize: sp(27),
-                                              color: Color(0xFF1B8DE0))),
+                                              color: Color(0xFFEB3E1C))),
                                       children: [
                                         TextSpan(
                                             text: '%',
                                             style: GoogleFonts.roboto(
                                                 textStyle: TextStyle(
                                                     fontSize: sp(10),
-                                                    color: Color(0xFF1B8DE0),),),
+                                                    color: Color(0xFFEB3E1C),),),
                                         )
                                       ]
                                     ),
@@ -340,6 +340,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                                   Text(
                                     spProShowRate ? "近期胜率" : "",
                                     style: TextStyle(
+                                      height: 0.6,
                                         fontSize: sp(10),
                                         color: Color(0xFF666666)),
                                   )
@@ -406,15 +407,15 @@ class SPClassSchemeItemView extends StatelessWidget {
                       maxLines: 2,overflow: TextOverflow.ellipsis,
                       text:  TextSpan(
                           text: item.title,
-                          style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),)
+                          style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(15),)
                       ),
                     ),
-                    padding: EdgeInsets.only(left: width(18+SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay).length*9)),
+                    padding: EdgeInsets.only(left: width(12+SPClassMatchDataUtils.spFunPayWayName(item.spProGuessType, item.spProMatchType, item.spProPlayingWay).length*9)),
                   ),
-                  Positioned(top: width(6),left: 0,child:
+                  Positioned(top: width(4),left: 0,child:
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: width(6),right: width(6)),
+                    padding: EdgeInsets.only(left: width(4),right: width(4)),
                     decoration: BoxDecoration(
                         border: Border.all(color: SPClassMatchDataUtils.getFontColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),width: 0.5),
                         color: SPClassMatchDataUtils.getColors(item.spProGuessType, item.spProMatchType, item.spProPlayingWay),
@@ -432,7 +433,7 @@ class SPClassSchemeItemView extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: width(8),top: width(4),bottom: width(4)),
               decoration: BoxDecoration(
-                color: Color(0xFFF6F6F6),
+                color: Color(0xFFF5F6F7),
                 borderRadius: BorderRadius.circular(width(4))
               ),
               child: Row(

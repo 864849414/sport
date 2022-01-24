@@ -50,7 +50,6 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
     super.build(context);
 
     return Container(
-
       alignment: Alignment.center,
       height: height(100),
       child: GridView.count(
@@ -61,7 +60,7 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
         //垂直子Widget之间间距
         mainAxisSpacing:0,
         //GridView内边距
-        padding: EdgeInsets.only(left: width(13),right: width(10)),
+        padding: EdgeInsets.only(left: width(15),right: width(15)),
         //一行的Widget数量
         crossAxisCount: 5,
         //子Widget宽高比例
@@ -75,7 +74,7 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
     List<Widget> views=List();
     views.addAll(spProExpertList.map((expertItem){
       return Container(
-        margin: EdgeInsets.only(top: width(4),bottom: width(4)),
+        margin: EdgeInsets.only(top: width(8),bottom: width(4)),
         decoration: BoxDecoration(
            color: Colors.white,
            borderRadius: BorderRadius.circular(4),
@@ -92,66 +91,6 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Stack(
-              //   alignment: Alignment.center,
-              //   children: <Widget>[
-              //     SizedBox(
-              //       width: width(100),
-              //       height: width(17),
-              //     ),
-              //     Positioned(
-              //       bottom: 0,
-              //       child: Transform(
-              //         alignment: Alignment.center,
-              //         transform: Matrix4.rotationZ((math.pi)/4),
-              //         child: Container(
-              //           height: width(4),
-              //           width: width(4),
-              //           color: const Color(0xFFF24B0C),
-              //         ),
-              //       ),
-              //     ),
-              //     Positioned(
-              //       top: 0,
-              //       child: Container(
-              //         alignment: Alignment.center,
-              //         width: width(45),
-              //         height: width(15),
-              //         decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(300),
-              //           gradient: LinearGradient(
-              //             begin: Alignment.topCenter,
-              //             end: Alignment.bottomCenter,
-              //             colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-              //           ),
-              //           boxShadow:[
-              //             BoxShadow(
-              //               offset: Offset(2,5),
-              //               color: Color(0xFFF24B0C).withOpacity(0.2),
-              //               blurRadius:width(5,),),
-              //             BoxShadow(
-              //               offset: Offset(0,1),
-              //               color: Color(0xFFF24B0C).withOpacity(0.2),
-              //               blurRadius:width(6,),
-              //             )
-              //           ],
-              //         ),
-              //         child: Text((widget.order_key=="hot" )?
-              //         "近"+
-              //          "${expertItem.spProLast10Result.length.toString()}"+
-              //          "中"+
-              //           "${expertItem.spProLast10CorrectNum}":
-              //         (widget.order_key=="max_red_num" )?
-              //         "${expertItem.spProMaxRedNum}"+
-              //             "连红":
-              //         "${expertItem.popularity}"+
-              //             "人气"
-              //           ,style: GoogleFonts.notoSansSC(textStyle: TextStyle(fontSize: sp(9),color: Colors.white),fontWeight: FontWeight.w500),maxLines: 1,),
-              //       ) ,
-              //     )
-              //   ],
-              // ),
-              // SizedBox(height:height(2),),
               Stack(
                 overflow: Overflow.visible,
                 children: <Widget>[
@@ -215,7 +154,7 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
                     child: Container(
                       alignment: Alignment.center,
                       width: width(46),
-                      height: width(18),
+                      height: width(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(300),
                         gradient: LinearGradient(
@@ -241,7 +180,7 @@ class SPClassHomeRangkingListState extends State<SPClassHomeRangkingList> with A
                   )
                 ],
               ),
-              SizedBox(height:height(8),),
+              SizedBox(height:width(8),),
               Text("${expertItem.spProNickName}",style: TextStyle(fontSize: sp(11),color: MyColors.grey_99),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
             ],
           ),

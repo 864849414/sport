@@ -30,6 +30,7 @@ class _AIAnalysisState extends State<AIAnalysis> {
       child: SingleChildScrollView(
         child: Container(
           color: Color(0xFFF2F2F2),
+          padding: EdgeInsets.only(top: width(6)),
           child: Column(
             children: <Widget>[
               itemWidget('lengmengfenxi','冷门分析','冷门多角度分析',1333,298,'coldJudge'),
@@ -51,7 +52,7 @@ class _AIAnalysisState extends State<AIAnalysis> {
         spFunGetBcwUrl(url);
       },
       child:  Container(
-        margin: EdgeInsets.only(top: width(6)),
+        margin: EdgeInsets.only(bottom: width(6)),
         padding: EdgeInsets.symmetric(horizontal: width(16),vertical: width(15)),
         color: Colors.white,
         child: Row(

@@ -61,8 +61,8 @@ class SPClassHomePageState extends State<SPClassHomePage>
   var spProShowTopView = false;
   var spProTabMatchTitles = ['关注', '足球', '篮球', 'AI分析'];
   var spProTabMatchKeys = ['',"足球", "篮球"];
-  var spProTabSchemeTitles = ["最新", "高胜率", "免费"];
-  var spProTabSchemeKeys = ["newest", "recent_correct_rate", "free"];
+  var spProTabSchemeTitles = ["高胜率","最新",  "免费"];
+  var spProTabSchemeKeys = ["recent_correct_rate","newest",  "free"];
   var spProTabExpertKeys = ['',"is_zq_expert", "is_lq_expert", "is_es_expert"];
   List<SPClassGuessMatchInfo> spProHotMatch =List();//热门赛事
   var spProPayWay = "";
@@ -134,6 +134,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
       }
       spProTabSchemeIndex = spProTabSchemeController.index;
       if (spProTabSchemeController.index == 1) {
+        print('haha ');
         SPClassApiManager.spFunGetInstance().spFunLogAppEvent(
           spProEventName: "high_correct_rate",
         );
@@ -206,28 +207,28 @@ class SPClassHomePageState extends State<SPClassHomePage>
             elevation: 0,
           ),
           preferredSize: Size.fromHeight(0)),
-      floatingActionButton: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
-        child: !spProShowTopView||spProTabMatchTitles[spProTabMatchController.index]=='AI分析'||spProTabMatchTitles[spProTabMatchController.index]=='关注'
-            ? SizedBox()
-            : GestureDetector(
-                child: Container(
-                  padding: EdgeInsets.all(width(4)),
-                  decoration: ShapeDecoration(
-                    shape: CircleBorder(
-                        side: BorderSide(color: Color(0xFF666666), width: 0.4)),
-                  ),
-                  child: Icon(
-                    Icons.vertical_align_top,
-                    color: Color(0xFF666666),
-                    size: width(25),
-                  ),
-                ),
-                onTap: () {
-                  spFunScrollTop();
-                },
-              ),
-      ),
+      // floatingActionButton: AnimatedContainer(
+      //   duration: Duration(milliseconds: 200),
+      //   child: !spProShowTopView||spProTabMatchTitles[spProTabMatchController.index]=='AI分析'||spProTabMatchTitles[spProTabMatchController.index]=='关注'
+      //       ? SizedBox()
+      //       : GestureDetector(
+      //           child: Container(
+      //             padding: EdgeInsets.all(width(4)),
+      //             decoration: ShapeDecoration(
+      //               shape: CircleBorder(
+      //                   side: BorderSide(color: Color(0xFF666666), width: 0.4)),
+      //             ),
+      //             child: Icon(
+      //               Icons.vertical_align_top,
+      //               color: Color(0xFF666666),
+      //               size: width(25),
+      //             ),
+      //           ),
+      //           onTap: () {
+      //             spFunScrollTop();
+      //           },
+      //         ),
+      // ),
       body: Container(
         // margin:EdgeInsets.only(top: height(50)),
         color: Colors.white,
@@ -235,36 +236,46 @@ class SPClassHomePageState extends State<SPClassHomePage>
           children: <Widget>[
             Container(
               color: MyColors.main1,
-              // padding:EdgeInsets.symmetric(vertical: height(11),horizontal: width(20)),
+              height: width(48),
               padding: EdgeInsets.only(
-                  top: height(14),
-                  bottom: height(8),
-                  left: width(20),
-                  right: width(20)),
+                  // top: height(14),
+                  // bottom: height(8),
+                  left: width(18),
+                  right: width(18)),
               child: Container(
                 height: height(26),
                 child: TabBar(
-                    indicator: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(width(150))),
+                    // indicator: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(width(150))),
                     labelColor: MyColors.main1,
                     labelPadding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
                     unselectedLabelColor: Colors.white,
-                    indicatorColor: MyColors.main1,
                     unselectedLabelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                     ),
                     isScrollable: false,
-                    indicatorSize:TabBarIndicatorSize.tab,
+                    // indicatorSize:TabBarIndicatorSize.tab,
                     labelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                       fontWeight: FontWeight.w500,
                     ),
                     controller: spProTabMatchController,
                     tabs: spProTabMatchTitles.map((key) {
-                      return Tab(
-                        text: key,
+                      return Container(
+                        width: width(65),
+                        height: width(27),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:spProTabMatchController.index==spProTabMatchTitles.indexOf(key)?Colors.white: MyColors.main1,
+                          borderRadius: BorderRadius.circular(width(150)),
+                        ),
+                        child: Text(key),
                       );
+                      // return Tab(
+                      //   text: key,
+                      // );
                     }).toList()),
               ),
             ),
@@ -291,167 +302,14 @@ class SPClassHomePageState extends State<SPClassHomePage>
                     return <Widget>[
                       SliverToBoxAdapter(
                         child: Container(
-                          margin: EdgeInsets.only(top: width(12),),
-                          color: Colors.white,
                           height: width(86),
-                          child:  ListView.builder(
-                              physics: PageScrollPhysics(),
-                              itemCount:spProHotMatch.length>2?2:spProHotMatch.length ,
-                              scrollDirection:Axis.horizontal,
-                              itemBuilder: (c, i) =>
-                                  Container(
-                                    height: height(86),
-                                    margin: EdgeInsets.only(left:width(i==0?15:8),),
-                                    width: width(160),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow:[
-                                          BoxShadow(
-                                            offset: Offset(0,0),
-                                            color: Color(0xFFCED4D9),
-                                            blurRadius:width(6,),),
-                                        ],
-                                        borderRadius: BorderRadius.circular(width(8))
-                                    ),
-                                    padding: EdgeInsets.only(left: width(7) ),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          behavior: HitTestBehavior.opaque,
-                                          child:  Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              SizedBox(height: height(4),),
-                                              Row(
-                                                children: <Widget>[
-                                                  ( spProHotMatch[i].status=="in_progress" ) ? Text("进行中",style: TextStyle(fontSize: sp(12),color: Color(0xFFFB5146),),):Text(SPClassDateUtils.spFunDateFormatByString(spProHotMatch[i].spProStTime, "MM-dd HH:mm"),style: TextStyle(fontSize: sp(11),color: Color(0xFF999999),),maxLines: 1,),
-                                                  Text("「${SPClassStringUtils.spFunMaxLength(spProHotMatch[i].spProLeagueName,length: 3)}」",style: TextStyle(fontSize: sp(11),color: Color(0xFF999999),),maxLines: 1,),
-                                                  SizedBox(width: 25,)
-                                                ],
-                                              ),
-
-                                              Expanded(
-                                                child: spProHotMatch[i].status=="not_started" ?
-                                                Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Container(
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            Row(
-                                                              children: <Widget>[
-                                                                (spProHotMatch[i].spProIconUrlOne.isNotEmpty)? Image.network(spProHotMatch[i].spProIconUrlOne,width: width(17),):
-                                                                SPClassEncryptImage.asset(
-                                                                  SPClassImageUtil.spFunGetImagePath("ic_team_one"),
-                                                                  width: width(17),
-                                                                ),
-                                                                SizedBox(width: 5),
-                                                                Expanded(
-                                                                  child:  Text( spProHotMatch[i].spProTeamOne,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
-                                                                ),
-                                                                SizedBox(width: width(7),),
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: height(5),),
-                                                            Row(
-                                                              children: <Widget>[
-                                                                (spProHotMatch[i].spProIconUrlTwo.isNotEmpty)? Image.network(spProHotMatch[i].spProIconUrlTwo,width: width(17),):
-                                                                SPClassEncryptImage.asset(
-                                                                  SPClassImageUtil.spFunGetImagePath("ic_team_two"),
-                                                                  width: width(17),
-                                                                ),
-                                                                SizedBox(width: 5),
-                                                                Expanded(
-                                                                  child:  Text(spProHotMatch[i].spProTeamTwo,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
-                                                                ),
-                                                                SizedBox(width: width(7),),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '未',
-                                                      style: TextStyle(
-                                                          fontSize: sp(14),
-                                                          color:
-                                                          MyColors.grey_99),
-                                                    ),
-                                                    SizedBox(width: 12,)
-                                                  ],
-                                                ):
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      children: <Widget>[
-                                                        (spProHotMatch[i].spProIconUrlOne.isNotEmpty)? Image.network(spProHotMatch[i].spProIconUrlOne,width: width(17),):
-                                                        SPClassEncryptImage.asset(
-                                                          SPClassImageUtil.spFunGetImagePath("ic_team_one"),
-                                                          width: width(17),
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Expanded(
-                                                          child:  Text( spProHotMatch[i].spProTeamOne,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
-                                                        ),
-                                                        Text(spProHotMatch[i].status=="not_started" ?  "-":spProHotMatch[i].spProScoreOne,style: TextStyle(fontSize: sp(13),color:spProHotMatch[i].status=="in_progress" ? Color(0xFFFB5146): Color(0xFF999999))),
-                                                        SizedBox(width: width(7),),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: height(5),),
-                                                    Row(
-                                                      children: <Widget>[
-                                                        (spProHotMatch[i].spProIconUrlTwo.isNotEmpty)? Image.network(spProHotMatch[i].spProIconUrlTwo,width: width(17),):
-                                                        SPClassEncryptImage.asset(
-                                                          SPClassImageUtil.spFunGetImagePath("ic_team_two"),
-                                                          width: width(17),
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Expanded(
-                                                          child:  Text(spProHotMatch[i].spProTeamTwo,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
-                                                        ),
-                                                        Text(spProHotMatch[i].status=="not_started" ?  "-":spProHotMatch[i].spProScoreTwo,style: TextStyle(fontSize: sp(13),color:spProHotMatch[i].status=="in_progress" ? Color(0xFFFB5146): Color(0xFF999999))),
-                                                        SizedBox(width: width(7),),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-
-                                            ],
-                                          ),
-                                          onTap: (){
-                                            SPClassApiManager.spFunGetInstance().spFunMatchClick(queryParameters: {"match_id": spProHotMatch[i].spProGuessMatchId});
-
-                                            SPClassNavigatorUtils.spFunPushRoute(context, SPClassMatchDetailPage(spProHotMatch[i],spProMatchType:"guess_match_id",));
-
-                                          },
-                                        ),
-                                        Positioned(
-                                          right: 0,
-                                          top: 0,
-                                          child:Container(
-                                            width: width(39),
-                                            height: width(17),
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(width(5)),topRight: Radius.circular(width(5))),
-                                                gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xFF1DBDF2),
-                                                      Color(0xFF1D99F2),
-                                                    ]
-                                                )
-                                            ),
-                                            child: Text('${spProHotMatch[i].spProSchemeNum}观点',style: TextStyle(color: Colors.white,fontSize: sp(10)),),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
+                          padding: EdgeInsets.only(left: width(15),right: width(15),),
+                          margin: EdgeInsets.only(top: width(12),),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: spProHotMatch.map((e) {
+                              return matchSchedule(e);
+                            }).toList(),
                           ),
                         ),
                       ),
@@ -539,6 +397,12 @@ class SPClassHomePageState extends State<SPClassHomePage>
                                 Expanded(
                                   child: SizedBox(),
                                 ),
+                                Container(
+                                  height: width(19),
+                                  width: width(0.4),
+                                  color: Color(0xFFCCCCCC),
+                                  margin: EdgeInsets.only(right: width(10)),
+                                ),
                                 GestureDetector(
                                   child: SPClassEncryptImage.asset(
                                     SPClassImageUtil.spFunGetImagePath(
@@ -573,6 +437,9 @@ class SPClassHomePageState extends State<SPClassHomePage>
                             spFunScrollTop();
                           },
                         ),
+                        SizedBox(
+                          height:width(3) ,
+                        ),
                         Expanded(
                           child: TabBarView(
                             controller: spProTabSchemeController,
@@ -599,6 +466,162 @@ class SPClassHomePageState extends State<SPClassHomePage>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  Widget matchSchedule(SPClassGuessMatchInfo data){
+    return Container(
+      height: height(86),
+      // margin: EdgeInsets.only(left:width(i==0?14:8),),
+      width: width(160),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow:[
+            BoxShadow(
+              offset: Offset(0,0),
+              color: Color(0xFFCED4D9),
+              blurRadius:width(6,),),
+          ],
+          borderRadius: BorderRadius.circular(width(8))
+      ),
+      padding: EdgeInsets.only(left: width(7) ),
+      child: Stack(
+        children: <Widget>[
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: height(4),),
+                Row(
+                  children: <Widget>[
+                    ( data.status=="in_progress" ) ? Text("进行中",style: TextStyle(fontSize: sp(12),color: Color(0xFFFB5146),),):Text(SPClassDateUtils.spFunDateFormatByString(data.spProStTime, "MM-dd HH:mm"),style: TextStyle(fontSize: sp(11),color: Color(0xFF999999),),maxLines: 1,),
+                    Text("「${SPClassStringUtils.spFunMaxLength(data.spProLeagueName,length: 3)}」",style: TextStyle(fontSize: sp(11),color: Color(0xFF999999),),maxLines: 1,),
+                    SizedBox(width: 25,)
+                  ],
+                ),
+
+                Expanded(
+                  child: data.status=="not_started" ?
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  (data.spProIconUrlOne.isNotEmpty)? Image.network(data.spProIconUrlOne,width: width(17),):
+                                  SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath("ic_team_one"),
+                                    width: width(17),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child:  Text(data.spProTeamOne,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
+                                  ),
+                                  SizedBox(width: width(7),),
+                                ],
+                              ),
+                              SizedBox(height: height(5),),
+                              Row(
+                                children: <Widget>[
+                                  (data.spProIconUrlTwo.isNotEmpty)? Image.network(data.spProIconUrlTwo,width: width(17),):
+                                  SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath("ic_team_two"),
+                                    width: width(17),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child:  Text(data.spProTeamTwo,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
+                                  ),
+                                  SizedBox(width: width(7),),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        '未',
+                        style: TextStyle(
+                            fontSize: sp(14),
+                            color:
+                            MyColors.grey_99),
+                      ),
+                      SizedBox(width: 12,)
+                    ],
+                  ):
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          (data.spProIconUrlOne.isNotEmpty)? Image.network(data.spProIconUrlOne,width: width(17),):
+                          SPClassEncryptImage.asset(
+                            SPClassImageUtil.spFunGetImagePath("ic_team_one"),
+                            width: width(17),
+                          ),
+                          SizedBox(width: 5),
+                          Expanded(
+                            child:  Text(data.spProTeamOne,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
+                          ),
+                          Text(data.status=="not_started" ?  "-":data.spProScoreOne,style: TextStyle(fontSize: sp(13),color:data.status=="in_progress" ? Color(0xFFFB5146): Color(0xFF999999))),
+                          SizedBox(width: width(7),),
+                        ],
+                      ),
+                      SizedBox(height: height(5),),
+                      Row(
+                        children: <Widget>[
+                          (data.spProIconUrlTwo.isNotEmpty)? Image.network(data.spProIconUrlTwo,width: width(17),):
+                          SPClassEncryptImage.asset(
+                            SPClassImageUtil.spFunGetImagePath("ic_team_two"),
+                            width: width(17),
+                          ),
+                          SizedBox(width: 5),
+                          Expanded(
+                            child:  Text(data.spProTeamTwo,style: TextStyle(fontSize: sp(13),),maxLines: 1,),
+                          ),
+                          Text(data.status=="not_started" ?  "-":data.spProScoreTwo,style: TextStyle(fontSize: sp(13),color:data.status=="in_progress" ? Color(0xFFFB5146): Color(0xFF999999))),
+                          SizedBox(width: width(7),),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+
+              ],
+            ),
+            onTap: (){
+              SPClassApiManager.spFunGetInstance().spFunMatchClick(queryParameters: {"match_id": data.spProGuessMatchId});
+
+              SPClassNavigatorUtils.spFunPushRoute(context, SPClassMatchDetailPage(data,spProMatchType:"guess_match_id",));
+
+            },
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child:Container(
+              width: width(39),
+              height: width(17),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(width(5)),topRight: Radius.circular(width(5))),
+                  gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF1DBDF2),
+                        Color(0xFF1D99F2),
+                      ]
+                  )
+              ),
+              child: Text('${data.spProSchemeNum}观点',style: TextStyle(color: Colors.white,fontSize: sp(10)),),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   void spFunGetBannerList() {
     SPClassApiManager.spFunGetInstance().spFunGetBanner<SPClassBannerItem>(
@@ -775,7 +798,7 @@ class SPClassHomePageState extends State<SPClassHomePage>
       spProOnSuccess: (list){
         if(mounted){
           setState(() {
-            spProHotMatch=list.spProDataList;
+            spProHotMatch=list.spProDataList.length>2?list.spProDataList.sublist(0,2):list.spProDataList;
           });
         }
       },

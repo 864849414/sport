@@ -43,6 +43,10 @@ class _FollowPageState extends State<FollowPage> with  TickerProviderStateMixin<
       child: Column(
         children: <Widget>[
           Container(
+            height: width(width(6)),
+            color: Color(0xFFF2F2F2),
+          ),
+          Container(
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(

@@ -51,21 +51,96 @@ class SPClassMyFollowExpertPageState  extends State<SPClassMyFollowExpertPage>{
     // TODO: implement build
     return !isLoaded?SPClassLoadingPage():
     spProMyFollowingList.isEmpty?
-    Column(
-      children: <Widget>[
-        SPClassNoDataView(content: '你还没有关注的专家',height: width(246),iconSize: Size(width(180),height(173)),),
-        Container(
-          margin: EdgeInsets.only(left: width(15),bottom: width(10)),
-          alignment: Alignment.centerLeft,
-          child: Text('推荐专家', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),fontWeight: FontWeight.bold),),
-        ),
-        Expanded(
-          child: Container(
-            child: itemWidget(recommendedExpertsList),
+    Container(
+        color: Colors.white,
+        child: Container(
+          child: EasyRefresh.custom(
+            firstRefresh: true,
+            controller:controller ,
+            header: SPClassBallHeader(
+                textColor: Color(0xFF666666)
+            ),
+            footer: SPClassBallFooter(
+                textColor: Color(0xFF666666)
+            ),
+            firstRefreshWidget: SPClassSkeletonList(
+                length: 10,
+                builder: (c,index)=>
+                    Container(
+                      margin: EdgeInsets.only(bottom: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.4,color: Colors.grey[300]),
+                      ),
+                      padding: EdgeInsets.only(top: height(11),bottom: height(11),left: width(17) ),
+                      alignment: Alignment.center,
+                      child:   Row(
+                        children: <Widget>[
+                          Container(
+                            width: width(40),
+                            height: width(40),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(width(20))),
+                          ),
+                          SizedBox(width: width(7),),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(height: height(10),width: width(60),color: Colors.red,),
+                                SizedBox(height: height(5),),
+                                Container(height: height(10),width: width(100),color: Colors.red,),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+            onRefresh: spFunOnReFresh,
+            onLoad: spFunOnLoad,
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    SPClassNoDataView(content: '你还没有关注的专家',height: width(246),iconSize: Size(width(180),height(173)),),
+                    Container(
+                      margin: EdgeInsets.only(left: width(15),bottom: width(10)),
+                      alignment: Alignment.centerLeft,
+                      child: Text('推荐专家', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),fontWeight: FontWeight.bold),),
+                    ),
+                  ]
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Container(
+                      child: itemWidget(recommendedExpertsList),
+                    )
+                  ]
+                ),
+              ),
+            ],
           ),
         )
-      ],
-    ):
+    )
+    // Column(
+    //   children: <Widget>[
+    //     SPClassNoDataView(content: '你还没有关注的专家',height: width(246),iconSize: Size(width(180),height(173)),),
+    //     Container(
+    //       margin: EdgeInsets.only(left: width(15),bottom: width(10)),
+    //       alignment: Alignment.centerLeft,
+    //       child: Text('推荐专家', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),fontWeight: FontWeight.bold),),
+    //     ),
+    //     Expanded(
+    //       child: Container(
+    //         child: itemWidget(recommendedExpertsList),
+    //       ),
+    //     )
+    //   ],
+    // )
+        :
     Container(
         color: Colors.white,
         child: Container(
@@ -213,12 +288,16 @@ class SPClassMyFollowExpertPageState  extends State<SPClassMyFollowExpertPage>{
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: width(8),vertical: width(4)),
+                      // padding: EdgeInsets.symmetric(horizontal: width(8),vertical: width(4)),
+                      width: width(61),
+                      height: width(27),
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,width: 0.5),
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(item.spProIsFollowing? Icons.check:Icons.add,color: item.spProIsFollowing?MyColors.grey_cc:MyColors.main1,size: width(15),),
                           Text(item.spProIsFollowing? "已关注":"关注",style: TextStyle(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,fontSize: sp(12)),)
@@ -250,18 +329,16 @@ class SPClassMyFollowExpertPageState  extends State<SPClassMyFollowExpertPage>{
            isLoaded=true;
            spProMyFollowingList=list.spProExpertList;
          });
-          if(spProMyFollowingList.length==0&&recommendedExpertsList.length==0){
-            //获取推荐专家
-            SPClassApiManager.spFunGetInstance().spFunExpertList(queryParameters: {"order_key":"correct_rate","page":1,'ranking_type':'近10场',"is_zq_expert": 1},spProCallBack: SPClassHttpCallBack<SPClassExpertListEntity>(
-                spProOnSuccess: (list){
-                  setState(() {
-                    recommendedExpertsList = list.spProExpertList.length>3? list.spProExpertList.sublist(0,3):list.spProExpertList;
-                  });
-                },
-                onError: (result){
-                }
-            ));
-          }
+         SPClassApiManager.spFunGetInstance().spFunExpertList(queryParameters: {"order_key":"correct_rate","page":1,'ranking_type':'近10场',"is_zq_expert": 1},spProCallBack: SPClassHttpCallBack<SPClassExpertListEntity>(
+             spProOnSuccess: (list){
+               setState(() {
+                 recommendedExpertsList = list.spProExpertList.length>3? list.spProExpertList.sublist(0,3):list.spProExpertList;
+               });
+             },
+             onError: (result){
+             }
+         ));
+
       },
       onError: (result){
         setState(() {
