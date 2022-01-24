@@ -7,6 +7,7 @@ import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/SPClassEncryptImage.dart';
+import 'package:sport/utils/colors.dart';
 
 class SPClassBottomPickAndSearchList extends StatefulWidget{
   List<String> list;
@@ -160,7 +161,7 @@ class SPClassBottomPickAndSearchListState extends State<SPClassBottomPickAndSear
                      behavior: HitTestBehavior.opaque,
                      child:  Container(
                        decoration: BoxDecoration(
-                           color:spProSelectIndex==index? Color(0xFFDE3C31):Colors.white,
+                           color:spProSelectIndex==index? MyColors.main1:Colors.white,
                            border: Border(bottom: BorderSide(width: 0.5,color: Colors.grey[300]))
                        ),
                        width: ScreenUtil.screenWidth,

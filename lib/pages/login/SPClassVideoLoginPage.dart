@@ -334,74 +334,74 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                     SizedBox(
                                       height: width(16),
                                     ),
-                                    // spProLoginType == 0
-                                    //     ? SizedBox()
-                                    //     : Container(
-                                    //         padding: EdgeInsets.only(
-                                    //             left: width(20)),
-                                    //         margin: EdgeInsets.only(
-                                    //             top: height(13)),
-                                    //         decoration: BoxDecoration(
-                                    //             color: Color(0x4DDDDDDD),
-                                    //             borderRadius:
-                                    //                 BorderRadius.circular(400)),
-                                    //         height: height(48),
-                                    //         child: Row(
-                                    //           children: <Widget>[
-                                    //             Expanded(
-                                    //                 child: TextField(
-                                    //               obscureText:
-                                    //                   !spProIsShowPassWord,
-                                    //               textAlign: TextAlign.left,
-                                    //               maxLines: 1,
-                                    //               style: GoogleFonts.roboto(
-                                    //                   fontSize: sp(18),
-                                    //                   textStyle: TextStyle(
-                                    //                       color: Colors.white,
-                                    //                       textBaseline:
-                                    //                           TextBaseline
-                                    //                               .alphabetic)),
-                                    //               decoration: InputDecoration(
-                                    //                 hintText: "请输入密码",
-                                    //                 hintStyle: TextStyle(
-                                    //                     color:
-                                    //                         Color(0xFFC6C6C6),
-                                    //                     fontSize: sp(14)),
-                                    //                 border: InputBorder.none,
-                                    //                 suffixIcon: IconButton(
-                                    //                   padding: EdgeInsets.only(
-                                    //                       right: width(24)),
-                                    //                   icon: SPClassEncryptImage
-                                    //                       .asset(
-                                    //                     !spProIsShowPassWord
-                                    //                         ? SPClassImageUtil
-                                    //                             .spFunGetImagePath(
-                                    //                                 'ic_login_uneye')
-                                    //                         : SPClassImageUtil
-                                    //                             .spFunGetImagePath(
-                                    //                                 'ic_eye_pwd'),
-                                    //                     fit: BoxFit.contain,
-                                    //                     color: Colors.white,
-                                    //                     width: width(18),
-                                    //                     height: width(18),
-                                    //                   ),
-                                    //                   onPressed: () =>
-                                    //                       setState(() {
-                                    //                     spProIsShowPassWord =
-                                    //                         !spProIsShowPassWord;
-                                    //                   }),
-                                    //                 ),
-                                    //               ),
-                                    //               onChanged: (value) {
-                                    //                 setState(() {
-                                    //                   spProPhonePwd = value;
-                                    //                 });
-                                    //               },
-                                    //             ))
-                                    //           ],
-                                    //         ),
-                                    //       ),
-                                    Row(
+                                    spProLoginType == 0
+                                        ? SizedBox()
+                                        : Container(
+                                            padding: EdgeInsets.only(
+                                                left: width(20)),
+                                            margin: EdgeInsets.only(
+                                                top: height(13)),
+                                            decoration: BoxDecoration(
+                                                color: Color(0x4DDDDDDD),
+                                                borderRadius:
+                                                    BorderRadius.circular(400)),
+                                            height: height(48),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: TextField(
+                                                  obscureText:
+                                                      !spProIsShowPassWord,
+                                                  textAlign: TextAlign.left,
+                                                  maxLines: 1,
+                                                  style: GoogleFonts.roboto(
+                                                      fontSize: sp(18),
+                                                      textStyle: TextStyle(
+                                                          color: Colors.white,
+                                                          textBaseline:
+                                                              TextBaseline
+                                                                  .alphabetic)),
+                                                  decoration: InputDecoration(
+                                                    hintText: "请输入密码",
+                                                    hintStyle: TextStyle(
+                                                        color:
+                                                            Color(0xFFC6C6C6),
+                                                        fontSize: sp(14)),
+                                                    border: InputBorder.none,
+                                                    suffixIcon: IconButton(
+                                                      padding: EdgeInsets.only(
+                                                          right: width(24)),
+                                                      icon: SPClassEncryptImage
+                                                          .asset(
+                                                        !spProIsShowPassWord
+                                                            ? SPClassImageUtil
+                                                                .spFunGetImagePath(
+                                                                    'ic_login_uneye')
+                                                            : SPClassImageUtil
+                                                                .spFunGetImagePath(
+                                                                    'ic_eye_pwd'),
+                                                        fit: BoxFit.contain,
+                                                        color: Colors.white,
+                                                        width: width(18),
+                                                        height: width(18),
+                                                      ),
+                                                      onPressed: () =>
+                                                          setState(() {
+                                                        spProIsShowPassWord =
+                                                            !spProIsShowPassWord;
+                                                      }),
+                                                    ),
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      spProPhonePwd = value;
+                                                    });
+                                                  },
+                                                ))
+                                              ],
+                                            ),
+                                          ),
+                                    spProLoginType==1?SizedBox():Row(
                                       children: <Widget>[
                                         Expanded(
                                           child: Container(
@@ -483,9 +483,9 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                           margin:
                                           EdgeInsets.only(top: height(25)),
                                           decoration: BoxDecoration(
-                                              color: spProPhoneNum.length == 11&&spProVerCode!=''
+                                              color: spProPhoneNum.length == 11&&(spProVerCode.isNotEmpty||spProPhonePwd.isNotEmpty)
                                                   ?MyColors.main1:Colors.transparent,
-                                              border:Border.all(color: spProPhoneNum.length == 11&&spProVerCode!=''
+                                              border:Border.all(color: spProPhoneNum.length == 11&&(spProVerCode.isNotEmpty||spProPhonePwd.isNotEmpty)
                                                   ?MyColors.main1:MyColors.grey_66,width: 0.5),
                                               borderRadius:
                                               BorderRadius.circular(400)),
@@ -494,7 +494,7 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                           child: Text(
                                             "登录",
                                             style: TextStyle(
-                                                color:spProPhoneNum.length == 11&&spProVerCode!=''
+                                                color:spProPhoneNum.length == 11&&(spProVerCode.isNotEmpty||spProPhonePwd.isNotEmpty)
                                                     ?MyColors.white:MyColors.grey_66,
                                                 fontSize: sp(16)),
                                           ),
@@ -508,7 +508,7 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                           if (spProLoginType == 0 &&
                                               spProVerCode.isEmpty) {
                                             SPClassToastUtils.spFunShowToast(
-                                                msg: "请输入密码");
+                                                msg: "请输入验证码");
                                             return;
                                           }
                                           if (spProLoginType == 1 &&
@@ -807,15 +807,15 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                               width: height(30),
                                             ),
                                           ),
-                                          // SizedBox(
-                                          //   height: height(5),
-                                          // ),
-                                          // Text(
-                                          //   "微信",
-                                          //   style: TextStyle(
-                                          //       fontSize: sp(12),
-                                          //       color: Colors.white),
-                                          // ),
+                                          SizedBox(
+                                            height: height(5),
+                                          ),
+                                          Text(
+                                            "微信",
+                                            style: TextStyle(
+                                                fontSize: sp(12),
+                                                color: Colors.white),
+                                          ),
                                         ],
                                       ),
                                       onTap: () {
@@ -829,51 +829,51 @@ class SPClassVideoLoginPageState extends State<SPClassVideoLoginPage>
                                             state: "wechat_sdk_demo_test");
                                       },
                                     ),
-                                    // SizedBox(
-                                    //   width: width(20),
-                                    // ),
-                                    // GestureDetector(
-                                    //   child: Column(
-                                    //     children: <Widget>[
-                                    //       Container(
-                                    //         padding: EdgeInsets.all(width(10)),
-                                    //         decoration: ShapeDecoration(
-                                    //             color: Colors.black45,
-                                    //             shape: CircleBorder()),
-                                    //         alignment: Alignment.center,
-                                    //         child: SPClassEncryptImage.asset(
-                                    //           spProLoginType == 1
-                                    //               ? SPClassImageUtil
-                                    //                   .spFunGetImagePath(
-                                    //                       'ic_code_login')
-                                    //               : SPClassImageUtil
-                                    //                   .spFunGetImagePath(
-                                    //                       'ic_pwd_login'),
-                                    //           fit: BoxFit.contain,
-                                    //           color: Colors.white,
-                                    //           width: height(30),
-                                    //         ),
-                                    //       ),
-                                    //       SizedBox(
-                                    //         height: height(5),
-                                    //       ),
-                                    //       Text(
-                                    //         spProLoginType == 0
-                                    //             ? "密码登录"
-                                    //             : "验证码登录",
-                                    //         style: TextStyle(
-                                    //             fontSize: sp(12),
-                                    //             color: Colors.white),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    //   onTap: () {
-                                    //     setState(() {
-                                    //       spProLoginType =
-                                    //           (spProLoginType == 0) ? 1 : 0;
-                                    //     });
-                                    //   },
-                                    // ),
+                                    SizedBox(
+                                      width: width(20),
+                                    ),
+                                    GestureDetector(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.all(width(10)),
+                                            decoration: ShapeDecoration(
+                                                color: Colors.black45,
+                                                shape: CircleBorder()),
+                                            alignment: Alignment.center,
+                                            child: SPClassEncryptImage.asset(
+                                              spProLoginType == 1
+                                                  ? SPClassImageUtil
+                                                      .spFunGetImagePath(
+                                                          'ic_code_login')
+                                                  : SPClassImageUtil
+                                                      .spFunGetImagePath(
+                                                          'ic_pwd_login'),
+                                              fit: BoxFit.contain,
+                                              color: Colors.white,
+                                              width: height(30),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: height(5),
+                                          ),
+                                          Text(
+                                            spProLoginType == 0
+                                                ? "密码登录"
+                                                : "验证码登录",
+                                            style: TextStyle(
+                                                fontSize: sp(12),
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          spProLoginType =
+                                              (spProLoginType == 0) ? 1 : 0;
+                                        });
+                                      },
+                                    ),
                                   ],
                                 ),
                                 SizedBox(

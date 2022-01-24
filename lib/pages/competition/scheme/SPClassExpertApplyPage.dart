@@ -847,7 +847,7 @@ class SPClassExpertApplyPageState  extends State<SPClassExpertApplyPage>{
      }
     SPClassApiManager.spFunGetInstance().spFunExpertApply(
         spProBodyParameters:{"real_name":spProRealName,"id_number":spProIdNumber,"phone_number":spProPhoneNumber.trim(),"phone_code":spProPhoneCode.trim(),
-          "id_front_url":spProIdFrontUrl,"id_back_url":spProIdBackUrl,"apply_reason":spProApplyReason,"qq_number":QQNumber,"nick_name":spProNickName,paramKey:"1"}
+          "id_front_url":spProIdFrontUrl,"id_back_url":spProIdBackUrl,"apply_reason":'新版本不需要填写原因'/*spProApplyReason*/,"qq_number":'10000'/*QQNumber*/,"nick_name":spProNickName,paramKey:"1"}
         ,context: context,spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
         spProOnSuccess: (value){
           SPClassApplicaion.spProUserLoginInfo.spProExpertVerifyStatus="0";

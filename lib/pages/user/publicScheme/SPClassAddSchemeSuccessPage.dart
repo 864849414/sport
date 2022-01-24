@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/SPClassEncryptImage.dart';
@@ -32,32 +33,22 @@ class SPClassAddSchemeSuccessPage extends StatelessWidget {
 
                  GestureDetector(
                    child:  Container(
-                  height: height(53),
+                  height: width(46),
                   alignment: Alignment.center,
                    child:Container(
                   alignment: Alignment.center,
-                  height: height(40),
-                  width: width(320),
+                  height: width(46),
+                  width: width(250),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(width(3)),
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-                    ),
-                    boxShadow:[
-                      BoxShadow(
-                        offset: Offset(3,3),
-                        color: Color(0x4DF23B0C),
-                        blurRadius:width(5,),),
-
-                    ],
-
+                    borderRadius: BorderRadius.circular(150),
+                    color: Colors.white
                   ),
                   child:Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
-                      Text("我知道了",style: TextStyle(fontSize: sp(15),color: Colors.white),)
+                      Text("我知道了",style: TextStyle(fontSize: sp(15),color: MyColors.main1),)
                     ],
                   ),
                 ) ,

@@ -45,16 +45,14 @@ class SPClassMyAddSchemePageState extends State<SPClassMyAddSchemePage> with Tic
             child: Row(
               children: <Widget>[
 
-                SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_shceme_public"),width: width(14),),
+                // SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_shceme_public"),width: width(14),),
                 SizedBox(width: width(3),),
-                Text("发布",style: TextStyle(color: Color(0xFF318BDE)),),
+                Text("去发布",style: TextStyle(color: Colors.white,fontSize: sp(13)),),
                 SizedBox(width:width(15) ,),
               ],
             ),
             onTap: (){
               SPClassNavigatorUtils.spFunPushRoute(context, SPClassPublicSchemePage());
-
-
 
             },
           )

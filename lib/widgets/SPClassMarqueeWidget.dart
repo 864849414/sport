@@ -79,6 +79,7 @@ class SPClassMarqueeWidgetState extends State<SPClassMarqueeWidget>{
     }
 
     return  ListView.builder(
+        shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         controller: scrollController,
         scrollDirection: Axis.horizontal,

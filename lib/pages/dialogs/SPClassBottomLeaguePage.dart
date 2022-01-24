@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/utils/colors.dart';
 
@@ -109,11 +111,20 @@ class SPClassBottomLeaguePageState extends State<SPClassBottomLeaguePage> {
                       height: height(33),
                       alignment: Alignment.center,
                       child: Center(
-                        child: Text(itemValue, style: TextStyle(
-                            fontSize: sp(14),
-                            color: index == spProSelectIndex
-                                ? Colors.black
-                                : Color(0xFF999999))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            itemValue.contains('钻石')?SPClassEncryptImage.asset(
+                              SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                              width: width(17),
+                            ):Container(),
+                            Text('${itemValue.contains('钻石')?itemValue.substring(0,itemValue.length-2):itemValue}', style: TextStyle(
+                                fontSize: sp(14),
+                                color: index == spProSelectIndex
+                                    ? Colors.black
+                                    : Color(0xFF999999))),
+                          ],
+                        ),
                       ));
                 }).toList(),
 
