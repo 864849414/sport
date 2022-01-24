@@ -16,6 +16,7 @@ import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/pages/dialogs/SPClassWithdrawIncomeTipDialog.dart';
 import 'package:sport/pages/user/publicScheme/SPClassExpertIncomeDetailPage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassBallFooter.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 import 'package:sport/SPClassEncryptImage.dart';
@@ -69,35 +70,19 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
         onRefresh: spFunOnRefresh,
         onLoad: spFunOnMore,
         slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: SizedBox(height: width(10),),
-          ),
 
           SliverToBoxAdapter(
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow:[
-                    BoxShadow(
-                      offset: Offset(2,5),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),),
-                    BoxShadow(
-                      offset: Offset(-5,1),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(width(7))
               ),
-              margin: EdgeInsets.only(bottom: height(8),left: width(10),right: width(10)),
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: height(35),
-                    padding: EdgeInsets.only(left: width(13),right: width(13)),
+                    height: width(52),
+                    margin: EdgeInsets.only(left: width(15),right: width(15)),
                     decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                        border: Border(bottom: BorderSide(width: 1,color: Color(0xFFF2F2F2)))
                     ),
                     child: Row(
                       children: <Widget>[
@@ -106,7 +91,7 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text("我的收益",style: GoogleFonts.notoSansSC(fontSize: sp(15)),),
+                              Text("我的收益",style: GoogleFonts.notoSansSC(fontSize: sp(17),fontWeight: FontWeight.w500),),
                             ],
                           ),
                         ),
@@ -129,170 +114,155 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                       ],
                     ),
                   ),
-                  SizedBox(height: width(12),),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child:Container(
-                          padding: EdgeInsets.only(left: width(30)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                               Text("累计收益",style: TextStyle(fontSize: sp(11)),),
-                               Row(
-                                 children: <Widget>[
-                                   Text("￥",style: TextStyle(fontSize: sp(16),color: Color(0xFFDE3C31)),),
+                  SizedBox(height: width(8),),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: width(15)),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child:Container(
+                            height: width(92),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(width(6)),
+                                color: Color(0xFFF7F7F7),
+                            ),
+                            padding: EdgeInsets.only(left: width(12),right: width(12)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("累计收益",style: TextStyle(fontSize: sp(11)),),
+                                SizedBox(height: width(18),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
                                     Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProPaidIncome,style: TextStyle(fontSize: sp(24),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
+                                    Text("￥",style: TextStyle(height: 3,fontSize: sp(13),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
 
-                                 ],
-                               )
-                            ],
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child:Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text("待提现金额",style: TextStyle(fontSize: sp(11)),),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text("￥",style: TextStyle(fontSize: sp(16),color: Color(0xFFDE3C31)),),
-                                        Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProUnpaidIncome,style: TextStyle(fontSize: sp(24),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
-                                      ],
-                                    ),
-                                  ),
-
-                                  GestureDetector(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(width(2)),
-                                          gradient: LinearGradient(
-                                              colors: [Color(0xFFFAAB2A),Color(0xFFFF9511)]
+                        SizedBox(width: width(12),),
+                        Expanded(
+                          child:Container(
+                            height: width(92),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(width(6)),
+                              color: Color(0xFFF7F7F7),
+                            ),
+                            padding: EdgeInsets.only(left: width(12),right: width(12)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(child: Text("待提现金额",style: TextStyle(fontSize: sp(11)),)),
+                                    GestureDetector(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(width(9)),
+                                            color: Colors.white
                                           ),
-                                          boxShadow:[
-                                            BoxShadow(
-                                              offset: Offset(3,3),
-                                              color: Color(0x66F1CB81),
-                                              blurRadius:width(5,),),
-                                            BoxShadow(
-                                              offset: Offset(-2,1),
-                                              color: Color(0x66F1CB81),
-                                              blurRadius:width(5,),),
-                                          ],
+                                          width: width(38),
+                                          height: width(17),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text("提现",style: TextStyle(fontSize: sp(12),color: MyColors.main1),),
+                                            ],
+                                          ),
                                         ),
-                                        width: width(58),
-                                        height: width(27),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("提现",style: TextStyle(fontSize: sp(11),color: Colors.white),),
+                                        onTap: (){
+                                          if( (spProIncomeReport==null||double.parse(spProIncomeReport.spProUnpaidIncome)<=0)){
+                                            SPClassToastUtils.spFunShowToast(msg: "暂无可提现金额");
+                                            return;
+                                          }
+                                          SPClassApiManager.spFunGetInstance().spFunWithdrawIncome(context: context,spProCallBack: SPClassHttpCallBack(
+                                              spProOnSuccess: (result){
+                                                showDialog(context: context,child: SPClassWithdrawIncomeTipDialog());
+                                                spFunOnRefresh();
+                                              }
+                                          ));
+                                        }
+                                    ),
 
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: (){
+                                  ],
+                                ),
+                                SizedBox(height: width(18),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProUnpaidIncome,style: TextStyle(fontSize: sp(24),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
+                                    Text("￥",style: TextStyle(height: 3,fontSize: sp(13),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
 
-                                         if( (spProIncomeReport==null||double.parse(spProIncomeReport.spProUnpaidIncome)<=0)){
-                                           SPClassToastUtils.spFunShowToast(msg: "暂无可提现金额");
-                                           return;
-                                         }
-                                         SPClassApiManager.spFunGetInstance().spFunWithdrawIncome(context: context,spProCallBack: SPClassHttpCallBack(
-                                             spProOnSuccess: (result){
-                                               showDialog(context: context,child: SPClassWithdrawIncomeTipDialog());
-                                               spFunOnRefresh();
-                                             }
-                                         ));
-                                      }
-                                  ),
-                                  SizedBox(width: width(13),),
-
-                                ],
-                              )
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  SizedBox(height: width(12),),
-
-
+                  SizedBox(height: width(15),),
                 ],
 
               ),
             ),
           ),
 
-
           SliverToBoxAdapter(
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow:[
-                    BoxShadow(
-                      offset: Offset(2,5),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),),
-                    BoxShadow(
-                      offset: Offset(-5,1),
-                      color: Color(0x0D000000),
-                      blurRadius:width(6,),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(width(7))
-              ),
-              margin: EdgeInsets.only(bottom: height(8),left: width(10),right: width(10)),
+              color: Colors.white,
+              margin: EdgeInsets.only(bottom: height(8),top: width(8)),
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: width(13),),
                   Container(
-                    height: width(37),
-                    padding: EdgeInsets.only(left: width(13),right: width(13)),
-                    decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
-                    ),
+                    height: width(25),
+                    padding: EdgeInsets.only(left: width(15),right: width(15)),
+                    color: Color(0xFFF2F2F2),
                     child: Row(
                       children: <Widget>[
                          Expanded(
                            child: Center(
-                             child: Text("结算周期",style: TextStyle(fontSize: sp(12)),),
+                             child: Text("结算周期",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
                            ),
                          ),
-
-                        Expanded(
-                          child: Center(
-                            child: Text("购买金额",style: TextStyle(fontSize: sp(12)),),
-                          ),
-                        ),
-
-                        Expanded(
-                          child: Center(
-                            child: Text("分成比例",style: TextStyle(fontSize: sp(12)),),
-                          ),
-                        ),
-
-
                         Container(
                           width: width(40),
                           child: Center(
-                            child: Text("发布数",style: TextStyle(fontSize: sp(12)),),
+                            child: Text("发布数",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
                           ),
                         ),
                         Expanded(
                           child: Center(
-                            child: Text("周收益",style: TextStyle(fontSize: sp(12)),),
+                            child: Text("购买金额",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
+                          ),
+                        ),
+
+                        Expanded(
+                          child: Center(
+                            child: Text("分成比例",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
+                          ),
+                        ),
+
+
+
+                        Expanded(
+                          child: Center(
+                            child: Text("周收益",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
                           ),
                         ),
                         Expanded(
                           child: Center(
-                            child: Text("结算状态",style: TextStyle(fontSize: sp(12)),),
+                            child: Text("结算状态",style: TextStyle(fontSize: sp(12),color: MyColors.grey_99),),
                           ),
                         ),
                       ],
@@ -311,7 +281,8 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                         return GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           child: Container(
-                            padding: EdgeInsets.only(left: width(13),right: width(13),top: 5,bottom: 5),
+                            height: width(42),
+                            margin: EdgeInsets.only(left: width(15),right: width(15),),
                             decoration: BoxDecoration(
                                 border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
                             ),
@@ -319,7 +290,13 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                               children: <Widget>[
                                 Expanded(
                                   child: Center(
-                                    child: Text(item.spProStDate+"\n"+item.spProEdDate,style: TextStyle(fontSize: sp(10)),),
+                                    child: Text(item.spProStDate+"\n"+item.spProEdDate,style: TextStyle(fontSize: sp(10),color: MyColors.grey_99),),
+                                  ),
+                                ),
+                                Container(
+                                  width: width(40),
+                                  child: Center(
+                                    child: Text(item.spProSchemeNum,style: TextStyle(fontSize: sp(10)),),
                                   ),
                                 ),
 
@@ -335,13 +312,6 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                                   ),
                                 ),
 
-
-                                Container(
-                                  width: width(40),
-                                  child: Center(
-                                    child: Text(item.spProSchemeNum,style: TextStyle(fontSize: sp(10)),),
-                                  ),
-                                ),
                                 Expanded(
                                   child: Center(
                                     child: Text("￥"+SPClassStringUtils.spFunSqlitZero(item.income),style: TextStyle(fontSize: sp(10),color:  Color(0xFFDE3C31)),),

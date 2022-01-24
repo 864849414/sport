@@ -52,7 +52,7 @@ class SPClassMyAddSchemeListPageState extends State<SPClassMyAddSchemeListPage> 
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      color: Color(0xFFF1F1F1),
+      color: Colors.white,
       child: EasyRefresh.custom(
         controller:spProRefreshController ,
         header: SPClassBallHeader(
@@ -66,16 +66,8 @@ class SPClassMyAddSchemeListPageState extends State<SPClassMyAddSchemeListPage> 
         onLoad: spFunOnMore,
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: SizedBox(height: width(10),),
-          ),
-          SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.only(left: width(10),right: width(10),bottom: width(10)),
-              padding: EdgeInsets.only(top: width(5),bottom: width(5)),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(width(7))
-              ),
+              color: Colors.white,
               child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -88,10 +80,11 @@ class SPClassMyAddSchemeListPageState extends State<SPClassMyAddSchemeListPage> 
                         SPClassSchemeItemView(schemeItem,spProShowRate: false,),
                         Positioned(
                           right:  width(13) ,
+                          top:width(10),
                           child: SPClassEncryptImage.asset(
                             (schemeItem.spProVerifyStatus=="0")? SPClassImageUtil.spFunGetImagePath("ic_verify_ing"):
                             (schemeItem.spProVerifyStatus=="-1")? SPClassImageUtil.spFunGetImagePath("ic_verify_bad"): "",
-                            width: width(40),
+                            width: width(46),
                           ),
                         ),
                         Positioned(
@@ -101,7 +94,7 @@ class SPClassMyAddSchemeListPageState extends State<SPClassMyAddSchemeListPage> 
                             (schemeItem.spProIsWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_result_red"):
                             (schemeItem.spProIsWin=="0")? SPClassImageUtil.spFunGetImagePath("ic_result_hei"):
                             (schemeItem.spProIsWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_result_zou"):"",
-                            width: width(40),
+                            width: width(46),
                           ),
                         ),
                       ],
