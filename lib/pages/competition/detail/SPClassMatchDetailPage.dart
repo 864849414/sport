@@ -63,12 +63,10 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
         spProTabTitles.add("数据");
         views.add(SPClassMatchAnylizePage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId,},widget.spProSportMatch));
       }
-
       if(SPClassApplicaion.spProShowMenuList.contains("match_odds")){
         spProTabTitles.add("指数");
         views.add(SPClassOddsPage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId},widget.spProSportMatch.spProGuessMatchId));
       }
-
       if(SPClassApplicaion.spProShowMenuList.contains("match_scheme")){
         spProTabTitles.add("方案");
         views.add(SPClassMatchRecomPage(widget.spProSportMatch));
@@ -228,7 +226,8 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
          )
        ],
      ),
-    ):NestedScrollView(
+    ):
+    NestedScrollView(
       controller: scrollController,
       headerSliverBuilder:(BuildContext context, bool innerBoxIsScrolled){
         return <Widget>[

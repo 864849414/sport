@@ -72,7 +72,7 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
         centerTitle: true,
         backgroundColor: MyColors.main1,
         elevation: 0,
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         leading: IconButton(
           padding: EdgeInsets.zero,
           icon: SPClassEncryptImage.asset(

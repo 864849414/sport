@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sport/Demo.dart';
 import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/model/SPClassAnylizeMatchList.dart';
@@ -106,6 +107,2776 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
   Widget build(BuildContext context) {
     // TODO: implement build
     super.build(context);
+    return spProIsLoading?SPClassLoadingPage():
+    SingleChildScrollView(
+      child: Column(
+        children: [
+          Visibility(
+            child: Stack(
+              alignment:Alignment.topCenter,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:[
+                      BoxShadow(
+                        offset: Offset(2,5),
+                        color: Color(0x0C000000),
+                        blurRadius:width(6,),),
+                      BoxShadow(
+                        offset: Offset(-5,1),
+                        color: Color(0x0C000000),
+                        blurRadius:width(6,),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(width(7)),
+                  ),
+                  margin: EdgeInsets.only(left: width(10),right: width(10),top: width(10)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: width(30),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(spFunGetSupportRate(1),style: TextStyle(fontSize: sp(10)),),
+                              SizedBox(height: width(5),),
+                              AnimatedSize(
+                                vsync: this,
+                                duration: Duration(
+                                    milliseconds: 300
+                                ),
+                                child: Container(
+                                  width: width(27),
+                                  height: spFunGetForecastHeight(1),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [spFunGetUserSupport(1),0.0],
+                                          colors: [
+                                            Color(0xFFF14B0B),
+                                            Color(0xFFF1150B),
+                                          ]
+                                      )
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: width(5),),
+                              Text("主胜",style: TextStyle(fontSize: sp(12)),),
+
+                              GestureDetector(
+                                child: Container(
+                                  decoration: (spProForecastInfo!=null
+                                      &&spProForecastInfo.spProSupportWhich!=null
+                                      &&spProForecastInfo.spProSupportWhich=="1"
+                                  )?BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0x66FF9613).withOpacity(0.1),
+                                            offset: Offset(5,1),
+                                            blurRadius: width(10)
+                                        )
+                                      ]
+                                  ):null,
+                                  padding: EdgeInsets.all(width(8)),
+                                  child: SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath(
+                                        (spProForecastInfo!=null
+                                            &&spProForecastInfo.spProSupportWhich!=null
+                                            &&spProForecastInfo.spProSupportWhich=="1"
+                                        )?
+                                        "ic_forecast_gooded":"ic_forecast_good"),
+                                    width: width(16),
+                                  ),
+                                ),
+                                onTap: (){
+                                  spFunSupportForecast("1");
+                                },
+                              )
+                            ],
+                          ),
+
+                          SizedBox(width: width(67),),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(spFunGetSupportRate(0),style: TextStyle(fontSize: sp(10)),),
+                              SizedBox(height: width(5),),
+                              AnimatedSize(
+                                vsync: this,
+                                duration: Duration(
+                                    milliseconds: 300
+                                ),
+                                child: Container(
+                                  width: width(27),
+                                  height: spFunGetForecastHeight(0),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [spFunGetUserSupport(0),0.0],
+                                          colors: [
+                                            Color(0xFFB1B1B1),
+                                            Color(0x91030000),
+
+                                          ]
+                                      )
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: width(5),),
+                              Text("平局",style: TextStyle(fontSize: sp(12)),),
+
+                              GestureDetector(
+                                child: Container(
+                                  decoration: (spProForecastInfo!=null
+                                      &&spProForecastInfo.spProSupportWhich!=null
+                                      &&spProForecastInfo.spProSupportWhich=="0"
+                                  )?BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0x66FF9613).withOpacity(0.1),
+                                            offset: Offset(5,1),
+                                            blurRadius: width(10)
+                                        )
+                                      ]
+                                  ):null,
+                                  padding: EdgeInsets.all(width(8)),
+                                  child: SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath(
+                                        (spProForecastInfo!=null
+                                            &&spProForecastInfo.spProSupportWhich!=null
+                                            &&spProForecastInfo.spProSupportWhich=="0"
+                                        )?
+                                        "ic_forecast_gooded":"ic_forecast_good"),
+                                    width: width(16),
+                                  ),
+                                ),
+                                onTap: (){
+                                  spFunSupportForecast("0");
+                                },
+                              )
+                            ],
+                          ),
+
+                          SizedBox(width: width(67),),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(spFunGetSupportRate(2),style: TextStyle(fontSize: sp(10)),),
+                              SizedBox(height: width(5),),
+                              AnimatedSize(
+                                vsync: this,
+                                duration: Duration(
+                                    milliseconds: 300
+                                ),
+                                child: Container(
+                                  width: width(27),
+                                  height: spFunGetForecastHeight(2),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [spFunGetUserSupport(2),0.0],
+                                          colors: [
+                                            Color(0xFF2CDDFF),
+                                            Color(0xFF1489FA),
+
+                                          ]
+                                      )
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: width(5),),
+                              Text("客胜",style: TextStyle(fontSize: sp(12)),),
+
+                              GestureDetector(
+                                child: Container(
+                                  decoration: (spProForecastInfo!=null
+                                      &&spProForecastInfo.spProSupportWhich!=null
+                                      &&spProForecastInfo.spProSupportWhich=="2"
+                                  )?BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0x66FF9613).withOpacity(0.1),
+                                            offset: Offset(5,1),
+                                            blurRadius: width(10)
+                                        )
+                                      ]
+                                  ):null,
+                                  padding: EdgeInsets.all(width(8)),
+                                  child: SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath(
+                                        (spProForecastInfo!=null
+                                            &&spProForecastInfo.spProSupportWhich!=null
+                                            &&spProForecastInfo.spProSupportWhich=="2"
+                                        )?
+                                        "ic_forecast_gooded":"ic_forecast_good"),
+                                    width: width(16),
+                                  ),
+                                ),
+                                onTap: (){
+                                  spFunSupportForecast("2");
+                                },
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: width(10),),
+
+                    ],
+
+                  ),
+                ),
+                Positioned(
+                  top: width(10),
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      SPClassEncryptImage.asset(
+                        SPClassImageUtil.spFunGetImagePath("bg_title_forecast"),
+                        width: width(124),
+                      ),
+                      Text("全民预测",style: TextStyle(color: Colors.white,fontSize: sp(16),fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                ),
+
+                Positioned(
+                  top: width(15),
+                  right: width(25),
+                  child:  GestureDetector(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text("?",style: TextStyle(color: Colors.white,fontSize: sp(8)),),
+                          width: width(16),
+                          height: width(16),
+                          decoration: BoxDecoration(
+                              color: Color(0xFFB5B5B5),
+                              shape: BoxShape.circle
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: (){
+                      showDialog(context: context, builder: (c)=>SPClassForcecastRuluDialog());
+                    },
+                  ),
+                )
+
+              ],
+            ),
+            visible: (spProForecastInfo!=null),
+          ),
+          Visibility(
+            child: AnimatedSize(
+              vsync: this,
+              duration: Duration(
+                  milliseconds: 300
+              ),
+              child:Container(
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    // Stack(
+                    //   alignment: Alignment.center,
+                    //   children: <Widget>[
+                    //     SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_match_statc_title"),width: width(319),),
+                    //     Text("能力对比",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),)
+                    //   ],
+                    // ),
+                    ///近期战绩
+                    (spFunGetMatchAllPointsScore(1,"全部")+spFunGetMatchAllPointsScore(2,"全部")==0) ?SizedBox():Container(
+                      padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(20)),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(sprintf("%d胜%d平%d负",
+                                [
+                                  spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 1),
+                                  spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 0),
+                                  spFunGetMatchCount(spFunGetHistoryOneList("全部").take(spFunGetMinListLength("全部")).toList(), 2),
+                                ]
+                            ),
+                              style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text("近期战绩",
+                              style: TextStyle(fontSize: sp(12)),textAlign: TextAlign.center,),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(sprintf("%d胜%d平%d负",
+                                [
+                                  spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 1,winTeam: 2),
+                                  spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 0,winTeam: 2),
+                                  spFunGetMatchCount(spFunGetHistoryTwoList("全部").take(spFunGetMinListLength("全部")).toList(), 2,winTeam: 2),
+                                ]
+                            ),
+                              style: TextStyle(fontSize: sp(15),color: Color(0xFF333333),fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    (spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList().length==0)? SizedBox():Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerRight,
+                                width: width(62),
+                                child: Text(sprintf("%d胜%d平%d负",
+                                    [
+                                      spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1),
+                                      spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0),
+                                      spFunGetMatchCount(spFunGetHistoryOneList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2),
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                              SizedBox(width: width(8),),
+                              Expanded(
+                                child:  Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex:(spFunGetMatchAllPointsScore(1,"同主客")*100).toInt(),
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 2),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: MyColors.main1,
+                                            borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
+                                        ),
+                                        height: width(7),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex:(spFunGetMatchAllPointsScore(2,"同主客")*100).toInt(),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFFF5F40),
+                                            borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
+                                        ),
+                                        alignment: Alignment.center,
+                                        height: width(7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ) ,
+                              SizedBox(width: width(8),),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                width: width(62),
+                                child: Text(sprintf("%d胜%d平%d负",
+                                    [
+                                      spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 1,winTeam: 2),
+                                      spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 0,winTeam: 2),
+                                      spFunGetMatchCount(spFunGetHistoryTwoList("同主客").take(spFunGetMinListLength("同主客")).toList(), 2,winTeam: 2),
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text("同主客战绩",
+                            style: TextStyle(fontSize: sp(12)),),
+                          SizedBox(height: width(8),),
+                        ],
+                      ),
+                    ),
+                    ///能力指数
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerRight,
+                                width: width(62),
+                                child: Text((
+                                    spFunGetMatchAllPointsScore(1,"全部")
+                                        +spFunGetMatchAllPointsScore(1,"同主客")
+                                        +spFunAvgWinOrLose25Score(true,1)
+                                        +spFunAvgWinOrLose25Score(false,1)
+                                ).toStringAsFixed(0),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                              SizedBox(width: width(8),),
+                              Expanded(
+                                child:  Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex:(spFunGetMatchAllPointsScore(1,"全部")+
+                                          spFunGetMatchAllPointsScore(1,"同主客")+
+                                          spFunAvgWinOrLose25Score(true,1)+
+                                          spFunAvgWinOrLose25Score(false,1)).toInt(),
+
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 2),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: MyColors.main1,
+                                            borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
+                                        ),
+                                        height: width(7),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex:(spFunGetMatchAllPointsScore(2,"全部")+
+                                          spFunGetMatchAllPointsScore(2,"同主客")+
+                                          spFunAvgWinOrLose25Score(true,2)+
+                                          spFunAvgWinOrLose25Score(false,2)).toInt() ,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFFF5F40),
+                                            borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
+                                        ),
+                                        alignment: Alignment.center,
+                                        height: width(7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ) ,
+                              SizedBox(width: width(8),),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                width: width(62),
+                                child: Text((
+                                    spFunGetMatchAllPointsScore(2,"全部")
+                                        +spFunGetMatchAllPointsScore(2,"同主客")
+                                        +spFunAvgWinOrLose25Score(true,2)
+                                        +spFunAvgWinOrLose25Score(false,2)
+                                ).toStringAsFixed(0),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text("能力指数",
+                            style: TextStyle(fontSize: sp(12)),),
+                          SizedBox(height: width(8),),
+                        ],
+                      ),
+                    ),
+                    ///场均进球
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerRight,
+                                width: width(62),
+                                child: Text(sprintf("%s",
+                                    [
+                                      SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreOne(true).toStringAsFixed(2))
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                              SizedBox(width: width(8),),
+                              Expanded(
+                                child:  Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex:(spFunAvgWinOrLoseScoreOne(true)*100).toInt() ,
+
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 2),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: MyColors.main1,
+                                            borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
+                                        ),
+                                        height: width(7),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex:(spFunAvgWinOrLoseScoreTwo(true)*100).toInt() ,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFFF5F40),
+                                            borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
+                                        ),
+                                        alignment: Alignment.center,
+                                        height: width(7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ) ,
+                              SizedBox(width: width(8),),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                width: width(62),
+                                child: Text(sprintf("%s",
+                                    [
+
+                                      SPClassStringUtils.spFunSqlitZero( spFunAvgWinOrLoseScoreTwo(true).toStringAsFixed(2))
+
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text("场均进球",
+                            style: TextStyle(fontSize: sp(12)),),
+                          SizedBox(height: width(8),),
+                        ],
+                      ),
+                    ),
+                    ///场均失球
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerRight,
+                                width: width(62),
+                                child: Text(sprintf("%s",
+                                    [
+                                      SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreOne(false).toStringAsFixed(2))
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                              SizedBox(width: width(8),),
+                              Expanded(
+                                child:  Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex:(spFunAvgWinOrLoseScoreTwo(false)*100).toInt() ,
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 2),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: MyColors.main1,
+                                            borderRadius: BorderRadius.horizontal(left:Radius.circular(300) )
+                                        ),
+                                        height: width(7),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex:(spFunAvgWinOrLoseScoreOne(false)*100).toInt() ,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFFF5F40),
+                                            borderRadius: BorderRadius.horizontal(right:Radius.circular(300) )
+                                        ),
+                                        alignment: Alignment.center,
+                                        height: width(7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ) ,
+                              SizedBox(width: width(8),),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                width: width(62),
+                                child: Text(sprintf("%s",
+                                    [
+                                      SPClassStringUtils.spFunSqlitZero(spFunAvgWinOrLoseScoreTwo(false).toStringAsFixed(2))
+                                    ]
+                                ),
+                                  style: TextStyle(fontSize: sp(12),color: Color(0xFF333333)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text("场均失球",
+                            style: TextStyle(fontSize: sp(12)),),
+                          SizedBox(height: width(8),),
+                        ],
+                      ),
+                    ),
+                    myDivider(),
+                  ],
+
+                ),
+              ) ,
+            ),
+            visible:(SPClassListUtil.spFunIsNotEmpty(spProHistoryList)
+                || SPClassListUtil.spFunIsNotEmpty(spProHistoryOne)
+                || SPClassListUtil.spFunIsNotEmpty(spProHistoryTwo)
+            ),
+          ),
+          Visibility(
+            child: AnimatedSize(
+              vsync: this,
+              duration: Duration(
+                  milliseconds: 300
+              ),
+              child:Container(
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: width(15),right: width(15),top: width(24),bottom: width(10)),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text("积分排名",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),),
+                          ),
+                          Container(
+                            width: width(140),
+                            height: width(27),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: FlatButton(
+                                    padding: EdgeInsets.zero,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.horizontal(left: Radius.circular(width(12))),
+                                          color: spProPointsKey=="总"? MyColors.main1:Color(0xFFF2F2F2)
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text("总",style: TextStyle(fontSize: sp(14),color: spProPointsKey=="总"? Colors.white :Color(0xFF999999)),),
+                                    ),
+                                    onPressed: (){
+                                      setState(() {
+                                        spProPointsKey="总";
+                                      });
+
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: FlatButton(
+                                    padding: EdgeInsets.zero,
+                                    child: Container(
+                                      color: spProPointsKey=="主"? MyColors.main1:Color(0xFFF2F2F2),
+                                      alignment: Alignment.center,
+                                      child: Text("主",style: TextStyle(fontSize: sp(14),color: spProPointsKey=="主"? Colors.white :Color(0xFF999999)),),
+                                    ),
+                                    onPressed: (){
+                                      setState(() {
+                                        spProPointsKey="主";
+                                      });
+
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: FlatButton(
+                                    padding: EdgeInsets.zero,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.horizontal(right: Radius.circular(width(12))),
+                                          color: spProPointsKey=="客"? MyColors.main1:Color(0xFFF2F2F2)
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text("客",style: TextStyle(fontSize: sp(14),color:spProPointsKey=="客"? Colors.white :Color(0xFF999999)),),
+                                    ),
+                                    onPressed: (){
+                                      setState(() {
+                                        spProPointsKey="客";
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                      ),
+                      alignment: Alignment.center,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: width(27),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFF7F7F7),
+                                border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: width(15),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("球队",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("排名",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("积分",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("场次",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: width(40),
+                                    child: Text("胜率",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("胜/平/负",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text("进/失",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                  ),
+                                ) ,
+
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: spFunGetTeamPoints(spProPointsKey).map((item){
+                                return Container(
+                                  height: width(43),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        width: width(15),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(item.spProTeamName,style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                                        ),
+                                      ) ,
+
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(item.ranking,style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(item.points,style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(item.spProMatchNum,style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: width(40),
+                                          child: Text(sprintf("%s%",[(double.parse(item.spProWinRate)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(sprintf("%s/%s/%s",[item.spProWinNum,item.spProDrawNum,item.spProLoseNum]),style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(sprintf("%s/%s",[item.score,item.spProLoseScore]),style: TextStyle(fontSize: sp(11),fontWeight: FontWeight.w500),),
+                                        ),
+                                      ) ,
+
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
+
+                        ],
+                      ),
+                    ),
+                    myDivider(),
+                  ],
+
+                ),
+              ) ,
+            ),
+            visible:SPClassListUtil.spFunIsNotEmpty(spProTeamPointsList) ,
+          ),
+          Visibility(
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: width(15),right: width(15),top: width(24),bottom: width(10)),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: Text("对赛往绩",style: TextStyle(fontSize: sp(17),fontWeight: FontWeight.bold),)),
+                        Container(
+                          width: width(93),
+                          height: width(27),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: FlatButton(
+                                  padding: EdgeInsets.zero,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(width(12)),topLeft: Radius.circular(width(12))),
+                                        // border: Border.all(color: spProHistoryKey=="全部"? MyColors.main1:Color(0xFFF2F2F2),width: 0.4),
+                                        color: spProHistoryKey=="全部"? MyColors.main1:Color(0xFFF2F2F2)
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text("全部",style: TextStyle(fontSize: sp(14),color: spProHistoryKey=="全部"? Colors.white :Color(0xFF999999)),),
+                                  ),
+                                  onPressed: (){
+                                    setState(() {
+                                      spProHistoryKey="全部";
+                                    });
+
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: FlatButton(
+                                  padding: EdgeInsets.zero,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight:Radius.circular(width(12)),
+                                            topRight: Radius.circular(width(12))),
+                                        // border: Border.all(color: spProHistoryKey=="主场"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
+                                        color: spProHistoryKey=="主场"? MyColors.main1:Color(0xFFF2F2F2)
+
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text("主场",style: TextStyle(fontSize: sp(14),color:spProHistoryKey=="主场"? Colors.white :Color(0xFF999999)),),
+                                  ),
+                                  onPressed: (){
+                                    setState(() {
+                                      spProHistoryKey="主场";
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(width: width(13),),
+                      Expanded(
+                        child:Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+
+                          children: <Widget>[
+                            Text('${widget.spProGuessMatch.spProTeamOne}VS${widget.spProGuessMatch.spProTeamTwo}',style: TextStyle(fontSize: sp(13)),),
+                            Text(sprintf("  (%d场)",[
+                              spFunGetHistoryList(spProHistoryKey).length
+                            ]
+                            ),
+                              style: TextStyle(fontSize: sp(12)),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height:width(10) ,),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:  height(11)),
+                    child:  Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text('${widget.spProGuessMatch.spProTeamOne}:',
+                              style: TextStyle(
+                                fontSize: sp(15),
+                                color: Color(0xFF333333),
+                              ),),
+                            Text(sprintf("  %d胜%d平%d负",[
+                              spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),1),
+                              spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),0),
+                              spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),2),
+                            ],
+                            ),
+                              style: TextStyle(fontSize: sp(12)),),
+                          ],
+                        ),
+                        SizedBox(height:3),
+                        Row(
+                          children: <Widget>[
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              decoration: BoxDecoration(
+                                  color: MyColors.main1,
+                                  borderRadius: BorderRadius.horizontal(left: Radius.circular(width(4)))
+                              ),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1),
+                              height: width(10),
+                            ),
+
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0),
+                              height: width(10),
+                              color: Color(0xFF5FB349),
+                            ),
+
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2)==0? SizedBox(): Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2),
+                                height: width(10),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFFF5F40),
+                                    borderRadius: BorderRadius.horizontal(right: Radius.circular(width(4)))
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),1),
+                              child: Text(
+                                sprintf("%d胜",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),1),]),
+                                style: TextStyle(
+                                  color: Color(0xFF333333),
+                                  fontSize: sp(12),
+                                ),
+                              ),
+                            ),
+
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),0),
+                              child: Text(
+                                sprintf("%d平",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),0),]),
+                                style: TextStyle(
+                                  color: Color(0xFF333333),
+                                  fontSize: sp(12),
+                                ),
+                              ),
+                            ),
+
+                            spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2)==0? SizedBox(): Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width(318)*spFunGetMatchRate(spFunGetHistoryList(spProHistoryKey),2),
+                                child: Text(
+                                  sprintf("%d负",[spFunGetMatchCount(spFunGetHistoryList(spProHistoryKey),2),]),
+                                  style: TextStyle(
+                                    color: Color(0xFF333333),
+                                    fontSize: sp(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  // 盘口
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal:  height(11),
+                        vertical:height(8) ),
+                    child:  Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text('${widget.spProGuessMatch.spProTeamOne}:',
+                              style: TextStyle(
+                                fontSize: sp(15),
+                                color: Color(0xFF333333),
+                              ),),
+                            Text(sprintf("  盘路 %d赢%d走%d输 %s%s",[
+                              spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
+                              spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
+                              spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                              (spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),3)==0? "":(" "+(spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),3).toString()+"大"))),
+                              (spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),4)==0? "":(" "+(spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),4).toString()+"小"))),
+
+                            ]),
+                              style: TextStyle(fontSize: sp(12)),),
+                          ],
+                        ),
+                        SizedBox(height:3),
+                        Row(
+                          children: <Widget>[
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              decoration: BoxDecoration(
+                                  color: MyColors.main1,
+                                  borderRadius: BorderRadius.horizontal(left: Radius.circular(width(4)))
+                              ),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
+                              height: width(10),
+                            ),
+
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
+                              height: width(10),
+                              color: Color(0xFF5FB349),
+                            ),
+
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2)==0? SizedBox(): Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                                height: width(10),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFFF5F40),
+                                    borderRadius: BorderRadius.horizontal(right: Radius.circular(width(4)))
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
+                              child:
+                              Text(sprintf("%d赢",[
+                                spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),1),
+                              ]),
+                                style: TextStyle(
+                                  color: Color(0xFF333333),
+                                  fontSize: sp(12),
+                                ),
+                              ),
+                            ),
+
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0)==0? SizedBox(): Container(
+                              margin: EdgeInsets.only(right: width(4)),
+                              alignment: Alignment.center,
+                              width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
+                              child: Text(sprintf("%d走",[
+                                spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),0),
+                              ]),
+                                style: TextStyle(
+                                  color: Color(0xFF333333),
+                                  fontSize: sp(12),
+                                ),
+                              ),
+                            ),
+
+                            spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2)==0? SizedBox(): Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width(318)*spFunGetMatchPanKouRate(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                                child: Text(sprintf("%d输",[
+                                  spFunGetMatchPanKouCount(spFunGetHistoryList(spProHistoryKey,isPanKou: true),2),
+                                ]),
+                                  style: TextStyle(
+                                    color: Color(0xFF333333),
+                                    fontSize: sp(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+
+
+                      ],
+                    ),
+                  ),
+
+                  // 对对赛往绩
+                  Container(
+                    // margin: EdgeInsets.symmetric(vertical: height(8),horizontal:  height(11)),
+                    // width: width(330),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: width(27),
+                          decoration: BoxDecoration(
+                              color: Color(0xFFF7F7F7),
+                              border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text("赛事日期",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                ),
+                              ) ,
+
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text("主队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                ),
+                              ) ,
+
+                              Container(
+                                alignment: Alignment.center,
+                                width: width(30),
+                                child: Text("比分",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                              ),
+
+
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text("客队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                ),
+                              ) ,
+
+
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text("赛果",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                              ),
+
+
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width(40),
+                                  child: Text("盘路",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                ),
+                              ) ,
+
+
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: spFunGetHistoryList(spProHistoryKey).length,
+                            itemBuilder: (c,index){
+                              var item =spFunGetHistoryList(spProHistoryKey)[index];
+                              // return Demo();
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: width(40),
+                                        child: Text(sprintf("%s%s%s",
+                                            [SPClassDateUtils.spFunDateFormatByString(item.spProMatchDate, "yyyy.M.dd"),"\n",item.spProLeagueName,]
+                                        ),style: TextStyle(
+                                          fontSize: sp(11),
+                                          color: Color(0xFF999999),
+                                        ),textAlign: TextAlign.center,),
+                                      ),
+                                    ) ,
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: width(44),
+                                        width: width(30),
+                                        child: Text(item.spProTeamOne,style: TextStyle(
+                                            fontSize: sp(11),
+                                            // color: spFunGetTeamTextColor(item,1),
+                                            color: Color(0xFF333333)
+                                        ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ) ,
+
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: width(44),
+                                      width: width(30),
+                                      child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
+                                        fontSize: sp(11),
+                                        color: spFunGetResultColor(item),
+                                      ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: width(40),
+                                        child: Text(item.spProTeamTwo,style: TextStyle(
+                                            fontSize: sp(11),
+                                            color: Color(0xFF333333)
+                                          // color: spFunGetTeamTextColor(item,2,),
+                                        ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ) ,
+
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: width(40),
+                                      width: width(30),
+                                      child: Text(spFunGetHistoryResultText(item),style: TextStyle(
+                                        fontSize: sp(11),
+                                        color: spFunGetResultColor(item),
+                                      ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: width(40),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(item.spProWinOrLose.isEmpty?"--":sprintf("%s%s%s",
+                                                    [
+                                                      (item.spProAddScore.isEmpty ? "--":SPClassStringUtils.spFunSqlitZero(item.spProAddScore)),
+                                                      "\n",
+                                                      item.spProWinOrLose,
+                                                    ]
+                                                ),style: TextStyle(
+                                                  fontSize: sp(11),
+                                                  color: spFunGetColorByText(item.spProWinOrLose),
+                                                ),textAlign: TextAlign.center,),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(item.spProBigOrSmall.isEmpty?"--":sprintf("%s%s%s",
+                                                    [
+                                                      ((item.spProMidScore.isEmpty||double.tryParse(item.spProMidScore)==0) ? "--":SPClassStringUtils.spFunSqlitZero(item.spProMidScore)),
+                                                      "\n",
+                                                      item.spProBigOrSmall,
+                                                    ]
+                                                ),style: TextStyle(
+                                                  fontSize: sp(11),
+                                                  color: spFunGetColorByText(item.spProBigOrSmall),
+                                                ),textAlign: TextAlign.center,),
+                                              ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ) ,
+
+
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        // Container(
+                        //   child: Column(
+                        //     children: spFunGetHistoryList(spProHistoryKey).map((item){
+                        //       return Container(
+                        //         decoration: BoxDecoration(
+                        //             color: Colors.white,
+                        //             border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                        //         ),
+                        //         child: Row(
+                        //           mainAxisAlignment: MainAxisAlignment.center,
+                        //           children: <Widget>[
+                        //             Expanded(
+                        //               child: Container(
+                        //                 alignment: Alignment.center,
+                        //                 height: width(40),
+                        //                 child: Text(sprintf("%s%s%s",
+                        //                     [SPClassDateUtils.spFunDateFormatByString(item.spProMatchDate, "yyyy.M.dd"),"\n",item.spProLeagueName,]
+                        //                 ),style: TextStyle(
+                        //                   fontSize: sp(11),
+                        //                   color: Color(0xFF999999),
+                        //                 ),textAlign: TextAlign.center,),
+                        //               ),
+                        //             ) ,
+                        //
+                        //             Expanded(
+                        //               child: Container(
+                        //                 alignment: Alignment.center,
+                        //                 height: width(44),
+                        //                 width: width(30),
+                        //                 child: Text(item.spProTeamOne,style: TextStyle(
+                        //                   fontSize: sp(11),
+                        //                   // color: spFunGetTeamTextColor(item,1),
+                        //                   color: Color(0xFF333333)
+                        //                 ),
+                        //                   maxLines: 1,
+                        //                   overflow: TextOverflow.ellipsis,
+                        //                 ),
+                        //               ),
+                        //             ) ,
+                        //
+                        //             Container(
+                        //               alignment: Alignment.center,
+                        //               height: width(44),
+                        //               width: width(30),
+                        //               child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
+                        //                 fontSize: sp(11),
+                        //                 color: spFunGetResultColor(item),
+                        //               ),
+                        //                 maxLines: 1,
+                        //                 overflow: TextOverflow.ellipsis,
+                        //               ),
+                        //             ),
+                        //
+                        //             Expanded(
+                        //               child: Container(
+                        //                 alignment: Alignment.center,
+                        //                 height: width(40),
+                        //                 child: Text(item.spProTeamTwo,style: TextStyle(
+                        //                   fontSize: sp(11),
+                        //                     color: Color(0xFF333333)
+                        //                   // color: spFunGetTeamTextColor(item,2,),
+                        //                 ),
+                        //                   maxLines: 1,
+                        //                   overflow: TextOverflow.ellipsis,
+                        //                 ),
+                        //               ),
+                        //             ) ,
+                        //
+                        //             Container(
+                        //               alignment: Alignment.center,
+                        //               height: width(40),
+                        //               width: width(30),
+                        //               child: Text(spFunGetHistoryResultText(item),style: TextStyle(
+                        //                 fontSize: sp(11),
+                        //                 color: spFunGetResultColor(item),
+                        //               ),
+                        //                 maxLines: 1,
+                        //                 overflow: TextOverflow.ellipsis,
+                        //               ),
+                        //             ),
+                        //
+                        //             Expanded(
+                        //               child: Container(
+                        //                 alignment: Alignment.center,
+                        //                 height: width(40),
+                        //                 child: Row(
+                        //                   mainAxisAlignment: MainAxisAlignment.center,
+                        //                   children: <Widget>[
+                        //                     Expanded(
+                        //                       child: Center(
+                        //                         child: Text(item.spProWinOrLose.isEmpty?"--":sprintf("%s%s%s",
+                        //                             [
+                        //                               (item.spProAddScore.isEmpty ? "--":SPClassStringUtils.spFunSqlitZero(item.spProAddScore)),
+                        //                               "\n",
+                        //                               item.spProWinOrLose,
+                        //                             ]
+                        //                         ),style: TextStyle(
+                        //                           fontSize: sp(11),
+                        //                           color: spFunGetColorByText(item.spProWinOrLose),
+                        //                         ),textAlign: TextAlign.center,),
+                        //                       ),
+                        //                     ),
+                        //                     Expanded(
+                        //                       child: Center(
+                        //                         child: Text(item.spProBigOrSmall.isEmpty?"--":sprintf("%s%s%s",
+                        //                             [
+                        //                               ((item.spProMidScore.isEmpty||double.tryParse(item.spProMidScore)==0) ? "--":SPClassStringUtils.spFunSqlitZero(item.spProMidScore)),
+                        //                               "\n",
+                        //                               item.spProBigOrSmall,
+                        //                             ]
+                        //                         ),style: TextStyle(
+                        //                           fontSize: sp(11),
+                        //                           color: spFunGetColorByText(item.spProBigOrSmall),
+                        //                         ),textAlign: TextAlign.center,),
+                        //                       ),
+                        //                     ),
+                        //
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ) ,
+                        //
+                        //
+                        //           ],
+                        //         ),
+                        //       );
+                        //     }).toList(),
+                        //   ),
+                        // )
+
+                      ],
+                    ),
+                  ),
+                  myDivider(),
+                ],
+
+              ),
+            ),
+            visible:SPClassListUtil.spFunIsNotEmpty(spProHistoryList),
+          ),
+          Visibility(
+            child:  Container(
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: width(15),right: width(15),top: width(24),bottom: width(10)),
+                          child: Row(
+                            children: <Widget>[
+                              Text("近期战绩",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),),
+                              SizedBox(width: width(4),),
+                              Container(
+                                  constraints:BoxConstraints(
+                                      maxWidth: width(79)
+                                  ),
+                                  child: Text('${widget.spProGuessMatch.spProTeamOne}:',
+                                    style: TextStyle(fontSize: sp(12)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                              Text(sprintf("%d胜%d平%d负",[
+                                spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 1),
+                                spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 0),
+                                spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 2),
+                              ]
+                              ),style: TextStyle(fontSize: sp(12),),
+                                textAlign: TextAlign.center,
+
+                              ),
+                              Expanded(
+                                child: SizedBox(),
+                              ),
+                              Container(
+                                width: width(93),
+                                height: width(27),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: FlatButton(
+                                        padding: EdgeInsets.zero,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.horizontal(left: Radius.circular(width(12))),
+                                              // border: Border.all(color: spProHistoryOneKey=="全部"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
+                                              color: spProHistoryOneKey=="全部"? MyColors.main1:Color(0xFFF2F2F2)
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text("全部",style: TextStyle(fontSize: sp(14),color: spProHistoryOneKey=="全部"? Colors.white :Color(0xFF999999)),),
+                                        ),
+                                        onPressed: (){
+                                          setState(() {
+                                            spProHistoryOneKey="全部";
+                                          });
+
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: FlatButton(
+                                        padding: EdgeInsets.zero,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.horizontal(right: Radius.circular(width(12))),
+                                              color: spProHistoryOneKey=="主场"?MyColors.main1:Color(0xFFF2F2F2)
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text("主场",style: TextStyle(fontSize: sp(14),color:spProHistoryOneKey=="主场"? Colors.white :Color(0xFF999999)),),
+                                        ),
+                                        onPressed: (){
+                                          setState(() {
+                                            spProHistoryOneKey="主场";
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(height: width(16),),
+
+                        Row(
+                          children: <Widget>[
+                            // Expanded(
+                            //   child: Center(
+                            //     child:  Column(
+                            //       children: <Widget>[
+                            //         Stack(
+                            //           alignment: Alignment.center,
+                            //           children: <Widget>[
+                            //             Container(
+                            //               height: width(64),
+                            //               width: width(64),
+                            //               child:SfCircularChart(
+                            //                 margin: EdgeInsets.zero,
+                            //                 title: ChartTitle(text: '' ),
+                            //                 legend: Legend(isVisible: false),
+                            //                 series: [
+                            //                   DoughnutSeries<SPClassChartDoughnutData, String>(
+                            //                     explode: false,
+                            //                     explodeIndex: 0,
+                            //                     radius: width(30).toString(),
+                            //                     innerRadius: width(22).toString(),
+                            //                     dataSource: [
+                            //                       SPClassChartDoughnutData(spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 1)*1.0,color: Color(0xFFDE3C31)),
+                            //                       SPClassChartDoughnutData(spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 2)*1.0,color: Color(0xFF5FB349)),
+                            //                       SPClassChartDoughnutData(spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 0)*1.0,color: Color(0xFF333333)),
+                            //
+                            //                     ],
+                            //                     xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                            //                     yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                            //                     pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                            //                     startAngle: 90,
+                            //                     endAngle: 90,
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //             Text(sprintf("%d胜%d平%s%d负",[
+                            //               spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 1),
+                            //               spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 0),
+                            //               "\n",
+                            //               spFunGetMatchCount(spFunGetHistoryOneList(spProHistoryOneKey), 2),
+                            //             ]
+                            //             ),style: TextStyle(fontSize: sp(10),),
+                            //               textAlign: TextAlign.center,
+                            //
+                            //             )
+                            //           ],
+                            //         ),
+                            //         Text(sprintf("近%d场",[spFunGetHistoryOneList(spProHistoryOneKey).length]),style: TextStyle(fontSize: sp(12),))
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            Expanded(
+                              child: Center(
+                                child:  Column(
+                                  children: <Widget>[
+                                    Text("胜率",style: TextStyle(fontSize: sp(12),)),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          height: width(64),
+                                          width: width(64),
+                                          child:SfCircularChart(
+                                            margin: EdgeInsets.zero,
+                                            title: ChartTitle(text: '' ),
+                                            legend: Legend(isVisible: false),
+                                            series: [
+                                              DoughnutSeries<SPClassChartDoughnutData, String>(
+                                                explode: false,
+                                                explodeIndex: 0,
+                                                radius: width(30).toString(),
+                                                innerRadius: width(22).toString(),
+                                                dataSource: [
+                                                  SPClassChartDoughnutData(spFunGetMatchRate(spFunGetHistoryOneList(spProHistoryOneKey), 1),color: Color(0xFFFF6A4D)),
+                                                  SPClassChartDoughnutData(1-spFunGetMatchRate(spFunGetHistoryOneList(spProHistoryOneKey), 1),color: Color(0xFFE6E6E6)),
+                                                ],
+                                                xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                                yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                                pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                                startAngle: 90,
+                                                endAngle: 90,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Text(sprintf("%s%",[(spFunGetMatchRate(spFunGetHistoryOneList(spProHistoryOneKey), 1)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child:  Column(
+                                  children: <Widget>[
+                                    Text("赢盘率",style: TextStyle(fontSize: sp(12),)),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          height: width(64),
+                                          width: width(64),
+                                          child:SfCircularChart(
+                                            margin: EdgeInsets.zero,
+                                            title: ChartTitle(text: '' ),
+                                            legend: Legend(isVisible: false),
+                                            series: [
+                                              DoughnutSeries<SPClassChartDoughnutData, String>(
+                                                explode: false,
+                                                explodeIndex: 0,
+                                                radius: width(30).toString(),
+                                                innerRadius: width(22).toString(),
+                                                dataSource: [
+                                                  SPClassChartDoughnutData(spFunGetMatchPanKouRate(spFunGetHistoryOneList(spProHistoryOneKey), 1),color: Color(0xFFFF6A4D)),
+                                                  SPClassChartDoughnutData(1-spFunGetMatchPanKouRate(spFunGetHistoryOneList(spProHistoryOneKey), 1),color: Color(0xFFE6E6E6)),
+
+                                                ],
+                                                xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                                yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                                pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                                startAngle: 90,
+                                                endAngle: 90,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Text(sprintf("%s%",[(spFunGetMatchPanKouRate(spFunGetHistoryOneList(spProHistoryOneKey), 1)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child:  Column(
+                                  children: <Widget>[
+                                    Text("大率",style: TextStyle(fontSize: sp(12),)),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          height: width(64),
+                                          width: width(64),
+                                          child:SfCircularChart(
+                                            margin: EdgeInsets.zero,
+                                            title: ChartTitle(text: '' ),
+                                            legend: Legend(isVisible: false),
+                                            series: [
+                                              DoughnutSeries<SPClassChartDoughnutData, String>(
+                                                explode: false,
+                                                explodeIndex: 0,
+                                                radius: width(30).toString(),
+                                                innerRadius: width(22).toString(),
+                                                dataSource: [
+                                                  SPClassChartDoughnutData(spFunGetMatchBigRate(spFunGetHistoryOneList(spProHistoryOneKey),1),color: Color(0xFFFF6A4D)),
+                                                  SPClassChartDoughnutData(1-spFunGetMatchBigRate(spFunGetHistoryOneList(spProHistoryOneKey),1),color: Color(0xFFE6E6E6)),
+
+                                                ],
+                                                xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                                yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                                pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                                startAngle: 90,
+                                                endAngle: 90,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Text(sprintf("%s%",[(spFunGetMatchBigRate(spFunGetHistoryOneList(spProHistoryOneKey),1)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: width(16),),
+
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                          ),
+                          alignment: Alignment.center,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                height: width(27),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFF7F7F7),
+                                    border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text("赛事日期",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                      ),
+                                    ) ,
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text("主队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                      ),
+                                    ) ,
+
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: width(30),
+                                      child: Text("比分",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text("客队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                      ),
+                                    ) ,
+
+
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text("赛果",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+
+
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: width(40),
+                                        child: Text("盘路",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                      ),
+                                    ) ,
+
+
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: spFunGetHistoryOneList(spProHistoryOneKey).map((item){
+                                    return Container(
+                                      height: width(43),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Text(sprintf("%s%s%s",
+                                                  [SPClassDateUtils.spFunDateFormatByString(item.spProMatchDate, "yyyy.M.dd"),"\n",item.spProLeagueName,]
+                                              ),style: TextStyle(
+                                                fontSize: sp(11),
+                                                color: Color(0xFF999999),
+                                              ),textAlign: TextAlign.center,),
+                                            ),
+                                          ) ,
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Text(item.spProTeamOne,style: TextStyle(
+                                                fontSize: sp(11),
+                                                // color: spFunGetTeamTextColor(item,1),
+                                                color: Color(0xFF333333),
+                                              ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ) ,
+
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: width(30),
+                                            child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
+                                              fontSize: sp(11),
+                                              color: spFunGetResultColor(item),
+                                            ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Text(item.spProTeamTwo,style: TextStyle(
+                                                fontSize: sp(11),
+                                                color: Color(0xFF333333),
+                                              ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ) ,
+
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: width(30),
+                                            child: Text(spFunGetHistoryResultText(item),style: TextStyle(
+                                              fontSize: sp(11),
+                                              color: spFunGetResultColor(item),
+                                            ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(item.spProWinOrLose.isEmpty?"--":sprintf("%s%s%s",
+                                                          [
+                                                            (item.spProAddScore.isEmpty ? "--":SPClassStringUtils.spFunSqlitZero(item.spProAddScore)),
+                                                            "\n",
+                                                            item.spProWinOrLose,
+                                                          ]
+                                                      ),style: TextStyle(
+                                                        fontSize: sp(11),
+                                                        color: spFunGetColorByText(item.spProWinOrLose),
+                                                      ),textAlign: TextAlign.center,),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(item.spProBigOrSmall.isEmpty?"--":sprintf("%s%s%s",
+                                                          [
+                                                            ((item.spProMidScore.isEmpty||double.tryParse(item.spProMidScore)==0) ? "--":SPClassStringUtils.spFunSqlitZero(item.spProMidScore)),
+                                                            "\n",
+                                                            item.spProBigOrSmall,
+                                                          ]
+                                                      ),style: TextStyle(
+                                                        fontSize: sp(11),
+                                                        color: spFunGetColorByText(item.spProBigOrSmall),
+                                                      ),textAlign: TextAlign.center,),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ) ,
+
+
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  myDivider(),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: width(15),right: width(15),top: width(24),bottom: width(10)),
+                        child: Row(
+                          children: <Widget>[
+                            Text("近期战绩",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),),
+                            SizedBox(width: width(4),),
+                            Container(
+                                constraints:BoxConstraints(
+                                    maxWidth: width(79)
+                                ),
+                                child: Text('${widget.spProGuessMatch.spProTeamTwo}:',
+                                  style: TextStyle(fontSize: sp(12)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                            Text(sprintf("%d胜%d平%d负",[
+                              spFunGetMatchCount(spFunGetHistoryTwoList(spProHistoryTwoKey), 1,winTeam: 2),
+                              spFunGetMatchCount(spFunGetHistoryTwoList(spProHistoryTwoKey), 0,winTeam: 2),
+                              spFunGetMatchCount(spFunGetHistoryTwoList(spProHistoryTwoKey), 2,winTeam: 2),
+                            ]
+                            ),style: TextStyle(fontSize: sp(12),),
+                              textAlign: TextAlign.center,
+
+                            ),
+                            Expanded(
+                              child: SizedBox(),
+                            ),
+                            Container(
+                              width: width(93),
+                              height: width(27),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: FlatButton(
+                                      padding: EdgeInsets.zero,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.horizontal(left: Radius.circular(width(12))),
+                                            // border: Border.all(color: spProHistoryOneKey=="全部"? Color(0xFFDE3C31):Color(0xFFC4C4C4),width: 0.4),
+                                            color: spProHistoryTwoKey=="全部"? MyColors.main1:Color(0xFFF2F2F2)
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text("全部",style: TextStyle(fontSize: sp(14),color: spProHistoryTwoKey=="全部"? Colors.white :Color(0xFF999999)),),
+                                      ),
+                                      onPressed: (){
+                                        setState(() {
+                                          spProHistoryTwoKey="全部";
+                                        });
+
+                                      },
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: FlatButton(
+                                      padding: EdgeInsets.zero,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.horizontal(right: Radius.circular(width(12))),
+                                            color: spProHistoryTwoKey=="主场"?MyColors.main1:Color(0xFFF2F2F2)
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text("主场",style: TextStyle(fontSize: sp(14),color:spProHistoryTwoKey=="主场"? Colors.white :Color(0xFF999999)),),
+                                      ),
+                                      onPressed: (){
+                                        setState(() {
+                                          spProHistoryTwoKey="主场";
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: width(16),),
+
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Center(
+                              child:  Column(
+                                children: <Widget>[
+                                  Text("胜率",style: TextStyle(fontSize: sp(12),)),
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        height: width(64),
+                                        width: width(64),
+                                        child:SfCircularChart(
+                                          margin: EdgeInsets.zero,
+                                          title: ChartTitle(text: '' ),
+                                          legend: Legend(isVisible: false),
+                                          series: [
+                                            DoughnutSeries<SPClassChartDoughnutData, String>(
+                                              explode: false,
+                                              explodeIndex: 0,
+                                              radius: width(30).toString(),
+                                              innerRadius: width(22).toString(),
+                                              dataSource: [
+                                                SPClassChartDoughnutData(spFunGetMatchRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1,winTeam: 2),color: Color(0xFFDE3C31)),
+                                                SPClassChartDoughnutData(1-spFunGetMatchRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1,winTeam: 2),color: Color(0xFEBEBEB)),
+
+                                              ],
+                                              xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                              yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                              pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                              startAngle: 90,
+                                              endAngle: 90,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(sprintf("%s%",[(spFunGetMatchRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1,winTeam: 2)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child:  Column(
+                                children: <Widget>[
+                                  Text("赢盘率",style: TextStyle(fontSize: sp(12),)),
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        height: width(64),
+                                        width: width(64),
+                                        child:SfCircularChart(
+                                          margin: EdgeInsets.zero,
+                                          title: ChartTitle(text: '' ),
+                                          legend: Legend(isVisible: false),
+                                          series: [
+                                            DoughnutSeries<SPClassChartDoughnutData, String>(
+                                              explode: false,
+                                              explodeIndex: 0,
+                                              radius: width(30).toString(),
+                                              innerRadius: width(22).toString(),
+                                              dataSource: [
+                                                SPClassChartDoughnutData(spFunGetMatchPanKouRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1),color: Color(0xFFDE3C31)),
+                                                SPClassChartDoughnutData(1-spFunGetMatchPanKouRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1),color: Color(0xFEBEBEB)),
+
+                                              ],
+                                              xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                              yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                              pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                              startAngle: 90,
+                                              endAngle: 90,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(sprintf("%s%",[(spFunGetMatchPanKouRate(spFunGetHistoryTwoList(spProHistoryTwoKey), 1)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child:  Column(
+                                children: <Widget>[
+                                  Text("大率",style: TextStyle(fontSize: sp(12),)),
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        height: width(64),
+                                        width: width(64),
+                                        child:SfCircularChart(
+                                          margin: EdgeInsets.zero,
+                                          title: ChartTitle(text: '' ),
+                                          legend: Legend(isVisible: false),
+                                          series: [
+                                            DoughnutSeries<SPClassChartDoughnutData, String>(
+                                              explode: false,
+                                              explodeIndex: 0,
+                                              radius: width(30).toString(),
+                                              innerRadius: width(22).toString(),
+                                              dataSource: [
+                                                SPClassChartDoughnutData(spFunGetMatchBigRate(spFunGetHistoryTwoList(spProHistoryTwoKey),1),color: Color(0xFFFF6A4D)),
+                                                SPClassChartDoughnutData(1-spFunGetMatchBigRate(spFunGetHistoryTwoList(spProHistoryTwoKey),1),color: Color(0xFFE6E6E6)),
+
+                                              ],
+                                              xValueMapper: (SPClassChartDoughnutData data, _) => "",
+                                              yValueMapper: (SPClassChartDoughnutData data, _) => data.percenter,
+                                              pointColorMapper:(SPClassChartDoughnutData data, _) => data.color,
+                                              startAngle: 90,
+                                              endAngle: 90,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(sprintf("%s%",[(spFunGetMatchBigRate(spFunGetHistoryTwoList(spProHistoryTwoKey),1)*100).toStringAsFixed(0)]),style: TextStyle(fontSize: sp(10),))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: width(16),),
+
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: width(27),
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFF7F7F7),
+                                  border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text("赛事日期",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+                                  ) ,
+
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text("主队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+                                  ) ,
+
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: width(30),
+                                    child: Text("比分",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text("客队",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+                                  ) ,
+
+
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("赛果",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: width(40),
+                                      child: Text("盘路",style: TextStyle(fontSize: sp(11),color: Color(0xFF303133)),),
+                                    ),
+                                  ) ,
+
+
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: spFunGetHistoryTwoList(spProHistoryTwoKey).map((item){
+                                  return Container(
+                                    height: width(44),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(sprintf("%s%s%s",
+                                                [SPClassDateUtils.spFunDateFormatByString(item.spProMatchDate, "yyyy.M.dd"),"\n",item.spProLeagueName,]
+                                            ),style: TextStyle(
+                                              fontSize: sp(11),
+                                              color: Color(0xFF666666),
+                                            ),textAlign: TextAlign.center,),
+                                          ),
+                                        ) ,
+
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(item.spProTeamOne,style: TextStyle(
+                                              fontSize: sp(11),
+                                              // color: spFunGetTeamTextColor(item,1,isOne:false),
+                                              color: Color(0xFF333333),
+                                            ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ) ,
+
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: width(30),
+                                          child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
+                                            fontSize: sp(11),
+                                            color: spFunGetResultColor(item,winTeam:2),
+                                          ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(item.spProTeamTwo,style: TextStyle(
+                                              fontSize: sp(11),
+                                              color: Color(0xFF333333),
+                                            ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ) ,
+
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: width(30),
+                                          child: Text(spFunGetHistoryResultText(item,winTeam: 2),style: TextStyle(
+                                            fontSize: sp(11),
+                                            color: spFunGetResultColor(item,winTeam: 2),
+                                          ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(item.spProWinOrLose.isEmpty?"--":sprintf("%s%s%s",
+                                                        [
+                                                          (item.spProAddScore.isEmpty ? "--":SPClassStringUtils.spFunSqlitZero(item.spProAddScore)),
+                                                          "\n",
+                                                          item.spProWinOrLose,
+                                                        ]
+                                                    ),style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetColorByText(item.spProWinOrLose),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(item.spProBigOrSmall.isEmpty?"--":sprintf("%s%s%s",
+                                                        [
+                                                          ((item.spProMidScore.isEmpty||double.tryParse(item.spProMidScore)==0) ? "--":SPClassStringUtils.spFunSqlitZero(item.spProMidScore)),
+                                                          "\n",
+                                                          item.spProBigOrSmall,
+                                                        ]
+                                                    ),style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetColorByText(item.spProBigOrSmall),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
+                                        ) ,
+
+
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  myDivider(),
+                ],
+
+              ),
+            ),
+            visible:!(spProHistoryOne.length==0&&spProHistoryTwo.length==0) ,
+          ),
+          Visibility(
+            child:  Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow:[
+                    BoxShadow(
+                      offset: Offset(2,5),
+                      color: Color(0x0C000000),
+                      blurRadius:width(6,),),
+                    BoxShadow(
+                      offset: Offset(-5,1),
+                      color: Color(0x0C000000),
+                      blurRadius:width(6,),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(width(7))
+              ),
+              margin: EdgeInsets.only(left: width(10),right: width(10),top: width(10)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_match_statc_title"),width: width(319),),
+                      Text("未来赛事",style: TextStyle(fontSize: sp(16),fontWeight: FontWeight.bold),)
+                    ],
+                  ),
+
+                  AnimatedSize(
+                    vsync: this,
+                    duration: Duration(
+                        milliseconds: 300
+                    ),
+                    child:Column(
+                      children: <Widget>[
+
+                        Visibility(
+                          child:Column(
+                            children: <Widget>[
+                              SizedBox(height: height(8),),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: width(10),),
+                                  ( widget.spProGuessMatch.spProIconUrlOne.isEmpty)? SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath("ic_team_one"),
+                                    width: width(20),
+                                  ):Image.network(
+                                    widget.spProGuessMatch.spProIconUrlOne,
+                                    width: width(20),
+                                  ),
+                                  SizedBox(width: 5,),
+                                  Text(widget.spProGuessMatch.spProTeamOne,style: TextStyle(fontSize: sp(12)),)
+                                ],
+
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: height(8),bottom: height(8)),
+                                width: width(330),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                                ),
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFF7F7F7),
+                                          border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("赛事日期",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("主队",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: width(40),
+                                            width: width(30),
+                                            child: Text("",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                          ),
+
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("客队",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: width(40),
+                                              child: Text("间隔",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+
+                                        ],
+                                      ),
+                                    ),
+
+                                    Container(
+                                      child: Column(
+                                        children: spProFutureListOne.map((item){
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(sprintf("%s%s%s",
+                                                        [item.spProLeagueName,"\n",SPClassDateUtils.spFunDateFormatByString(item.spProStTime, "yyyy.M.dd")]
+                                                    ),style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: Color(0xFF666666),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ) ,
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(item.spProTeamOne,style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetTeamTextColor(item, 1),
+                                                    ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ) ,
+
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: width(40),
+                                                  width: width(30),
+                                                  child: Text("vs",style: TextStyle(
+                                                    fontSize: sp(14),
+                                                    color: Color(0xFF888888),
+                                                  ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(item.spProTeamTwo,style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetTeamTextColor(item, 2),
+                                                    ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ) ,
+
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text("${(DateTime.parse(item.spProStTime).difference(DateTime.now()).inDays+1).toString()}"+
+                                                        "天",style: TextStyle(
+                                                      fontSize: sp(11),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ) ,
+
+
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    )
+
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          visible: SPClassListUtil.spFunIsNotEmpty(spProFutureListOne),
+                        ),
+
+                        Visibility(
+                          child:Column(
+                            children: <Widget>[
+                              SizedBox(height: height(8),),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: width(10),),
+                                  ( widget.spProGuessMatch.spProIconUrlTwo.isEmpty)? SPClassEncryptImage.asset(
+                                    SPClassImageUtil.spFunGetImagePath("ic_team_two"),
+                                    width: width(20),
+                                  ):Image.network(
+                                    widget.spProGuessMatch.spProIconUrlTwo,
+                                    width: width(20),
+                                  ),
+                                  SizedBox(width: 5,),
+                                  Text(widget.spProGuessMatch.spProTeamTwo,style: TextStyle(fontSize: sp(12)),)
+                                ],
+
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: height(8),bottom: height(8)),
+                                width: width(330),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Color(0xFFDDDDDD),width: 0.4)
+                                ),
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFF7F7F7),
+                                          border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("赛事日期",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("主队",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: width(40),
+                                            width: width(30),
+                                            child: Text("",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                          ),
+
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: width(40),
+                                              child: Text("客队",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: width(40),
+                                              child: Text("间隔",style: TextStyle(fontSize: sp(11),color: Color(0xFF888888)),),
+                                            ),
+                                          ) ,
+
+
+                                        ],
+                                      ),
+                                    ),
+
+                                    Container(
+                                      child: Column(
+                                        children: spProFutureListTwo.map((item){
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(sprintf("%s%s%s",
+                                                        [item.spProLeagueName,"\n",SPClassDateUtils.spFunDateFormatByString(item.spProStTime, "yyyy.M.dd")]
+                                                    ),style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: Color(0xFF666666),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ) ,
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(item.spProTeamOne,style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetTeamTextColor(item,1,isOne:false),
+                                                    ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ) ,
+
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: width(40),
+                                                  width: width(30),
+                                                  child: Text("vs",style: TextStyle(
+                                                    fontSize: sp(14),
+                                                    color: Color(0xFF888888),
+                                                  ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text(item.spProTeamTwo,style: TextStyle(
+                                                      fontSize: sp(11),
+                                                      color: spFunGetTeamTextColor(item,2,isOne:false),
+                                                    ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ) ,
+
+
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: width(40),
+                                                    child: Text("${(DateTime.parse(item.spProStTime).difference(DateTime.now()).inDays+1).toString()}"+
+                                                        "天",style: TextStyle(
+                                                      fontSize: sp(11),
+                                                    ),textAlign: TextAlign.center,),
+                                                  ),
+                                                ) ,
+
+
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    )
+
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          visible: SPClassListUtil.spFunIsNotEmpty(spProFutureListTwo),
+                        ),
+
+                      ],
+                    ) ,
+                  ),
+
+                  myDivider(),
+                ],
+
+              ),
+            ),
+            visible:(SPClassListUtil.spFunIsNotEmpty(spProFutureListOne)||SPClassListUtil.spFunIsNotEmpty(spProFutureListTwo)),
+          ),
+        ],
+      ),
+    );
     return Visibility(
       child: SingleChildScrollView(
         child: Column(
@@ -1388,8 +4159,14 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                     ),
                   ),
                   Container(
-                    child: Column(
-                      children: spFunGetHistoryList(spProHistoryKey).map((item){
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: spFunGetHistoryList(spProHistoryKey).length,
+                      itemBuilder: (c,index){
+                        var item =spFunGetHistoryList(spProHistoryKey)[index];
+                        // return Demo();
                         return Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -1417,9 +4194,9 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                   height: width(44),
                                   width: width(30),
                                   child: Text(item.spProTeamOne,style: TextStyle(
-                                    fontSize: sp(11),
-                                    // color: spFunGetTeamTextColor(item,1),
-                                    color: Color(0xFF333333)
+                                      fontSize: sp(11),
+                                      // color: spFunGetTeamTextColor(item,1),
+                                      color: Color(0xFF333333)
                                   ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -1445,7 +4222,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                   alignment: Alignment.center,
                                   height: width(40),
                                   child: Text(item.spProTeamTwo,style: TextStyle(
-                                    fontSize: sp(11),
+                                      fontSize: sp(11),
                                       color: Color(0xFF333333)
                                     // color: spFunGetTeamTextColor(item,2,),
                                   ),
@@ -1513,9 +4290,138 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                             ],
                           ),
                         );
-                      }).toList(),
+         },
                     ),
-                  )
+                  ),
+                  // Container(
+                  //   child: Column(
+                  //     children: spFunGetHistoryList(spProHistoryKey).map((item){
+                  //       return Container(
+                  //         decoration: BoxDecoration(
+                  //             color: Colors.white,
+                  //             border: Border(bottom:BorderSide(color: Color(0xFFDDDDDD),width: 0.4))
+                  //         ),
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           children: <Widget>[
+                  //             Expanded(
+                  //               child: Container(
+                  //                 alignment: Alignment.center,
+                  //                 height: width(40),
+                  //                 child: Text(sprintf("%s%s%s",
+                  //                     [SPClassDateUtils.spFunDateFormatByString(item.spProMatchDate, "yyyy.M.dd"),"\n",item.spProLeagueName,]
+                  //                 ),style: TextStyle(
+                  //                   fontSize: sp(11),
+                  //                   color: Color(0xFF999999),
+                  //                 ),textAlign: TextAlign.center,),
+                  //               ),
+                  //             ) ,
+                  //
+                  //             Expanded(
+                  //               child: Container(
+                  //                 alignment: Alignment.center,
+                  //                 height: width(44),
+                  //                 width: width(30),
+                  //                 child: Text(item.spProTeamOne,style: TextStyle(
+                  //                   fontSize: sp(11),
+                  //                   // color: spFunGetTeamTextColor(item,1),
+                  //                   color: Color(0xFF333333)
+                  //                 ),
+                  //                   maxLines: 1,
+                  //                   overflow: TextOverflow.ellipsis,
+                  //                 ),
+                  //               ),
+                  //             ) ,
+                  //
+                  //             Container(
+                  //               alignment: Alignment.center,
+                  //               height: width(44),
+                  //               width: width(30),
+                  //               child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
+                  //                 fontSize: sp(11),
+                  //                 color: spFunGetResultColor(item),
+                  //               ),
+                  //                 maxLines: 1,
+                  //                 overflow: TextOverflow.ellipsis,
+                  //               ),
+                  //             ),
+                  //
+                  //             Expanded(
+                  //               child: Container(
+                  //                 alignment: Alignment.center,
+                  //                 height: width(40),
+                  //                 child: Text(item.spProTeamTwo,style: TextStyle(
+                  //                   fontSize: sp(11),
+                  //                     color: Color(0xFF333333)
+                  //                   // color: spFunGetTeamTextColor(item,2,),
+                  //                 ),
+                  //                   maxLines: 1,
+                  //                   overflow: TextOverflow.ellipsis,
+                  //                 ),
+                  //               ),
+                  //             ) ,
+                  //
+                  //             Container(
+                  //               alignment: Alignment.center,
+                  //               height: width(40),
+                  //               width: width(30),
+                  //               child: Text(spFunGetHistoryResultText(item),style: TextStyle(
+                  //                 fontSize: sp(11),
+                  //                 color: spFunGetResultColor(item),
+                  //               ),
+                  //                 maxLines: 1,
+                  //                 overflow: TextOverflow.ellipsis,
+                  //               ),
+                  //             ),
+                  //
+                  //             Expanded(
+                  //               child: Container(
+                  //                 alignment: Alignment.center,
+                  //                 height: width(40),
+                  //                 child: Row(
+                  //                   mainAxisAlignment: MainAxisAlignment.center,
+                  //                   children: <Widget>[
+                  //                     Expanded(
+                  //                       child: Center(
+                  //                         child: Text(item.spProWinOrLose.isEmpty?"--":sprintf("%s%s%s",
+                  //                             [
+                  //                               (item.spProAddScore.isEmpty ? "--":SPClassStringUtils.spFunSqlitZero(item.spProAddScore)),
+                  //                               "\n",
+                  //                               item.spProWinOrLose,
+                  //                             ]
+                  //                         ),style: TextStyle(
+                  //                           fontSize: sp(11),
+                  //                           color: spFunGetColorByText(item.spProWinOrLose),
+                  //                         ),textAlign: TextAlign.center,),
+                  //                       ),
+                  //                     ),
+                  //                     Expanded(
+                  //                       child: Center(
+                  //                         child: Text(item.spProBigOrSmall.isEmpty?"--":sprintf("%s%s%s",
+                  //                             [
+                  //                               ((item.spProMidScore.isEmpty||double.tryParse(item.spProMidScore)==0) ? "--":SPClassStringUtils.spFunSqlitZero(item.spProMidScore)),
+                  //                               "\n",
+                  //                               item.spProBigOrSmall,
+                  //                             ]
+                  //                         ),style: TextStyle(
+                  //                           fontSize: sp(11),
+                  //                           color: spFunGetColorByText(item.spProBigOrSmall),
+                  //                         ),textAlign: TextAlign.center,),
+                  //                       ),
+                  //                     ),
+                  //
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ) ,
+                  //
+                  //
+                  //           ],
+                  //         ),
+                  //       );
+                  //     }).toList(),
+                  //   ),
+                  // )
 
                 ],
               ),

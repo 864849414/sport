@@ -125,8 +125,8 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
                   unselectedLabelColor: Color(0xFF666666),
                   isScrollable: false,
                   indicatorColor: MyColors.main1,
-                  labelStyle: GoogleFonts.notoSansSC(fontSize: sp(15),fontWeight: FontWeight.bold),
-                  unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(15),fontWeight: FontWeight.w400),
+                  labelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.bold),
+                  unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.w400),
                   controller: spProTabController,
                   indicatorSize: TabBarIndicatorSize.label,
                   indicatorPadding: EdgeInsets.symmetric(horizontal: width(5)),
@@ -134,7 +134,7 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
                     return Container(
                       alignment: Alignment.center,
                       height: width(35),
-                      child:Text(spProTabTitle,style: TextStyle(letterSpacing: 0,wordSpacing: 0,fontSize: sp(15)),),
+                      child:Text(spProTabTitle,style: TextStyle(letterSpacing: 0,wordSpacing: 0,fontSize: sp(14)),),
                     );
                   }).toList()
               ),

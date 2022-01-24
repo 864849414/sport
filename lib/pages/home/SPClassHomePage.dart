@@ -434,7 +434,8 @@ class SPClassHomePageState extends State<SPClassHomePage>
                                           right: 0,
                                           top: 0,
                                           child:Container(
-                                            padding: EdgeInsets.only(left: 4,right: 4,top: 3,bottom: 3),
+                                            width: width(39),
+                                            height: width(17),
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(width(5)),topRight: Radius.circular(width(5))),

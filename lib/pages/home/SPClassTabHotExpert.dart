@@ -89,8 +89,8 @@ class SPClassTabHotExpertState extends State<SPClassTabHotExpert> with TickerPro
                   behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("youjiantou",),
-                      width: height(24),
-                      height: height(24),
+                      width: width(23),
+                      height: width(23),
                     ),
                   ),
                   onTap: (){
