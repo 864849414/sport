@@ -163,6 +163,7 @@ class SPClassBaseApi{
           }
           print('请求url：${httpManager.options.baseUrl}$url');
           print('请求参数：$queryParameters');
+          print('请求参数body：$spProBodyParameters');
           print('返回数据：${data}');
           result=SPClassBaseModelEntity.formJson(data);
           result.spFunGetObject<T>(object: jsonObject);
