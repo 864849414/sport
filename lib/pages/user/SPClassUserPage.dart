@@ -24,6 +24,7 @@ import 'package:sport/pages/user/publicScheme/SPClassMyAddSchemePage.dart';
 import 'package:sport/pages/user/scheme/bug/SPClassMyBuySchemePage.dart';
 import 'package:sport/pages/user/setting/SPClassSettingPage.dart';
 import 'package:sport/pages/user/systemMsg/SPClassSystemMsgPageState.dart';
+import 'package:sport/utils/colors.dart';
 import 'SPClassContactPage.dart';
 import 'SPClassDiamondHistoryPage.dart';
 import 'SPClassFeedbackPage.dart';
@@ -40,11 +41,11 @@ class SPClassUserPage extends StatefulWidget {
 
 class SPClassUserPageState extends State<SPClassUserPage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  var spProMyTitles = ["已购方案", "关注专家","关注方案", "新人福利"];
-  var spProMyTitleImages = ["bug","follow_expert", "follow",  "new"];
+  var spProMyTitles = ["已购方案", "关注专家","关注方案", '专家入驻'];
+  var spProMyTitleImages = ["bug","follow_expert", "follow",'expert_apply'];
   var spProOtherTitles = [
     "邀请好友",
-    '专家入驻',
+    "新人福利",
     /*"抽奖",*/
     "系统消息",
     "联系客服",
@@ -54,12 +55,12 @@ class SPClassUserPageState extends State<SPClassUserPage>
   ];
   var spProOtherImages = [
     "invite",
-    "expert_apply",
+    "new",
 /*"turntable",*/
     "sys",
     "contact",
     "about",
-    "feelback",
+    "feedback",
     "setting"
   ];
   var spProUserSubscription;
@@ -80,13 +81,13 @@ class SPClassUserPageState extends State<SPClassUserPage>
           spProMyTitles.remove("我的发布");
           spProMyTitleImages.remove("expert_apply");
           spProMyTitles.add("我的发布");
-          spProMyTitleImages.add("expert_apply");
+          spProMyTitleImages.add("send");
         } else {
           spProMyTitles.remove("我的发布");
           spProMyTitles.remove("专家入驻");
           spProMyTitleImages.remove("expert_apply");
-          // spProMyTitles.add("专家入驻");
-          // spProMyTitleImages.add("expert_apply");
+          spProMyTitles.add("专家入驻");
+          spProMyTitleImages.add("expert_apply");
         }
         if (mounted) {
           setState(() {});
@@ -151,7 +152,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Colors.white,
+              color: Color(0xFFF7F7F7)
             ),
             Positioned(
               left: 0,
@@ -160,7 +161,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
               child: SPClassEncryptImage.asset(
                 SPClassImageUtil.spFunGetImagePath("zhuanjiabg"),
                 width: MediaQuery.of(context).size.width,
-                height: height(180),
+                height: width(180),
                 fit: BoxFit.fill,
               ),
             ),
@@ -258,43 +259,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                     ],
                             ),
                           ),
-                          Visibility(
-                            visible: (SPClassApplicaion.spProShowMenuList
-                                .contains("pay") ||
-                                double.tryParse(SPClassApplicaion
-                                    .spProUserInfo.spProDiamond) >
-                                    0),
-                            child: GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              onTap: (){
-                                if (spFunIsLogin(context: context)) {
-                                  SPClassNavigatorUtils.spFunPushRoute(
-                                      context,
-                                      SPClassRechargeDiamondPage());
-                                }
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Text('立即充值', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFFEB3E1C),fontWeight: FontWeight.w500),fontSize: sp(13))),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF2F2F2),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(4)),
-                                  ),
-                                  Text('${SPClassApplicaion
-                                      .spFunIsExistUserInfo()
-                                      ? SPClassStringUtils
-                                      .spFunSqlitZero(
-                                      SPClassApplicaion
-                                          .spProUserInfo
-                                          .spProDiamond)
-                                      : "-"}:钻石',style: TextStyle(fontSize: sp(15),color: Colors.white),)
-                                ],
-                              ),
-                            ),
-                          ),
+
                           SizedBox(
                             width: width(15),
                           ),
@@ -307,47 +272,87 @@ class SPClassUserPageState extends State<SPClassUserPage>
                         }
                       },
                     ),
-                    SizedBox(
-                      height: width(20),
+                    Visibility(
+                      child: Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.symmetric(horizontal: width(16),vertical: width(23)),
+                        margin: EdgeInsets.only(top: width(24)),
+                        child: Row(
+                          children: <Widget>[
+                            Text('当前钻石:',
+                              style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:MyColors.grey_33,),fontSize: sp(14),),
+                            ),
+                            SizedBox(width: width(5),),
+                            Text('${SPClassApplicaion
+                                .spFunIsExistUserInfo()
+                                ? SPClassStringUtils
+                                .spFunSqlitZero(
+                                SPClassApplicaion
+                                    .spProUserInfo
+                                    .spProDiamond)
+                                : "-"}',
+                              style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:MyColors.main1,height: 0.8),fontSize: sp(36),fontWeight: FontWeight.w500,),
+                            ),
+                            SPClassEncryptImage.asset(
+                              SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                              width: width(24),
+                            ),
+                            Expanded(
+                              child: SizedBox(),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                if (spFunIsLogin(context: context)) {
+                                  SPClassNavigatorUtils.spFunPushRoute(
+                                      context,
+                                      SPClassRechargeDiamondPage());
+                                }
+                              },
+                              child: Container(
+                                width: width(83),
+                                height: width(34),
+                                alignment: Alignment.center,
+                                child: Text('立即充值', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Colors.white,fontWeight: FontWeight.w500),fontSize: sp(14))),
+                                decoration: BoxDecoration(
+                                  color: MyColors.main1,
+                                  borderRadius: BorderRadius.circular(150),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      visible: (SPClassApplicaion.spProShowMenuList
+                          .contains("pay") ||
+                          double.tryParse(SPClassApplicaion
+                              .spProUserInfo.spProDiamond) >
+                              0),
                     ),
                     spProMyTitles.length > 0
                         ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(2, 5),
-                                    color: Color(0x0D000000),
-                                    blurRadius: width(
-                                      6,
-                                    ),
-                                  ),
-                                  BoxShadow(
-                                    offset: Offset(-5, 1),
-                                    color: Color(0x0D000000),
-                                    blurRadius: width(
-                                      6,
-                                    ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(width(7))),
-                            margin: EdgeInsets.only(
-                                bottom: width(8),
-                                left: width(10),
-                                right: width(10),
-                                top: width(10)),
+                        color: Colors.white,
+                        margin: EdgeInsets.only(top: width(8)),
                             child: Column(
                               children: <Widget>[
                                 Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(
+                                      color: Color(0xFFF7F7F7),
+                                      width: 1,
+                                    ))
+                                  ),
                                   padding: EdgeInsets.only(
-                                      left: width(15), right: width(13),top: width(19)),
+                                      left: width(16), right: width(16),top: width(16),bottom: width(13)),
                                   child: Row(
                                     children: <Widget>[
                                       Text(
                                         "常用功能",
                                         style: GoogleFonts.notoSansSC(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: sp(15)),
+                                            fontSize: sp(17),
+                                            textStyle: TextStyle(color: MyColors.grey_66)
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -389,121 +394,111 @@ class SPClassUserPageState extends State<SPClassUserPage>
                           )
                         : SizedBox(),
                     Container(
-                      margin: EdgeInsets.only(top: width(10)),
+                          color: Colors.white,
+                      margin: EdgeInsets.only(top: width(12)),
                       child: Column(
-                        children: spProOtherTitles.map((item) {
-                          var index = spProOtherTitles.indexOf(item);
-                          return GestureDetector(
-                            child: Stack(
-                              alignment: Alignment.center,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(
+                                  color: Color(0xFFF7F7F7),
+                                  width: 1,
+                                ))
+                            ),
+                            padding: EdgeInsets.only(
+                                left: width(16), right: width(16),top: width(16),bottom: width(13)),
+                            child: Row(
                               children: <Widget>[
-                                spProOtherImages.length>index?
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          SPClassEncryptImage.asset(
-                                              SPClassImageUtil.spFunGetImagePath(
-                                                  "ic_user_" +
-                                                      "${spProOtherImages[index]}"),
-                                              width: width(23)),
-                                          SizedBox(
-                                            width: width(4),
-                                          ),
-                                          Stack(
-                                            overflow: Overflow.visible,
-                                            children: <Widget>[
-                                              Text(
-                                                item,
-                                                style: TextStyle(
-                                                    color: Color(0xFF333333),
-                                                    fontSize: sp(13)),
-                                              ),
-                                              item == "系统消息"
-                                                  ? Positioned(
-                                                right:-width(12),
-                                                top:0,
-                                                child: (spFunIsLogin() &&
-                                                    double.tryParse(SPClassApplicaion
-                                                        .spProUserLoginInfo
-                                                        .spProUnreadMsgNum) >
-                                                        0)
-                                                    ? Container(
-                                                  width: width(12),
-                                                  height: width(12),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.red,
-                                                      shape: BoxShape.circle),
-                                                  child: Text('${int.tryParse(SPClassApplicaion
-                                                      .spProUserLoginInfo
-                                                      .spProUnreadMsgNum)}',style: TextStyle(color: Colors.white,fontSize: sp(8)),),
-                                                )
-                                                    : SizedBox(),
-                                              )
-                                                  : SizedBox()
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: SizedBox(),
-                                          ),
-                                          SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
-                                            width: width(11),
-                                          ),
-                                        ],
-                                      ),
-                                      padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(12)),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Color(0xFFF2F2F2),width: 0.4),),
-                                      ),
-                                    )
-                                // Column(
-                                //   crossAxisAlignment:
-                                //   CrossAxisAlignment.center,
-                                //   mainAxisAlignment:
-                                //   MainAxisAlignment.center,
-                                //   children: <Widget>[
-                                //     SPClassEncryptImage.asset(
-                                //         SPClassImageUtil.spFunGetImagePath(
-                                //             "ic_user_" +
-                                //                 "${spProOtherImages[index]}"),
-                                //         width: width(47)),
-                                //     Text(
-                                //       item,
-                                //       style: TextStyle(
-                                //           color: Color(0xFF333333),
-                                //           fontSize: sp(12)),
-                                //     )
-                                //   ],
-                                // )
-
-                                    :SizedBox(),
-                               
-                                // item == "系统消息"
-                                //     ? Positioned(
-                                //   top: width(20),
-                                //   right: width(20),
-                                //   child: (spFunIsLogin() &&
-                                //       double.tryParse(SPClassApplicaion
-                                //           .spProUserLoginInfo
-                                //           .spProUnreadMsgNum) >
-                                //           0)
-                                //       ? Container(
-                                //     height: width(8),
-                                //     width: width(8),
-                                //     decoration: BoxDecoration(
-                                //         color: Colors.red,
-                                //         shape: BoxShape.circle),
-                                //   )
-                                //       : SizedBox(),
-                                // )
-                                //     : SizedBox()
+                                Text(
+                                  "其他功能",
+                                  style: GoogleFonts.notoSansSC(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: sp(17),
+                                      textStyle: TextStyle(color: MyColors.grey_66)
+                                  ),
+                                ),
                               ],
                             ),
-                            onTap: () => spFunOnTap(item),
-                          );
-                        }).toList(),
+                          ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            crossAxisCount: 4,
+                            padding: EdgeInsets.zero,
+                            childAspectRatio: 1,
+                            children: spProOtherTitles.map((item) {
+                              var index = spProOtherTitles.indexOf(item);
+                              return GestureDetector(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    spProOtherImages.length>index?
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        SPClassEncryptImage.asset(
+                                            SPClassImageUtil.spFunGetImagePath(
+                                                "ic_user_" +
+                                                    "${spProOtherImages[index]}"),
+                                            width: width(31)),
+                                        Text(
+                                          item,
+                                          style: TextStyle(
+                                              color: Color(0xFF333333),
+                                              fontSize: sp(12)),
+                                        )
+                                      ],
+                                    ):SizedBox(),
+                                    item == "新人福利"
+                                        ? Positioned(
+                                      top: width(10),
+                                      right: width(18),
+                                      child: ScaleTransition(
+                                        alignment: Alignment.bottomLeft,
+                                        scale: spProScaleAnimation,
+                                        child: SPClassEncryptImage.asset(
+                                          SPClassImageUtil
+                                              .spFunGetImagePath(
+                                              "ic_anim_invite"),
+                                          fit: BoxFit.fitHeight,
+                                          height: width(23),
+                                        ),
+                                      ),
+                                    )
+                                        : SizedBox(),
+                                    item == "系统消息"
+                                        ? Positioned(
+                                      top: width(20),
+                                      right: width(20),
+                                      child: (spFunIsLogin() &&
+                                          double.tryParse(SPClassApplicaion
+                                              .spProUserLoginInfo
+                                              .spProUnreadMsgNum) >
+                                              0)
+                                          ? Container(
+                                        height: width(8),
+                                        width: width(8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            shape: BoxShape.circle),
+                                      )
+                                          : SizedBox(),
+                                    )
+                                        : SizedBox()
+                                  ],
+                                ),
+                                onTap: () => spFunOnTap(item),
+                              );
+                            }).toList(),
+                          ),
+
+                        ],
                       ),
                     ),
+
                   ],
                 ),
               ),

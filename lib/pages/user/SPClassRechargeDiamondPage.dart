@@ -141,7 +141,7 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text('余额:  ',style: TextStyle(fontSize: sp(13),color: MyColors.grey_99),),
-                      Text('${SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond)}',style: TextStyle(fontSize: sp(23),color: Color(0xFF1B8DE0),),),
+                      Text('${SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond)}',style: TextStyle(fontSize: sp(23),color: Color(0xFF1B8DE0),height: 0.9),),
                       SPClassEncryptImage.asset(
                         SPClassImageUtil.spFunGetImagePath("zhuanshi"),
                         width: width(17),
