@@ -11,6 +11,7 @@ import 'package:sport/utils/SPClassStringUtils.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/pages/competition/filter/SPClassFilterHomePage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/SPClassEncryptImage.dart';
@@ -61,7 +62,7 @@ class SPClassFilterleagueMatchPageState extends State<SPClassFilterleagueMatchPa
     // TODO: implement build
     return  Scaffold(
       body: Container(
-        color: Color(0xFFF1F1F1),
+        color: Colors.white,
         child: EasyRefresh.custom(
           controller: controller,
           onRefresh: spFunOnRefresh,
@@ -82,42 +83,45 @@ class SPClassFilterleagueMatchPageState extends State<SPClassFilterleagueMatchPa
                         Container(
                           margin: EdgeInsets.only(top: height(15),bottom: height(5)),
                           alignment: Alignment.centerLeft,
-                          child: Text(key[0].spProPinyinInitial,style: TextStyle(fontSize: sp(13),color: Color(0xFF333333)),),
+                          child: Text(key[0].spProPinyinInitial,style: TextStyle(fontSize: sp(15),color: Color(0xFF333333)),),
                         ),
                         GridView.count(
-                          crossAxisCount: 3,
+                          crossAxisCount: 4,
                           shrinkWrap: true,
                           crossAxisSpacing: width(11),
-                          mainAxisSpacing: height(9),
+                          mainAxisSpacing: width(17),
                           physics: NeverScrollableScrollPhysics(),
-                          childAspectRatio: width(103)/width(27),
+                          childAspectRatio: width(69)/width(30),
                           children:key.map((item){
                             return GestureDetector(
                               child: Container(
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(width: 0.4,color:item.check?  Color(0xFFDE3C31): Color(0xFFCCCCCC) ),
-                                    borderRadius: BorderRadius.circular(width(3))
+                                    color:item.check? Color(0xFFF2F2F2):Colors.white,
+                                    border: Border.all(width: 0.4,color:item.check?  MyColors.main1: MyColors.grey_99),
+                                    borderRadius: BorderRadius.circular(150)
                                 ),
-                                child: Row(
-                                  children: <Widget>[
-                                    SizedBox(width: width(9),),
-                                    SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:item.check?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
-                                    SizedBox(width: width(3),),
-                                    Expanded(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("${(item.spProLeagueName.length>4&&SPClassStringUtils.spFunIsNum(item.spProLeagueName.substring(0,4))) ? item.spProLeagueName.substring(4).trim():item.spProLeagueName}" ,style: TextStyle(fontSize: sp(11),color:item.check?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,)
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(width: width(3),),
-                                    Text(item.spProMatchCnt.isEmpty? "":"${item.spProMatchCnt}"+
-                                        "场",style: TextStyle(fontSize: sp(11),color:Color(0xFFCCCCCC))),
-                                    SizedBox(width: width(4),),
-
-                                  ],
-                                ),
+                                child:Text("${(item.spProLeagueName.length>4&&SPClassStringUtils.spFunIsNum(item.spProLeagueName.substring(0,4))) ? item.spProLeagueName.substring(4).trim():item.spProLeagueName}" ,style: TextStyle(fontSize: sp(13),color:item.check?  MyColors.main1: Color(0xFF303133)),maxLines: 1,overflow: TextOverflow.ellipsis,)
+                                ,
+                                // child: Row(
+                                //   children: <Widget>[
+                                //     SizedBox(width: width(9),),
+                                //     SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:item.check?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
+                                //     SizedBox(width: width(3),),
+                                //     Expanded(
+                                //       child: Row(
+                                //         children: <Widget>[
+                                //           Text("${(item.spProLeagueName.length>4&&SPClassStringUtils.spFunIsNum(item.spProLeagueName.substring(0,4))) ? item.spProLeagueName.substring(4).trim():item.spProLeagueName}" ,style: TextStyle(fontSize: sp(11),color:item.check?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,)
+                                //         ],
+                                //       ),
+                                //     ),
+                                //     SizedBox(width: width(3),),
+                                //     Text(item.spProMatchCnt.isEmpty? "":"${item.spProMatchCnt}"+
+                                //         "场",style: TextStyle(fontSize: sp(11),color:Color(0xFFCCCCCC))),
+                                //     SizedBox(width: width(4),),
+                                //
+                                //   ],
+                                // ),
                               ),
                               onTap: (){
                                 spProSelectAll=false;
@@ -140,107 +144,177 @@ class SPClassFilterleagueMatchPageState extends State<SPClassFilterleagueMatchPa
         ),
       ),
       bottomNavigationBar: Container(
-        height: height(50),
+        height: width(52),
         alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: width(15)),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]))
+          color: Color(0xFFF2F2F2),
+          // border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]))
         ),
         child: Row(
           children: <Widget>[
+            RichText(
+              text: TextSpan(
+                text: '已选择',
+                style: TextStyle(color: Color(0xFF707070),fontWeight: FontWeight.w500,fontSize: sp(13)),
+                children: [
+                  TextSpan(
+                      text: ' ${spProMatchCount.toString()} ',
+                      style: TextStyle(color: Color(0xFFEB3E1C),fontSize: sp(17),),
+                  ),
+                  TextSpan(
+                    text: '场比赛',
+                    style: TextStyle(color: Color(0xFF707070),fontWeight: FontWeight.w500,fontSize: sp(13)),
+                  ),
+                ]
+              ),
+            ),
             Expanded(
+              child: SizedBox(),
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: (){
+                if(!spProSelectAll){
+                  setState(() {
+                    spProSelectAllNot=false;
+                    spProSelectAll=true;
+                  });
+                  spFunCalcCheckCount(isBtn: true);
+                }else{
+                  spProSelectAll=false;
+                  spProSelectAllNot=true;
+                  spFunCalcCheckCount();
+                }
+              },
               child: Row(
                 children: <Widget>[
-                  SizedBox(width: width(14),),
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    child: Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
-                        SizedBox(width: width(3),),
-                        Text("全选",style: TextStyle(fontSize: sp(13),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                      ],
-                    ),
-                    onTap: (){
-                      if(!spProSelectAll){
-                        setState(() {
-                          spProSelectAllNot=false;
-                          spProSelectAll=true;
-                        });
-                        spFunCalcCheckCount(isBtn: true);
-                      }
-
-                    },
+                  SPClassEncryptImage.asset(
+                    SPClassImageUtil.spFunGetImagePath(spProSelectAll?"ic_select":"ic_seleect_un"),
+                    width: width(15),
                   ),
-                  SizedBox(width: width(13),),
-                  Container(
-                    width: 1,
-                    height: height(9),
-                    color: Colors.grey[300],
+                  SizedBox(width: width(4),),
+                  Text(
+                    '全选',
+                    style: TextStyle(color: Color(0xFF999999),fontWeight: FontWeight.w500,fontSize: sp(13)),
                   ),
-                  SizedBox(width: width(13),),
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    child: Row(
-                      children: <Widget>[
-                        SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:spProSelectAllNot?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
-                        SizedBox(width: width(3),),
-                        Text("反选",style: TextStyle(fontSize: sp(13),color:spProSelectAllNot?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                      ],
-                    ),
-                    onTap: (){
-                      if(!spProSelectAllNot){
-                        setState(() {
-                          spProSelectAllNot=true;
-                          spProSelectAll=false;
-                        });
-                        spFunCalcCheckCount(isBtn: true);
-                      }
-
-                    },
-                  ),
-                  SizedBox(width: width(13),),
-
-                  Text("已选择中${spProMatchCount.toString()}场赛事",style: TextStyle(fontSize: sp(12),color:Color(0xFFB1B1B1)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-
                 ],
               ),
             ),
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
 
-              child: Container(
-                alignment: Alignment.center,
-                width: width(100),
-                height: height(50),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFF2150C),
-                          Color(0xFFF24B0C)
-                        ]
-                    )
-                ),
-                child: Text("确定",style: TextStyle(color: Colors.white,fontSize: sp(16)),),
+            SizedBox(width: width(23),),
+            Container(
+              width: width(84),
+              height: width(36),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: MyColors.main1,
+                borderRadius: BorderRadius.circular(150),
               ),
-              onTap: (){
-                if(spProMatchCount==0){
-                  SPClassToastUtils.spFunShowToast(msg:"请选择赛事");
-                  return;
-                }
-                var result= JsonEncoder().convert(spProLeagueName).replaceAll("[", "").replaceAll("]", "").replaceAll(",", ";").replaceAll("\"", "");
-                if(spProSelectAll){
-                  result="";
-                }
-                widget.callback(result,widget.spProIsLottery);
-                Navigator.of(context).pop();
-              },
+              child: Text(
+                '确定',
+                style: TextStyle(color: Colors.white,fontSize: sp(15)),
+              ),
             )
           ],
         ),
+        // child: Row(
+        //   children: <Widget>[
+        //     Expanded(
+        //       child: Row(
+        //         children: <Widget>[
+        //           SizedBox(width: width(14),),
+        //           GestureDetector(
+        //             behavior: HitTestBehavior.opaque,
+        //             child: Row(
+        //               children: <Widget>[
+        //                 SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
+        //                 SizedBox(width: width(3),),
+        //                 Text("全选",style: TextStyle(fontSize: sp(13),color:spProSelectAll?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //               ],
+        //             ),
+        //             onTap: (){
+        //               if(!spProSelectAll){
+        //                 setState(() {
+        //                   spProSelectAllNot=false;
+        //                   spProSelectAll=true;
+        //                 });
+        //                 spFunCalcCheckCount(isBtn: true);
+        //               }
+        //
+        //             },
+        //           ),
+        //           SizedBox(width: width(13),),
+        //           Container(
+        //             width: 1,
+        //             height: height(9),
+        //             color: Colors.grey[300],
+        //           ),
+        //           SizedBox(width: width(13),),
+        //           GestureDetector(
+        //             behavior: HitTestBehavior.opaque,
+        //             child: Row(
+        //               children: <Widget>[
+        //                 SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_check_box"), width: width(13),color:spProSelectAllNot?  Color(0xFFDE3C31): Color(0xFFCCCCCC)),
+        //                 SizedBox(width: width(3),),
+        //                 Text("反选",style: TextStyle(fontSize: sp(13),color:spProSelectAllNot?  Color(0xFFDE3C31): Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //               ],
+        //             ),
+        //             onTap: (){
+        //               if(!spProSelectAllNot){
+        //                 setState(() {
+        //                   spProSelectAllNot=true;
+        //                   spProSelectAll=false;
+        //                 });
+        //                 spFunCalcCheckCount(isBtn: true);
+        //               }
+        //
+        //             },
+        //           ),
+        //           SizedBox(width: width(13),),
+        //
+        //           Text("已选择中${spProMatchCount.toString()}场赛事",style: TextStyle(fontSize: sp(12),color:Color(0xFFB1B1B1)),maxLines: 1,overflow: TextOverflow.ellipsis,),
+        //
+        //         ],
+        //       ),
+        //     ),
+        //     GestureDetector(
+        //       behavior: HitTestBehavior.opaque,
+        //
+        //       child: Container(
+        //         alignment: Alignment.center,
+        //         width: width(100),
+        //         height: height(50),
+        //         decoration: BoxDecoration(
+        //             gradient: LinearGradient(
+        //                 colors: [
+        //                   Color(0xFFF2150C),
+        //                   Color(0xFFF24B0C)
+        //                 ]
+        //             )
+        //         ),
+        //         child: Text("确定",style: TextStyle(color: Colors.white,fontSize: sp(16)),),
+        //       ),
+        //       onTap: (){
+        //         if(spProMatchCount==0){
+        //           SPClassToastUtils.spFunShowToast(msg:"请选择赛事");
+        //           return;
+        //         }
+        //         var result= JsonEncoder().convert(spProLeagueName).replaceAll("[", "").replaceAll("]", "").replaceAll(",", ";").replaceAll("\"", "");
+        //         if(spProSelectAll){
+        //           result="";
+        //         }
+        //         widget.callback(result,widget.spProIsLottery);
+        //         Navigator.of(context).pop();
+        //       },
+        //     )
+        //   ],
+        // ),
       ),
     );
   }
+
+
 
 
   Future<void>  spFunOnRefresh() async{

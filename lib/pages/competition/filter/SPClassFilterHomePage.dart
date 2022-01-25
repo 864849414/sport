@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/pages/competition/filter/SPClassFilterleagueMatchPage.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 typedef CallBack = void Function(String value,String spProIsLottery);
 
@@ -36,6 +37,11 @@ class SPClassFilterHomePageState extends State<SPClassFilterHomePage> with Ticke
       SPClassFilterleagueMatchPage("",widget.spProChooseLeagueName, param: widget.param, callback: widget.callback,spProIsHot: widget.spProIsHot,),
       SPClassFilterleagueMatchPage("1",widget.spProChooseLeagueName, param: widget.param, callback: widget.callback,spProIsHot: widget.spProIsHot,),
    ];
+    spProTabController.addListener(() {
+      setState(() {
+
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -43,30 +49,44 @@ class SPClassFilterHomePageState extends State<SPClassFilterHomePage> with Ticke
     return Scaffold(
       appBar: SPClassToolBar(
         context,
-        title:"赛事筛选",
+        title:"比赛筛选",
       ),
       body: Container(
         child: Column(
           children: <Widget>[
+            Container(
+              height: width(6),
+              color: Color(0xFFF2F2F2),
+            ),
            SPClassApplicaion.spFunIsShowIosUI() ?SizedBox():Container(
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]),top: BorderSide(width: 0.4,color: Colors.grey[300]))
               ),
               child: TabBar(
-                  labelColor: Color(0xFFE3494B),
+                  labelColor: MyColors.main1,
                   unselectedLabelColor: Color(0xFF333333),
                   isScrollable: false,
-                  indicatorColor: Color(0xFFE3494B),
+                  indicatorColor: MyColors.transparent,
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: width(120)),
                   labelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.bold),
                   unselectedLabelStyle: GoogleFonts.notoSansSC(fontSize: sp(14),fontWeight: FontWeight.w400),
                   controller: spProTabController,
-                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorSize: TabBarIndicatorSize.tab,
                   tabs:spProTabTitle.map((spProTabTitle){
-                    return Container(
-                      alignment: Alignment.center,
-                      height: height(35),
-                      child:Text(spProTabTitle,style: TextStyle(letterSpacing: 0,wordSpacing: 0,fontSize: sp(15)),),
+                    return Column(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          height: width(38),
+                          child:Text(spProTabTitle,style: TextStyle(letterSpacing: 0,wordSpacing: 0,fontSize: sp(15)),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: width(65)),
+                          height: 2,
+                          color:spProTabController.index==this.spProTabTitle.indexOf(spProTabTitle)? MyColors.main1:Colors.transparent,
+                        )
+                      ],
                     );
                   }).toList()
               ),
@@ -84,5 +104,10 @@ class SPClassFilterHomePageState extends State<SPClassFilterHomePage> with Ticke
     );
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
 }
