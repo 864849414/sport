@@ -39,7 +39,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
   String spProOddsType;
 
   List<SPClassSchemePlayWay> spProJcList = [];
-  List<SPClassOddsHistoryListOddsHistoryList> spProOddsHistoryList;
+  List<SPClassOddsHistoryListOddsHistoryList> spProOddsHistoryList =[];
 
   List list =['','',''];
 
@@ -493,6 +493,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                     });
                                    },
                                   child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: width(4)),
                                     width: double.maxFinite,
                                     height: width(38),
                                     alignment: Alignment.center,
@@ -500,7 +501,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                       color: selectCompany==item.company?MyColors.main1:Color(0xFFF5F6F7),
                                       border: Border(bottom: BorderSide(color: Color(0xFFE6E6E6),width: 0.4)),
                                     ),
-                                    child: Text('${item.company}',style: TextStyle(color:selectCompany==item.company?Colors.white:MyColors.grey_33 ),),
+                                    child: Text('${item.company}',style: TextStyle(color:selectCompany==item.company?Colors.white:MyColors.grey_33 ),maxLines: 1,overflow: TextOverflow.ellipsis,),
                                   ),
                                 );
                               },
@@ -533,6 +534,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                                   flex: 1,
                                                   child: Text(item.spProInitWinOddsOne,style: TextStyle(fontSize: sp(12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
                                                 ),
+                                                ((spProIndex==0&&item.spProInitDrawOdds.isEmpty)||(spProIndex==1&&item.init_add_score_desc.isEmpty)||(spProIndex==2&&item.init_mid_score_desc.isEmpty))?SizedBox():
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text( spProIndex==0 ? "${item.spProInitDrawOdds}": spProIndex==1 ? item.init_add_score_desc:item.init_mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color: Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
@@ -554,6 +556,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                                   flex: 1,
                                                   child: Text("${item.spProWinOddsOne}" ,style: TextStyle(fontSize: sp(12),color:spFunGetOddsColor(item.spProWinOddsOne,item.spProInitWinOddsOne),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
                                                 ),
+                                                ((spProIndex==0&&item.spProDrawOdds.isEmpty)||(spProIndex==1&&item.add_score_desc.isEmpty)||(spProIndex==2&&item.mid_score_desc.isEmpty))?SizedBox():
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text( spProIndex==0 ? "${item.spProDrawOdds}": spProIndex==1 ? item.add_score_desc:item.mid_score_desc,style: TextStyle(fontSize: sp(spProIndex==1 ?10:12),color:spProIndex==0 ? spFunGetOddsColor(item.spProDrawOdds, item.spProInitDrawOdds): Color(0xFF333333),),maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),
@@ -593,9 +596,10 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                               border: Border(right: BorderSide(width: 0.4,color: Colors.grey[300]))
                                           ),
                                           height: height(38),
-                                          child: Text(e.spProWinOddsOne,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                          child: Text(e.spProWinOddsOne,style: TextStyle(color: getPankouColor(e.spProWinOddsOne),fontSize: sp(12)),),
                                         ),
                                       ),
+                                      (spProOddTypes[spProIndex].contains("欧")? e.spProDrawOdds:spProOddTypes[spProIndex].contains("亚")? e.spProAddScoreDesc:e.spProMidScoreDesc)==''?SizedBox():
                                       Expanded(
                                         flex: 2,
                                         child: Container(
@@ -605,7 +609,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                           ),
                                           alignment: Alignment.center,
                                           height: height(38),
-                                          child: Text(spProOddTypes[spProIndex].contains("欧")? e.spProDrawOdds:spProOddTypes[spProIndex].contains("亚")? e.spProAddScoreDesc:e.spProMidScoreDesc,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                          child: Text(spProOddTypes[spProIndex].contains("欧")? e.spProDrawOdds:spProOddTypes[spProIndex].contains("亚")? e.spProAddScoreDesc:e.spProMidScoreDesc,style: TextStyle(color: getPankouColor(spProOddTypes[spProIndex].contains("欧")? e.spProDrawOdds:spProOddTypes[spProIndex].contains("亚")? e.spProAddScoreDesc:e.spProMidScoreDesc),fontSize: sp(12)),),
                                         ),
                                       ),
                                       Expanded(
@@ -616,7 +620,7 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
                                               border: Border(right: BorderSide(width: 0.4,color: Colors.grey[300]))
                                           ),
                                           height: height(38),
-                                          child: Text(e.spProWinOddsTwo,style: TextStyle(color: Color(0xFF333333),fontSize: sp(12)),),
+                                          child: Text(e.spProWinOddsTwo,style: TextStyle(color: getPankouColor(e.spProWinOddsTwo),fontSize: sp(12)),),
                                         ),
                                       ),
 
@@ -665,6 +669,16 @@ class SPClassOddsPageState extends State<SPClassOddsPage>
         double.tryParse(spProInitWinOddsOne))) {
       return Color(0xFF3D9827);
     } else {
+      return Color(0xFF333333);
+    }
+  }
+
+  getPankouColor(String data){
+    if(data.contains('↑')){
+      return Color(0xFFE3494B);
+    }else if(data.contains('↓')){
+      return Color(0xFF3D9827);
+    }else{
       return Color(0xFF333333);
     }
   }

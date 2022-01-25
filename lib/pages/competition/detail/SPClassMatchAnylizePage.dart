@@ -28,7 +28,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class SPClassMatchAnylizePage extends StatefulWidget{
   Map<String,dynamic> params;
   SPClassGuessMatchInfo spProGuessMatch;
-  SPClassMatchAnylizePage(this.params,this.spProGuessMatch);
+  int type = 0; //0为足球  1为篮球
+  SPClassMatchAnylizePage(this.params,this.spProGuessMatch,this.type);
 
   @override
   State<StatefulWidget> createState() {
@@ -111,6 +112,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
     SingleChildScrollView(
       child: Column(
         children: [
+          // 预测
           Visibility(
             child: Stack(
               alignment:Alignment.topCenter,
@@ -378,6 +380,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             ),
             visible: (spProForecastInfo!=null),
           ),
+          // 能力对比
           Visibility(
             child: AnimatedSize(
               vsync: this,
@@ -643,7 +646,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                               ),
                             ],
                           ),
-                          Text("场均进球",
+                          Text(widget.type==0?"场均进球":"场均得分",
                             style: TextStyle(fontSize: sp(12)),),
                           SizedBox(height: width(8),),
                         ],
@@ -710,7 +713,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                               ),
                             ],
                           ),
-                          Text("场均失球",
+                          Text(widget.type==0?"场均失球":"场均失分",
                             style: TextStyle(fontSize: sp(12)),),
                           SizedBox(height: width(8),),
                         ],
@@ -727,6 +730,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                 || SPClassListUtil.spFunIsNotEmpty(spProHistoryTwo)
             ),
           ),
+           // 积分排名
           Visibility(
             child: AnimatedSize(
               vsync: this,
@@ -961,6 +965,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             ),
             visible:SPClassListUtil.spFunIsNotEmpty(spProTeamPointsList) ,
           ),
+           // 历史战绩
           Visibility(
             child: Container(
               color: Colors.white,
@@ -1380,7 +1385,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                                     Container(
                                       alignment: Alignment.center,
                                       height: width(44),
-                                      width: width(30),
+                                      width: width(40),
                                       child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
                                         fontSize: sp(11),
                                         color: spFunGetResultColor(item),
@@ -1606,6 +1611,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             ),
             visible:SPClassListUtil.spFunIsNotEmpty(spProHistoryList),
           ),
+            // 近期战绩
           Visibility(
             child:  Container(
               color: Colors.white,
@@ -1978,7 +1984,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
                                           Container(
                                             alignment: Alignment.center,
-                                            width: width(30),
+                                            width: width(40),
                                             child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
                                               fontSize: sp(11),
                                               color: spFunGetResultColor(item),
@@ -2381,7 +2387,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
                                         Container(
                                           alignment: Alignment.center,
-                                          width: width(30),
+                                          width: width(40),
                                           child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
                                             fontSize: sp(11),
                                             color: spFunGetResultColor(item,winTeam:2),
@@ -2476,7 +2482,8 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             ),
             visible:!(spProHistoryOne.length==0&&spProHistoryTwo.length==0) ,
           ),
-          Visibility(
+          // 未来赛事
+          /*Visibility(
             child:  Container(
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -2873,7 +2880,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
               ),
             ),
             visible:(SPClassListUtil.spFunIsNotEmpty(spProFutureListOne)||SPClassListUtil.spFunIsNotEmpty(spProFutureListTwo)),
-          ),
+          ),*/
         ],
       ),
     );
@@ -2882,7 +2889,6 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
         child: Column(
           children: [
 
-            // SizedBox(height:width(10)),
 
 //            预测
             calculate(),
@@ -2912,7 +2918,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
             recentAchievements(),
 
             // 未来赛事
-            future()
+            // future()
 
 
           ],
@@ -3462,7 +3468,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                         ),
                       ],
                     ),
-                    Text("场均进球",
+                    Text(widget.type==0?"场均进球":"场均得分",
                       style: TextStyle(fontSize: sp(12)),),
                     SizedBox(height: width(8),),
                   ],
@@ -3529,7 +3535,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
                         ),
                       ],
                     ),
-                    Text("场均失球",
+                    Text(widget.type==0?"场均失球":"场均失分",
                       style: TextStyle(fontSize: sp(12)),),
                     SizedBox(height: width(8),),
                   ],
@@ -4809,7 +4815,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
                                       Container(
                                         alignment: Alignment.center,
-                                        width: width(30),
+                                        width: width(40),
                                         child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
                                           fontSize: sp(11),
                                           color: spFunGetResultColor(item),
@@ -5212,7 +5218,7 @@ class SPClassMatchAnylizePageState extends State<SPClassMatchAnylizePage> with A
 
                                   Container(
                                     alignment: Alignment.center,
-                                    width: width(30),
+                                    width: width(40),
                                     child: Text(item.spProScoreOne+" : "+item.spProScoreTwo,style: TextStyle(
                                       fontSize: sp(11),
                                       color: spFunGetResultColor(item,winTeam:2),

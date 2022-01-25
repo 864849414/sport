@@ -61,7 +61,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
       }));
       if(SPClassApplicaion.spProShowMenuList.contains("match_analyse")){
         spProTabTitles.add("数据");
-        views.add(SPClassMatchAnylizePage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId,},widget.spProSportMatch));
+        views.add(SPClassMatchAnylizePage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId,},widget.spProSportMatch,0));
       }
       if(SPClassApplicaion.spProShowMenuList.contains("match_odds")){
         spProTabTitles.add("指数");
@@ -83,7 +83,8 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
       );
       if(SPClassApplicaion.spProShowMenuList.contains("match_analyse")){
         spProTabTitles.add("数据");
-        views.add(SPClassMatchAnylizeBasketBallPage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId},widget.spProSportMatch));
+        views.add(SPClassMatchAnylizePage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId,},widget.spProSportMatch,1));
+        // views.add(SPClassMatchAnylizeBasketBallPage({widget.spProMatchType:widget.spProSportMatch.spProGuessMatchId},widget.spProSportMatch));
       }
 
       if(SPClassApplicaion.spProShowMenuList.contains("match_odds")){
@@ -92,7 +93,7 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
       }
 
       if(SPClassApplicaion.spProShowMenuList.contains("match_scheme")){
-        spProTabTitles.add("推荐");
+        spProTabTitles.add("方案");
         views.add( SPClassMatchDetailSchemeListPage(widget.spProSportMatch)
        );
       }

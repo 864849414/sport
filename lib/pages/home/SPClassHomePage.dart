@@ -80,10 +80,10 @@ class SPClassHomePageState extends State<SPClassHomePage>
     // TODO: implement initState
     super.initState();
     spFunGetHotMatch();
-    if (SPClassApplicaion.spProShowMenuList.contains("es")) {
-      spProTabMatchTitles.add("电竞专家");
-      spProTabMatchKeys.add("lol");
-    }
+    // if (SPClassApplicaion.spProShowMenuList.contains("es")) {
+    //   spProTabMatchTitles.add("电竞专家");
+    //   spProTabMatchKeys.add("lol");
+    // }
     spProMsgScrollController = ScrollController(initialScrollOffset: width(25));
     spProHomeScrollController = ScrollController();
     spProTabSchemeController = TabController(

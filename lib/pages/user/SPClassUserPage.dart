@@ -132,11 +132,11 @@ class SPClassUserPageState extends State<SPClassUserPage>
     }
 
     spProScaleAnimation = AnimationController(
-        duration: const Duration(milliseconds: 350),
-        reverseDuration: const Duration(milliseconds: 350),
+        duration: const Duration(milliseconds: 600),
+        reverseDuration: const Duration(milliseconds: 600),
         vsync: this,
         lowerBound: 1.0,
-        upperBound: 1.3);
+        upperBound: 1.1);
     spProScaleAnimation.repeat(reverse: true);
   }
 
@@ -464,7 +464,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
                                               .spFunGetImagePath(
                                               "ic_anim_invite"),
                                           fit: BoxFit.fitHeight,
-                                          height: width(23),
+                                          height: width(20),
                                         ),
                                       ),
                                     )
