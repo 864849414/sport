@@ -24,6 +24,7 @@ import 'package:sport/pages/competition/SPClassMatchListSettingPage.dart';
 import 'package:sport/pages/competition/detail/SPClassMatchDetailPage.dart';
 import 'package:sport/pages/score/SPClassMatchLolView.dart';
 import 'package:sport/pages/score/SPClassPageMatchGroupItem.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassBallFooter.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 
@@ -121,7 +122,7 @@ class SPClassMatchDateListState extends State<SPClassMatchDateList> {
     // TODO: implement build
     return Scaffold(
       body: Container(
-        color: Color(0xFFECECEC),
+        color: Colors.white,
         child: Column(
           children: <Widget>[
             (widget.status=="in_progress"||widget.status=="all"||widget.status=="my_collected")? SizedBox(): Container(
@@ -142,8 +143,8 @@ class SPClassMatchDateListState extends State<SPClassMatchDateList> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("周"+
-                                "${SPClassDateUtils.spFunFormatWeekday(dates[index])}",style: TextStyle(fontSize: sp(12),color:index==spProDateIndex? Color(0xFFE3494B):Color(0xFF8F8F8F)),),
-                            Text(SPClassDateUtils.spFunDateFormatByString(dates[index],"MM-dd"),style: TextStyle(fontSize: sp(12),color: index==spProDateIndex? Color(0xFFE3494B):Color(0xFF8F8F8F)),)
+                                "${SPClassDateUtils.spFunFormatWeekday(dates[index])}",style: TextStyle(fontSize: sp(12),color:index==spProDateIndex? MyColors.main1:Color(0xFF8F8F8F)),),
+                            Text(SPClassDateUtils.spFunDateFormatByString(dates[index],"MM-dd"),style: TextStyle(fontSize: sp(12),color: index==spProDateIndex?MyColors.main1:Color(0xFF8F8F8F)),)
 
                           ],
                         ),
@@ -203,6 +204,11 @@ class SPClassMatchDateListState extends State<SPClassMatchDateList> {
                 onLoad: spFunOnLoad,
                 emptyWidget: spProShowData.length == 0 ? SPClassNoDataView(): null,
                 slivers: <Widget>[
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      SizedBox(height: width(4),)
+                    ]),
+                  ),
                   SliverList  (
                     delegate: SliverChildBuilderDelegate(
                           (context, index) {
