@@ -425,7 +425,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
                             physics: const NeverScrollableScrollPhysics(),
                             crossAxisCount: 4,
                             padding: EdgeInsets.zero,
-                            childAspectRatio: 1,
+                            childAspectRatio: 1.2,
                             children: spProOtherTitles.map((item) {
                               var index = spProOtherTitles.indexOf(item);
                               return GestureDetector(

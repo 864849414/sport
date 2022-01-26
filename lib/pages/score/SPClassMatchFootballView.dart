@@ -228,7 +228,6 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only( bottom: width(4)),
             alignment: Alignment.center,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -492,7 +491,7 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                       ),
                       Visibility(
                         child: Container(
-                          margin: EdgeInsets.only(top: height(3)),
+                          margin: EdgeInsets.only(top: height(3),bottom: width(4)),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
@@ -598,9 +597,6 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                     behavior: HitTestBehavior.opaque,
                     child: Column(
                       children: <Widget>[
-                        SizedBox(
-                          height: width(10),
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[

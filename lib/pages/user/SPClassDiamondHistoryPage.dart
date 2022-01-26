@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sport/SPClassEncryptImage.dart';
 import 'package:sport/app/SPClassApplicaion.dart';
 import 'package:sport/model/SPClassCoinLogInfo.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
 import 'package:sport/utils/SPClassDateUtils.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
@@ -15,6 +17,7 @@ import 'package:sport/utils/SPClassStringUtils.dart';
 
 import 'package:sport/pages/common/SPClassLoadingPage.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
+import 'package:sport/utils/colors.dart';
 import 'package:sport/widgets/SPClassBallFooter.dart';
 import 'package:sport/widgets/SPClassBallHeader.dart';
 
@@ -47,41 +50,40 @@ class SPClassDiamondHistoryPageState extends State<SPClassDiamondHistoryPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("钻石"),
+        title: Text("余额明细"),
       ),
+      backgroundColor: Colors.white,
       body: Container(
         child: Column(
           children: <Widget>[
             Container(
-                height: height(111),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "钻石数量",
-                      style: TextStyle(
-                          color: Color(0xFFA8A8A8),
-                          fontSize: sp(12)),
-                    ),
-                    Text(
-                       SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond),
-                      style: TextStyle(
-                          color: Color(0xFFE3494B),
-                          fontSize: sp(40)),
-                    ),
-                  ],
-                )),
+              height: width(6),
+              color: Color(0xFFF2F2F2),
+            ),
             Container(
+              height: width(40),
+              padding: EdgeInsets.symmetric(horizontal: width(15)),
+              child: Row(
+                children: <Widget>[
+                  Text('当前余额',style: TextStyle(),),
+                  Expanded(child: SizedBox(),),
+                  Text(SPClassStringUtils.spFunSqlitZero(SPClassApplicaion.spProUserInfo.spProDiamond),style: TextStyle(height: 0.9,color: MyColors.main1,fontSize: sp(23)),),
+                  SPClassEncryptImage.asset(
+                    SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                    width: width(17),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: width(40),
               padding: EdgeInsets.only(left: width(13)),
               decoration: BoxDecoration(
                   color: Color(0xFFF3F3F3),
                 border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300],),bottom: BorderSide(width: 0.4,color: Colors.grey[300],))
               ),
               alignment: Alignment.centerLeft,
-              child: Text("钻石明细",style: TextStyle(color: Color(0xFFA1A1A1),fontSize: sp(10)),),
-              height: height(24),
+              child: Text("钻石明细",style: TextStyle(color: Color(0xFF333333),fontSize: sp(13)),),
             ),
             Expanded(
               child:EasyRefresh.custom(
@@ -119,7 +121,7 @@ class SPClassDiamondHistoryPageState extends State<SPClassDiamondHistoryPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(spProDiamondLogs[i].spProChangeDesc,style:TextStyle(fontSize: sp(14),color: Color(0xFF333333)),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                                    SizedBox(height: height(2),),
+                                    SizedBox(height: width(2),),
                                     Text(SPClassDateUtils.spFunDateFormatByString(spProDiamondLogs[i].spProChangeTime, "yyyy年MM月dd日 HH:mm:ss"),style:TextStyle(fontSize: sp(11),color: Color(0xFFB7B7B7)),)
                                   ],
                                 ),
@@ -159,40 +161,40 @@ class SPClassDiamondHistoryPageState extends State<SPClassDiamondHistoryPage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            boxShadow:[BoxShadow(
-              offset: Offset(1,1),
-              color: Color(0x1a000000),
-              blurRadius:width(6,),
-            )]
-        ),
-        height:height(53),
-        child:GestureDetector(
-          child:  Container(
-            color: Colors.white,
-            height: height(53),
-            alignment: Alignment.center,
-            child:Container(
-              alignment: Alignment.center,
-              height: height(40),
-              width: width(253),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(width(5)),
-                gradient: LinearGradient(
-                    colors: [Color(0xFFF1585A),Color(0xFFF77273)]
-                ),
-              ),
-              child:Text("充值",style: TextStyle(fontSize: sp(15),color: Colors.white),),
-            ) ,
-          ),
-          onTap: (){
-
-          SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage());
-
-          },
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   decoration: BoxDecoration(
+      //       boxShadow:[BoxShadow(
+      //         offset: Offset(1,1),
+      //         color: Color(0x1a000000),
+      //         blurRadius:width(6,),
+      //       )]
+      //   ),
+      //   height:height(53),
+      //   child:GestureDetector(
+      //     child:  Container(
+      //       color: Colors.white,
+      //       height: height(53),
+      //       alignment: Alignment.center,
+      //       child:Container(
+      //         alignment: Alignment.center,
+      //         height: height(40),
+      //         width: width(253),
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(width(5)),
+      //           gradient: LinearGradient(
+      //               colors: [Color(0xFFF1585A),Color(0xFFF77273)]
+      //           ),
+      //         ),
+      //         child:Text("充值",style: TextStyle(fontSize: sp(15),color: Colors.white),),
+      //       ) ,
+      //     ),
+      //     onTap: (){
+      //
+      //     SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage());
+      //
+      //     },
+      //   ),
+      // ),
     );
   }
 
