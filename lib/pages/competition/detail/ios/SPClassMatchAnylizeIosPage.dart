@@ -35,7 +35,7 @@ class SPClassMatchAnylizeIosPageState extends State<SPClassMatchAnylizeIosPage> 
     spProPageController=PageController();
     views=[widget.spProGuessInfo.spProMatchType=="篮球" ?
     SPClassMatchAnylizeBasketBallPage({widget.spProMatchType:widget.spProGuessInfo.spProGuessMatchId,},widget.spProGuessInfo)
-        :SPClassMatchAnylizePage({widget.spProMatchType:widget.spProGuessInfo.spProGuessMatchId,},widget.spProGuessInfo),SPClassMatchLiveTeamPage(widget.spProGuessInfo),SPClassMatchIntelligencePage(widget.spProGuessInfo)];
+        :SPClassMatchAnylizePage({widget.spProMatchType:widget.spProGuessInfo.spProGuessMatchId,},widget.spProGuessInfo,0),SPClassMatchLiveTeamPage(widget.spProGuessInfo),SPClassMatchIntelligencePage(widget.spProGuessInfo)];
   }
 
   @override
