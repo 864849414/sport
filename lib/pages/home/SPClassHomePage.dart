@@ -134,7 +134,6 @@ class SPClassHomePageState extends State<SPClassHomePage>
       }
       spProTabSchemeIndex = spProTabSchemeController.index;
       if (spProTabSchemeController.index == 1) {
-        print('haha ');
         SPClassApiManager.spFunGetInstance().spFunLogAppEvent(
           spProEventName: "high_correct_rate",
         );
