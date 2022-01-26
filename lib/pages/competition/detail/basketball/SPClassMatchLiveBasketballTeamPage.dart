@@ -23,6 +23,7 @@ import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/pages/common/SPClassNoDataView.dart';
 import 'package:sport/SPClassEncryptImage.dart';
+import 'package:sport/utils/colors.dart';
 
 class SPClassMatchLiveBasketballTeamPage extends  StatefulWidget{
   SPClassGuessMatchInfo spProGuessInfo;
@@ -247,7 +248,6 @@ class SPClassMatchLiveBasketballTeamPageState extends State<SPClassMatchLiveBask
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(height:width(10)),
 
             Visibility(
               child: SPClassNoDataView(height:width(400),),
@@ -262,134 +262,11 @@ class SPClassMatchLiveBasketballTeamPageState extends State<SPClassMatchLiveBask
                   &&spProMatchIntelligenceItemTwo==null),
             ),
 
-            ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: spProShowTextData.length,
-                itemBuilder: (c,index){
-                  var item =spProShowTextData[index];
-                  return Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: height(6)),
-                          width: width(55),
-                          alignment: Alignment.centerRight,
-                          child:Text(item.spProLeftTime,style: TextStyle(color: Color(0xFF666666),fontSize: sp(12)),),
-                        ),
-                        Expanded(
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                width: ScreenUtil.screenWidth,
-                                margin: EdgeInsets.only(bottom: height(3),right: width(10),left:width(35) ),
-                                padding: EdgeInsets.all( width(10)),
-                                constraints: BoxConstraints(
-                                    minHeight: height(30)
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(width(3)),
-                                  color: Colors.white,
-                                  boxShadow:[
-                                    BoxShadow(
-                                      offset: Offset(2,5),
-                                      color: Color(0x0D000000),
-                                      blurRadius:width(6,),),
-                                    BoxShadow(
-                                      offset: Offset(-5,1),
-                                      color: Color(0x0D000000),
-                                      blurRadius:width(6,),
-                                    )
-
-                                  ],
-
-                                ),
-                                child:  Text(item.msg,style: TextStyle(fontSize: sp(12)),),
-                              ),
-                              Positioned(
-                                left:  width(10),
-                                top: height(8),
-                                child:Container(
-                                  height: width(13),
-                                  width: width(13),
-                                  decoration: ShapeDecoration(
-                                      shape: CircleBorder(),
-                                      color: Color(0xFFDDDDDD)
-                                  ),
-                                  alignment: Alignment.center,
-                                  child:  Container(
-                                    height: width(9),
-                                    width: width(9),
-                                    decoration: ShapeDecoration(
-                                        shape: CircleBorder(),
-                                        color: Colors.white
-                                    ),
-                                    alignment: Alignment.center,
-                                    child:  Container(
-                                      height: width(7),
-                                      width: width(7),
-                                      decoration: ShapeDecoration(
-                                          shape: CircleBorder(),
-                                          color: Color(0xFFDE3C31)
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: width(15.5),
-                                top:width(11)+height(8) ,
-                                child:(index==spProShowTextData.length-1)? SizedBox(): Container(
-                                  width: width(2),
-                                  color: Color(0xFFDDDDDD),
-                                ),
-                                bottom: 0,
-                              ),
-                              Positioned(
-                                left: width(15.5),
-                                top: 0,
-                                child:index==0? SizedBox(): Container(
-                                  width: width(2),
-                                  height:height(8),
-                                  color: Color(0xFFDDDDDD),
-                                ),
-
-                              ),
-                              Positioned(
-                                left: width(32),
-                                top: height(8),
-                                child: Transform(
-                                  alignment: Alignment.center,
-                                  transform: Matrix4.rotationZ((math.pi)/4),
-                                  child: Container(
-                                    height: width(8),
-                                    width: width(8),
-                                    color:  Colors.white,
-                                  ),
-                                ),
-
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }),
-
+            // 节数选择栏
             Visibility(
               child: Container(
-                padding: EdgeInsets.only(left: width(25)),
-                margin: EdgeInsets.only(top: width(10)),
-                height: height(49),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(top: BorderSide(width: 0.4,color: Colors.grey[300]))
-                ),
-                alignment: Alignment.center,
+                height: width(35),
+                color: Color(0xFFF5F6F7),
                 child: ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
@@ -400,15 +277,9 @@ class SPClassMatchLiveBasketballTeamPageState extends State<SPClassMatchLiveBask
                         alignment: Alignment.center,
                         child: GestureDetector(
                           child: Container(
-                            margin: EdgeInsets.only(left: width(7)),
+                            margin: EdgeInsets.only(left: width(15)),
                             alignment: Alignment.center,
-                            width: width(40),
-                            height: height(23),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(width(3)),
-                                color: index==spProMatchSectionIndex? Color(0xFFDE3C31):Color(0xFFEEEEEE)
-                            ),
-                            child: Text(item,style: TextStyle(color:index==spProMatchSectionIndex?  Colors.white:Color(0xFF666666),fontSize: sp(12)),),
+                            child: Text(item,style: TextStyle(color:index==spProMatchSectionIndex? Color(0xFFFF5F40):Color(0xFF999999),fontSize: sp(15)),),
                           ),
                           onTap: (){
                             spProMatchSectionIndex=index;
@@ -421,6 +292,43 @@ class SPClassMatchLiveBasketballTeamPageState extends State<SPClassMatchLiveBask
               ),
               visible: spProShowTextData.length>0,
             ),
+            // 直播
+            ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: spProShowTextData.length,
+                itemBuilder: (c,index){
+                  var item =spProShowTextData[index];
+                  return Container(
+                    color: Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: width(77),
+                          alignment: Alignment.center,
+                          child:Text(item.spProLeftTime,style: TextStyle(color: Color(0xFF303133),fontSize: sp(12)),),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(right: width(15)),
+                            alignment: Alignment.centerLeft,
+                            width: ScreenUtil.screenWidth,
+                            constraints: BoxConstraints(
+                                minHeight: height(40)
+                            ),
+                            child:  Text(item.msg,style: TextStyle(fontSize: sp(13),color: MyColors.grey_33),),
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(color: Color(0xFFF5F6F7)))
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
 
             Visibility(
               child: Container(
@@ -2243,7 +2151,7 @@ class SPClassMatchLiveBasketballTeamPageState extends State<SPClassMatchLiveBask
               ) ,
             ),
 
-            spProMatchIntelligenceItemOne==null? SizedBox():  AnimatedSize(
+            spProMatchIntelligenceItemOne==null? SizedBox():AnimatedSize(
               vsync: this,
               duration: Duration(
                   milliseconds: 300
