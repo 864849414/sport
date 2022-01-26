@@ -13,6 +13,7 @@ import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/SPClassToastUtils.dart';
 import 'package:sport/SPClassEncryptImage.dart';
+import 'package:sport/utils/colors.dart';
 
 import 'package:sport/widgets/SPClassToolBar.dart';
 
@@ -47,9 +48,9 @@ class SPClassChangePwdPageState extends State<SPClassChangePwdPage>
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 35.0),
+                  SizedBox(height: width(12)),
                   spFunBuildRegisterTextForm(),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: width(23)),
                   spFunBuildRegisterButton(),
                 ],
               ),
@@ -61,122 +62,106 @@ class SPClassChangePwdPageState extends State<SPClassChangePwdPage>
   // 创建登录界面的Item
   Widget spFunBuildRegisterTextForm() {
     return Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width ,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-           SPClassApplicaion.spProUserLoginInfo.spProHasPwd=="1"? Column(
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SPClassEncryptImage.asset(
-                      SPClassImageUtil.spFunGetImagePath('ic_login_pwd'),
-                      fit: BoxFit.contain,
-                      width: 20,
-                      height: 20,
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: TextField(
-                        obscureText: false,
-                        style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
-                        decoration: InputDecoration(
-                          hintText: "请输入原密码",
-                          hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
-                          border: InputBorder.none,
+           SPClassApplicaion.spProUserLoginInfo.spProHasPwd=="1"? Container(
+             color: Colors.white,
+             padding: EdgeInsets.only(left: width(18)),
+             child: Row(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: <Widget>[
+                 SPClassEncryptImage.asset(
+                   SPClassImageUtil.spFunGetImagePath('password_1'),
+                   fit: BoxFit.contain,
+                   width: width(24),
+                 ),
+                 SizedBox(width: width(4)),
+                 Expanded(
+                   child: TextField(
+                     obscureText: false,
+                     style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
+                     decoration: InputDecoration(
+                       hintText: "请输入原密码",
+                       hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
 
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            spProPwdOrg = value;
-                          });
-                        },
+                     ),
+                     onChanged: (value) {
+                       setState(() {
+                         spProPwdOrg = value;
+                       });
+                     },
+                   ),
+                 ),
+               ],
+             ),
+           ):SizedBox(),
+            Container(
+              color:Colors.white,
+              padding: EdgeInsets.only(left: width(18)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SPClassEncryptImage.asset(
+                    SPClassImageUtil.spFunGetImagePath('password_1'),
+                    fit: BoxFit.contain,
+                    width: width(24),
+                  ),
+                  SizedBox(width: width(4)),
+                  Expanded(
+                    child: TextField(
+                      obscureText: !spProIsShowPassWord,
+                      style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
+                      decoration: InputDecoration(
+                        hintText: "请输入新密码",
+                        hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
+
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          spProPwd = value;
+                        });
+                      },
                     ),
-                  ],
-                ),
-                SizedBox(height: height(5),),
-                Container(
-                  height: 0.4,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  color: Colors.grey[400],
-                ),
-              ],
-            ):SizedBox(),
-            SizedBox(height: height(5),),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SPClassEncryptImage.asset(
-                  SPClassImageUtil.spFunGetImagePath('ic_login_pwd'),
-                  fit: BoxFit.contain,
-                  width: 20,
-                  height: 20,
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: TextField(
-                    obscureText: !spProIsShowPassWord,
-                    style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
-                    decoration: InputDecoration(
-                      hintText: "请输入新密码",
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
-
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        spProPwd = value;
-                      });
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            SizedBox(height: height(5),),
-            Container(
-              height: 0.4,
-              width: MediaQuery.of(context).size.width * 0.8,
-              color: Colors.grey[400],
-            ),
-            SizedBox(height: height(5),),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SPClassEncryptImage.asset(
-                  SPClassImageUtil.spFunGetImagePath('ic_login_pwd'),
-                  fit: BoxFit.contain,
-                  width: 20,
-                  height: 20,
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: TextField(
-                    obscureText: !spProIsShowPassWord,
-                    style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
-                    decoration: InputDecoration(
-                      hintText: "请确认密码",
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
+           Container(
+             color: Colors.white,
+             padding: EdgeInsets.only(left: width(18)),
+             child:  Row(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: <Widget>[
+                 SPClassEncryptImage.asset(
+                   SPClassImageUtil.spFunGetImagePath('password_1'),
+                   fit: BoxFit.contain,
+                   width: width(24),
+                   height: width(24),
+                 ),
+                 SizedBox(width: width(4)),
+                 Expanded(
+                   child: TextField(
+                     obscureText: !spProIsShowPassWord,
+                     style: TextStyle(fontSize: 16, color: Color(0xFF333333),textBaseline: TextBaseline.alphabetic),
+                     decoration: InputDecoration(
+                       hintText: "请确认密码",
+                       border: InputBorder.none,
+                       hintStyle: TextStyle(fontSize: 16, color: Color(0xFF999999),textBaseline: TextBaseline.alphabetic),
 
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        spProPwd2 = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: height(5),),
-            Container(
-              height: 0.4,
-              width: MediaQuery.of(context).size.width * 0.8,
-              color: Colors.grey[400],
-            ),
+                     ),
+                     onChanged: (value) {
+                       setState(() {
+                         spProPwd2 = value;
+                       });
+                     },
+                   ),
+                 ),
+               ],
+             ),
+           ),
           ],
         ));
   }
@@ -191,21 +176,11 @@ class SPClassChangePwdPageState extends State<SPClassChangePwdPage>
         alignment: Alignment.center,
         child:Container(
           alignment: Alignment.center,
-          height: height(40),
-          width: width(320),
+          height: width(46),
+          width: width(276),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(width(3)),
-            gradient: LinearGradient(
-                colors: [Color(0xFFF2150C),Color(0xFFF24B0C)]
-            ),
-            boxShadow:[
-              BoxShadow(
-                offset: Offset(3,3),
-                color: Color(0x4DF23B0C),
-                blurRadius:width(5,),),
-
-            ],
-
+            color: MyColors.main1,
+            borderRadius: BorderRadius.circular(150),
           ),
           child:Row(
             mainAxisAlignment: MainAxisAlignment.center,

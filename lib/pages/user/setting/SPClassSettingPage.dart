@@ -44,54 +44,54 @@ class SPClassSettingPageState extends State<SPClassSettingPage> {
                 height: width(6),
               ),
               ///修改密码
-              // GestureDetector(
-              //     child: Container(
-              //       width: MediaQuery.of(context).size.width,
-              //       height: height(48),
-              //       alignment: Alignment.centerLeft,
-              //       decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           border: Border(
-              //               bottom: BorderSide(
-              //                   color: Color(0xFFDDDDDD), width: 0.4))),
-              //       padding: EdgeInsets.only(
-              //           top: 12, bottom: 12, left: 15, right: 15),
-              //       child: Row(
-              //         children: <Widget>[
-              //           SizedBox(
-              //             width: width(10),
-              //           ),
-              //           Flexible(
-              //             fit: FlexFit.tight,
-              //             flex: 1,
-              //             child: Text("修改密码",
-              //                 style: TextStyle(
-              //                   fontSize: sp(14),
-              //                   color: Color(
-              //                     0xFF333333,
-              //                   ),
-              //                 )),
-              //           ),
-              //           SPClassEncryptImage.asset(
-              //             SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
-              //             width: width(11),
-              //           ),
-              //           SizedBox(
-              //             width: width(10),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //     onTap: () {
-              //       if (spFunIsLogin(context: context)) {
-              //         SPClassNavigatorUtils.spFunPushRoute(
-              //             context, SPClassChangePwdPage());
-              //       }
-              //     }),
               GestureDetector(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: height(48),
+                    height: width(46),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Color(0xFFDDDDDD), width: 0.4))),
+                    padding: EdgeInsets.only(
+                        top: 12, bottom: 12, left: 15, right: 15),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: width(10),
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          flex: 1,
+                          child: Text("修改密码",
+                              style: TextStyle(
+                                fontSize: sp(14),
+                                color: Color(
+                                  0xFF333333,
+                                ),
+                              )),
+                        ),
+                        SPClassEncryptImage.asset(
+                          SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                          width: width(11),
+                        ),
+                        SizedBox(
+                          width: width(10),
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    if (spFunIsLogin(context: context)) {
+                      SPClassNavigatorUtils.spFunPushRoute(
+                          context, SPClassChangePwdPage());
+                    }
+                  }),
+              GestureDetector(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: width(46),
                     alignment: Alignment.centerLeft,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -129,10 +129,13 @@ class SPClassSettingPageState extends State<SPClassSettingPage> {
                   onTap: () {
                     accountManagement();
                   }),
+              SizedBox(
+                height: width(6),
+              ),
               GestureDetector(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: height(48),
+                    height: width(46),
                     alignment: Alignment.centerLeft,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -200,9 +203,7 @@ class SPClassSettingPageState extends State<SPClassSettingPage> {
                           }
                         }));
                   }),
-              SizedBox(
-                height: width(39),
-              ),
+
               // GestureDetector(
               //   child: Container(
               //     color: Colors.white,
@@ -266,7 +267,7 @@ class SPClassSettingPageState extends State<SPClassSettingPage> {
       ),
       bottomNavigationBar: GestureDetector(
         child: Container(
-          // color: Color(0xFFF2F2F2),
+          color: Color(0xFFF2F2F2),
           height: width(46),
           alignment: Alignment.center,
           child: Text(

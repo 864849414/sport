@@ -9,6 +9,7 @@ import 'package:sport/utils/SPClassNavigatorUtils.dart';
 import 'package:sport/utils/api/SPClassApiManager.dart';
 import 'package:sport/utils/api/SPClassHttpCallBack.dart';
 import 'package:sport/utils/colors.dart';
+import 'package:sport/utils/common.dart';
 import 'package:sport/widgets/SPClassToolBar.dart';
 import 'SPClassRechargeDiamondPage.dart';
 import 'package:sport/utils/SPClassImageUtil.dart';
@@ -53,6 +54,82 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
     }
     @override
     Widget build(BuildContext context) {
+      return Scaffold(
+
+        body: Stack(
+          children: <Widget>[
+            SPClassEncryptImage.asset(
+              SPClassImageUtil.spFunGetImagePath("fuli_bg"),
+              width: MediaQuery.of(context).size.width,
+            ),
+           Column(
+             children: <Widget>[
+               SizedBox(
+                 height: MediaQuery.of(context).padding.top,
+               ),
+               Commons.getAppBar(title: '新人好礼',appBarLeft: GestureDetector(
+                 child: Icon(Icons.arrow_back_ios,size: width(20),color: Colors.white,),
+                 onTap: (){Navigator.of(context).pop();},)),
+               SizedBox(height: width(161),),
+               GestureDetector(
+                 onTap: (){
+                   if(spFunIsLogin(context: context)){
+                     SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage());
+
+                   }
+                 },
+                 child: Container(
+                   child: SPClassEncryptImage.asset(
+                     SPClassImageUtil.spFunGetImagePath("fuli_1"),
+                     width: MediaQuery.of(context).size.width-54,
+                   ),
+                 ),
+               ),
+               GestureDetector(
+                 onTap: (){
+                   if(spFunIsLogin(context: context)){
+                     SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 168,));
+                   }
+                 },
+                 child: Container(
+                   child: SPClassEncryptImage.asset(
+                     SPClassImageUtil.spFunGetImagePath("fuli_2"),
+                     width: MediaQuery.of(context).size.width-54,
+                   ),
+                 ),
+               ),
+               GestureDetector(
+                 onTap: (){
+                   if(spFunIsLogin(context: context)){
+                     SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 388,));
+                   }
+                 },
+                 child: Container(
+                   child: SPClassEncryptImage.asset(
+                     SPClassImageUtil.spFunGetImagePath("fuli_3"),
+                     width: MediaQuery.of(context).size.width-54,
+                   ),
+                 ),
+               ),
+               GestureDetector(
+                 onTap: (){
+                   if(spFunIsLogin(context: context)){
+                     SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 888,));
+                   }
+                 },
+                 child: Container(
+                   child: SPClassEncryptImage.asset(
+                     SPClassImageUtil.spFunGetImagePath("fuli_4"),
+                     width: MediaQuery.of(context).size.width-54,
+                   ),
+                 ),
+               ),
+             ],
+           )
+
+          ],
+        ),
+      );
         // TODO: implement build
         return Scaffold(
                 appBar: SPClassToolBar(
@@ -229,8 +306,6 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                       onTap: (){
                         if(spFunIsLogin(context: context)){
                             SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 168,));
-
-
                         }
                       },
                     ),
@@ -315,7 +390,6 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                       onTap: (){
                         if(spFunIsLogin(context: context)){
                             SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 388,));
-
                         }
                       },
                     ),
@@ -400,7 +474,6 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                       onTap: (){
                         if(spFunIsLogin(context: context)){
                             SPClassNavigatorUtils.spFunPushRoute(context,  SPClassRechargeDiamondPage(spProMoneySelect: 888,));
-
                         }
                       },
                     ),

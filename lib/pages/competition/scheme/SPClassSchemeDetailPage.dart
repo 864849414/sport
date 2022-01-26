@@ -1016,112 +1016,110 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
   }
 
   Widget guessItem({String text1,String value1,String text2,String value2,String text3,String value3,String supportWhich,String supportWhich2,String whichWin}){
-    return Expanded(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child:Container(
-              height: width(43),
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child:Container(
+            height: width(43),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: supportWhich=="1"?MyColors.main1:Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.all(Radius.circular(4))
+            ),
+            child: Stack(
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: supportWhich=="1"?MyColors.main1:Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.all(Radius.circular(4))
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Container(
-                    height: width(43),
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text("$text1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white :Color(0xFF303133)),),
-                        Text("$value1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white : Color(0xFF303133)),),
-                      ],
-                    ),
+              children: <Widget>[
+                Container(
+                  height: width(43),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("$text1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white :Color(0xFF303133)),),
+                      Text("$value1",style: TextStyle(fontSize: sp(12),color:supportWhich=="1"? Colors.white : Color(0xFF303133)),),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: SPClassEncryptImage.asset(
-                      (whichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                      width: width(18),
-                    ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: SPClassEncryptImage.asset(
+                    (whichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
+                    width: width(18),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SizedBox(width: width(4),),
-          Expanded(
-            child: Container(
-              height: width(43),
+        ),
+        SizedBox(width: width(4),),
+        Expanded(
+          child: Container(
+            height: width(43),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.all(Radius.circular(4))
+            ),
+            child: Stack(
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.all(Radius.circular(4))
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Container(
-                    height: width(43),
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text('$text2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
-                        Text('$value2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
-                      ],
-                    ),
+              children: <Widget>[
+                Container(
+                  height: width(43),
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('$text2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
+                      Text('$value2',style: TextStyle(fontSize: sp(12),color:(supportWhich=="0"||supportWhich2=="0")? Colors.white : Color(0xFF303133)),),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SizedBox(width: width(4),),
-          Expanded(
-            child: Container(
-              height: width(43),
+        ),
+        SizedBox(width: width(4),),
+        Expanded(
+          child: Container(
+            height: width(43),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: (supportWhich=="2"||supportWhich2=="2")?MyColors.main1:Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.all(Radius.circular(4))
+            ),
+            child: Stack(
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: (supportWhich=="2"||supportWhich2=="2")?MyColors.main1:Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.all(Radius.circular(4))
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    height: width(43),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text("$text3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF303133)),),
-                        Text("$value3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF303133)),),
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  height: width(43),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("$text3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF303133)),),
+                      Text("$value3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF303133)),),
 
-                      ],
-                    ),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: SPClassEncryptImage.asset(
-                      (whichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                      width: width(18),
-                    ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: SPClassEncryptImage.asset(
+                    (whichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
+                    width: width(18),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
