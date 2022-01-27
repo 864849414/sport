@@ -125,21 +125,6 @@ class SPClassMyFollowExpertPageState  extends State<SPClassMyFollowExpertPage>{
           ),
         )
     )
-    // Column(
-    //   children: <Widget>[
-    //     SPClassNoDataView(content: '你还没有关注的专家',height: width(246),iconSize: Size(width(180),height(173)),),
-    //     Container(
-    //       margin: EdgeInsets.only(left: width(15),bottom: width(10)),
-    //       alignment: Alignment.centerLeft,
-    //       child: Text('推荐专家', style: GoogleFonts.notoSansSC(textStyle: TextStyle(color:Color(0xFF333333),),fontSize: sp(17),fontWeight: FontWeight.bold),),
-    //     ),
-    //     Expanded(
-    //       child: Container(
-    //         child: itemWidget(recommendedExpertsList),
-    //       ),
-    //     )
-    //   ],
-    // )
         :
     Container(
         color: Colors.white,

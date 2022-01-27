@@ -662,7 +662,7 @@ class HomeDetailPageState extends State<HomeDetailPage> with
   }
 
   spFunGetHotMatch() {
-    SPClassApiManager.spFunGetInstance().spFunGuessMatchList<SPClassGuessMatchInfo>(queryParams: {"page": 1,"date":"","spProFetchType": "hot"},spProCallBack: SPClassHttpCallBack(
+    SPClassApiManager.spFunGetInstance().spFunGuessMatchList<SPClassGuessMatchInfo>(queryParams: {"page": 1,"date":"","spProFetchType": "hot",'match_type':spProHomeMatchType},spProCallBack: SPClassHttpCallBack(
       spProOnSuccess: (list){
         if(mounted){
           setState(() {

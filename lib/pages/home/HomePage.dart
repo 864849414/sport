@@ -22,15 +22,16 @@ class _HomePageState extends State<HomePage>
   List spProTabMatchTitles = ['关注', '足球', '篮球', 'AI分析'];
   TabController spProTabMatchController; //顶部导航栏
   int spProTabMatchIndex = 1; //顶部栏的下标
-  static String spProHomeMatchType = "足球";
-  static String spProHomeMatchTypeKey = "is_zq_expert";
-  var spProTabMatchKeys = ['', "足球", "篮球"];
-  var spProTabExpertKeys = ['', "is_zq_expert", "is_lq_expert", "is_es_expert"];
 
   @override
   void initState() {
     spProTabMatchController = TabController(
         length: spProTabMatchTitles.length, initialIndex: 1, vsync: this);
+    spProTabMatchController.addListener(() {
+      setState(() {
+
+      });
+    });
     // TODO: implement initState
     super.initState();
   }
@@ -57,11 +58,8 @@ class _HomePageState extends State<HomePage>
                   left: width(18),
                   right: width(18)),
               child: Container(
-                height: height(26),
+                height: width(30),
                 child: TabBar(
-                  // indicator: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(width(150))),
                     labelColor: MyColors.main1,
                     labelPadding: EdgeInsets.zero,
                     indicatorPadding: EdgeInsets.zero,
@@ -95,6 +93,7 @@ class _HomePageState extends State<HomePage>
             ),
             Expanded(
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: spProTabMatchController,
                 children: <Widget>[
                   FollowPage(),

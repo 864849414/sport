@@ -55,7 +55,7 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
         title:"订单明细",
       ),
       body: Container(
-        color: Color(0xFFF1F1F1),
+        color: Color(0xFFF2F2F2),
         child: EasyRefresh.custom(
           controller:spProRefreshController ,
           header: SPClassBallHeader(
@@ -68,7 +68,7 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
           onLoad: spFunOnMore,
           slivers: <Widget>[
 
-             SliverToBoxAdapter(
+             /*SliverToBoxAdapter(
                child:GestureDetector(
                  child: Container(
                    padding: EdgeInsets.symmetric(horizontal: width(19),vertical: width(13)),
@@ -109,54 +109,58 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
 
             SliverToBoxAdapter(
               child: SizedBox(height: width(10),),
-            ),
-
-
+            ),*/
 
 
             SliverToBoxAdapter(
               child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:[
-                      BoxShadow(
-                        offset: Offset(2,5),
-                        color: Color(0x0D000000),
-                        blurRadius:width(6,),),
-                      BoxShadow(
-                        offset: Offset(-5,1),
-                        color: Color(0x0D000000),
-                        blurRadius:width(6,),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(width(7))
+                color: Colors.white,
+                margin: EdgeInsets.only(bottom: width(6)),
+                padding: EdgeInsets.symmetric(horizontal: width(15),vertical: width(12)),
+                child: Row(
+                  children: <Widget>[
+                    Text('累计收入',style: TextStyle(fontSize: sp(15),color: Color(0xFF333333)),),
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                    Text("￥",style: TextStyle(height: 3,fontSize: sp(13),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
+                    Text("0.00",style: TextStyle(fontSize: sp(23),color: Color(0xFFDE3C31),),),
+                  ],
                 ),
-                margin: EdgeInsets.only(bottom: height(8),left: width(10),right: width(10)),
+              ),
+            ),
+
+            SliverToBoxAdapter(
+              child: Container(
+                padding: EdgeInsets.only(top: width(15)),
+                color: Colors.white,
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: width(37),
+                      height: width(25),
                       padding: EdgeInsets.only(left: width(13),right: width(13)),
                       decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                          border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300])),
+                        color: Color(0xFFF2F2F2),
+
                       ),
                       child: Row(
                         children: <Widget>[
                           Container(
                             width: width(30),
                             child: Center(
-                              child: Text("时间",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("时间",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
                           Expanded(
                             child: Center(
-                              child: Text("场次",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("场次",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
                           Container(
                             width: width(30),
                             child: Center(
-                              child: Text("赛果",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("赛果",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
 
@@ -164,25 +168,25 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
                           Container(
                             width: width(45),
                             child: Center(
-                              child: Text("价格",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("价格",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
                           Container(
-                            width: width(35),
+                            width: width(50),
                             child: Center(
-                              child: Text("不中退",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("不中退",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
                           Container(
                             width: width(40),
                             child: Center(
-                              child: Text("收益",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("收益",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
                           Container(
-                            width: width(45),
+                            width: width(50),
                             child: Center(
-                              child: Text("场次状态",style: TextStyle(fontSize: sp(10)),),
+                              child: Text("场次状态",style: TextStyle(fontSize: sp(12)),),
                             ),
                           ),
 
@@ -190,7 +194,7 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
                       ),
                     ),
 
-                    incomes.length==0?SPClassNoDataView(height: width(200),):SizedBox(),
+                    incomes.length==0?SPClassNoDataView(height: width(250),):SizedBox(),
                     ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -294,7 +298,7 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
   Future<void>  spFunOnRefresh() async {
     page=1;
 
-    return  SPClassApiManager.spFunGetInstance().spFunSchemeOrderList<SPClassExpertIncomeDetail>(queryParameters: {"page":page.toString(),"income_st_date":widget.spProDayList[index].spProStDate},spProCallBack: SPClassHttpCallBack(
+    return  SPClassApiManager.spFunGetInstance().spFunSchemeOrderList<SPClassExpertIncomeDetail>(queryParameters: {"page":page.toString(),/*"income_st_date":widget.spProDayList[index].spProStDate*/},spProCallBack: SPClassHttpCallBack(
         spProOnSuccess: (result){
           spProRefreshController.finishRefresh(noMore: false,success: true);
           spProRefreshController.resetLoadState();
@@ -308,7 +312,7 @@ class SPClassExpertIncomeDetailPageState extends State<SPClassExpertIncomeDetail
     ));
   }
   Future<void>  spFunOnMore() async {
-    await  SPClassApiManager.spFunGetInstance().spFunSchemeOrderList<SPClassExpertIncomeDetail>(queryParameters: {"page":(page+1).toString(),"income_st_date":widget.spProDayList[index].spProStDate},spProCallBack: SPClassHttpCallBack(
+    await  SPClassApiManager.spFunGetInstance().spFunSchemeOrderList<SPClassExpertIncomeDetail>(queryParameters: {"page":(page+1).toString(),/*"income_st_date":widget.spProDayList[index].spProStDate*/},spProCallBack: SPClassHttpCallBack(
         spProOnSuccess: (list){
           if(list.spProDataList.length==0){
             spProRefreshController.finishLoad(noMore: true);

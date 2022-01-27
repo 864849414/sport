@@ -96,7 +96,7 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                           ),
                         ),
 
-                        spFunShowMore()?  GestureDetector(
+                        /*!spFunShowMore()?  GestureDetector(
                          child: Row(
                            children: <Widget>[
                              Text("订单明细",style: TextStyle(fontSize: sp(11),color:Color(0xFF888888) ),),
@@ -109,7 +109,7 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                            SPClassNavigatorUtils.spFunPushRoute(context, SPClassExpertIncomeDetailPage(incomes));
 
                          },
-                       ):SizedBox()
+                       ):SizedBox()*/
 
                       ],
                     ),
@@ -131,14 +131,39 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text("累计收益",style: TextStyle(fontSize: sp(11)),),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(child: Text("累计收益",style: TextStyle(fontSize: sp(11)),)),
+                                    GestureDetector(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(width(9)),
+                                              color: Colors.white
+                                          ),
+                                          width: width(38),
+                                          height: width(17),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text("明细",style: TextStyle(fontSize: sp(12),color: MyColors.main1),),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: (){
+                                          SPClassNavigatorUtils.spFunPushRoute(context, SPClassExpertIncomeDetailPage(incomes));
+                                        }
+                                    ),
+                                  ],
+                                ),
+
                                 SizedBox(height: width(18),),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
-                                    Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProPaidIncome,style: TextStyle(fontSize: sp(24),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
                                     Text("￥",style: TextStyle(height: 3,fontSize: sp(13),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
+                                    Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProPaidIncome,style: TextStyle(fontSize: sp(31),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
 
                                   ],
                                 )
@@ -198,9 +223,8 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProUnpaidIncome,style: TextStyle(fontSize: sp(24),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
                                     Text("￥",style: TextStyle(height: 3,fontSize: sp(13),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
-
+                                    Text(spProIncomeReport==null? "0.00":spProIncomeReport.spProUnpaidIncome,style: TextStyle(fontSize: sp(31),color: Color(0xFFDE3C31),fontWeight: FontWeight.bold),),
                                   ],
                                 ),
                               ],
@@ -269,7 +293,7 @@ class SPClassSchemeIncomeReportPageState extends State<SPClassSchemeIncomeReport
                     ),
                   ),
 
-                  incomes.length==0?SPClassNoDataView(height: width(200),):SizedBox(),
+                  incomes.length==0?SPClassNoDataView(height: width(250),):SizedBox(),
 
                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),

@@ -26,19 +26,17 @@ class AIAnalysis extends StatefulWidget {
 class _AIAnalysisState extends State<AIAnalysis> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Container(
-          color: Color(0xFFF2F2F2),
-          padding: EdgeInsets.only(top: width(6)),
-          child: Column(
-            children: <Widget>[
-              itemWidget('lengmengfenxi','冷门分析','冷门多角度分析',1333,298,'coldJudge'),
-              itemWidget('dashuju','AI大数据','大家好，欢迎收看本场比赛直播,球员们正在热身，比赛即将啊实打实的阿萨德阿萨德',1333,298,'allAnalysis'),
-              itemWidget('peilvbodong','赔率波动','冷门多角度分析',1333,298,'oddsWave'),
-              itemWidget('quanweiyuce','全维预测','冷门多角度分析',1333,298,'allAnalysis'),
-            ],
-          ),
+    return SingleChildScrollView(
+      child: Container(
+        color: Color(0xFFF2F2F2),
+        padding: EdgeInsets.only(top: width(6)),
+        child: Column(
+          children: <Widget>[
+            itemWidget('lengmengfenxi','冷门分析','冷门多角度分析',1333,298,'coldJudge'),
+            itemWidget('dashuju','AI大数据','大家好，欢迎收看本场比赛直播,球员们正在热身，比赛即将啊实打实的阿萨德阿萨德',1333,298,'allAnalysis'),
+            itemWidget('peilvbodong','赔率波动','冷门多角度分析',1333,298,'oddsWave'),
+            itemWidget('quanweiyuce','全维预测','冷门多角度分析',1333,298,'allAnalysis'),
+          ],
         ),
       ),
     );
