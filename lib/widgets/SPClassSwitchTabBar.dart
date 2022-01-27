@@ -91,7 +91,6 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
                  fontSize: widget.fontSize,
                  fontWeight: FontWeight.w500,
                )
-               // TextStyle(color: MyColors.main1,fontWeight: FontWeight.bold,fontSize: widget.fontSize)
                  ,),
              ),
            ) ,
