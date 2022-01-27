@@ -135,7 +135,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                               ),
                               SizedBox(width: 4,),
                               Text(
-                                "7分钟前",
+                                getTime(item.spProAddTime),
                                 style: GoogleFonts.notoSansSC(
                                   textStyle: TextStyle(
                                     color: MyColors.grey_99,
@@ -597,4 +597,21 @@ class SPClassSchemeItemView extends StatelessWidget {
       },
     );
   }
+
+  getTime(String spTime){
+    String time ='刚刚';
+    DateTime nowTime = new DateTime.now();
+    int sec=nowTime.difference(DateTime.parse(spTime)).inSeconds;
+    if(sec<180){
+      time ='刚刚';
+    }else if( sec>=180&&sec <3600){
+      time = '${(sec/60).floor()}分钟前';
+    }else if(sec>=3600&&sec<86400){
+      time = '${(sec/3600).floor()}小时前';
+    }else{
+      time = '${(sec/86400).floor()>7?7:(sec/86400).floor()}天前';
+    }
+    return time;
+  }
+
 }

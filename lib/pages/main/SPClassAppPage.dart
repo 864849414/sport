@@ -93,10 +93,10 @@ class SPClassAppPageState extends State<SPClassAppPage>
                 context: context,
                 builder: (BuildContext cx) {
                   return SPClassVersionCheckDialog(
-                    result.spProIsForced,
-                    result.spProUpdateDesc,
-                    result.spProAppVersion,
-                    spProDownloadUrl: result.spProDownloadUrl,
+                    result.spProIsForced??false,
+                    result.spProUpdateDesc??'',
+                    result.spProAppVersion??'',
+                    spProDownloadUrl: result.spProDownloadUrl??'',
                     spProCancelCallBack: (){
                       Navigator.of(context).pop();
                       SPClassApplicaion.spFunShowUserDialog(context);
