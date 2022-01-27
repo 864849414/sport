@@ -79,8 +79,6 @@ class SPClassHomeSchemeListState extends State<SPClassHomeSchemeList> with Autom
   }
 
   Future<void>  spFunOnRefresh(String spProPayWay,String spProMatchType) async {
-    print('哈哈哈2：${spProMatchType}');
-
     page=1;
     this.spProPayWay=spProPayWay;
     this.spProMatchType=spProMatchType;

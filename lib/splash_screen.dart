@@ -62,12 +62,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     if(LocalStorage.get(Commons.IS_AGREE_PRIVICY)!=null){
       init();
-      Future.delayed(Duration(seconds: 2)).then((value) async{
+      Future.delayed(Duration(seconds: 3)).then((value) async{
         SPClassNavigatorUtils.pushAndRemoveAll(context, SPClassAppPage());
         SPClassUtil.spFunRequestPermission();
       });
     }else{
-      Future.delayed(Duration(seconds: 2)).then((value) {
+      Future.delayed(Duration(seconds: 3)).then((value) {
         showDialog(context: context,builder: (context){
           return SPClassPrivacyDialogDialog( ()async{
             await init();

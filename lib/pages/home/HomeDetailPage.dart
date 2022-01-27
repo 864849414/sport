@@ -160,7 +160,6 @@ class HomeDetailPageState extends State<HomeDetailPage> with
             spProTabHotViews[0]
                 .spProState
                 .onRefresh();
-            print('哈哈哈：${spProPayWay} $spProHomeMatchType');
             return spProSchemeViews[spProTabSchemeController.index]
                 .spProState
                 .spFunOnRefresh(spProPayWay,

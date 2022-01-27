@@ -41,12 +41,15 @@ class SPClassSplashPageState extends State<SPClassSplashPage>
            Expanded(
              child:  Container(
                  alignment: Alignment.center,
-                 child:SPClassApplicaion.spFunIsShowIosUI() ?
-                 SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("bg_splash_pg"),
-                   fit: BoxFit.cover,
-                   width: MediaQuery.of(context).size.width,
-                   height: MediaQuery.of(context).size.height,
-                 ):CachedNetworkImage(
+                 child:
+                 // SPClassApplicaion.spFunIsShowIosUI() ?
+                 // SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("bg_splash_pg"),
+                 //   fit: BoxFit.cover,
+                 //   width: MediaQuery.of(context).size.width,
+                 //   height: MediaQuery.of(context).size.height,
+                 // )
+                 //     :
+                 CachedNetworkImage(
                    fit: BoxFit.cover,
                    width: MediaQuery.of(context).size.width,
                    imageUrl: "${SPClassNetConfig.spFunGetImageUrl()}img/startup.png?time=${DateTime.now().millisecondsSinceEpoch.toString()}",
