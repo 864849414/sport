@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sport/utils/colors.dart';
 
 class SPClassSwitchTabBar extends StatefulWidget{
@@ -73,7 +74,7 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
            width: widget.width/widget.spProTabTitles.length,
            height: widget.height,
            child: Container(
-             margin: EdgeInsets.all(widget.height*0.07),
+             margin: EdgeInsets.symmetric(horizontal: widget.height*0.07),
              decoration: BoxDecoration(
                  borderRadius: BorderRadius.circular(widget.width),
                  color: Colors.white
@@ -85,7 +86,13 @@ class SPClassSwitchTabBarState extends State<SPClassSwitchTabBar> with TickerPro
                  // ),
              ),
              child:  Center(
-               child: Text(widget.spProTabTitles[spProPerIndex],style:TextStyle(color: MyColors.main1,fontWeight: FontWeight.bold,fontSize: widget.fontSize),),
+               child: Text(widget.spProTabTitles[spProPerIndex],style:GoogleFonts.notoSansSC(
+                 textStyle: TextStyle(color: MyColors.main1),
+                 fontSize: widget.fontSize,
+                 fontWeight: FontWeight.w500,
+               )
+               // TextStyle(color: MyColors.main1,fontWeight: FontWeight.bold,fontSize: widget.fontSize)
+                 ,),
              ),
            ) ,
          ),

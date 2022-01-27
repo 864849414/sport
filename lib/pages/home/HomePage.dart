@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage>
                 child: TabBar(
                     labelColor: MyColors.main1,
                     labelPadding: EdgeInsets.zero,
+                    indicatorColor: Colors.transparent,
                     indicatorPadding: EdgeInsets.zero,
                     unselectedLabelColor: Colors.white,
                     unselectedLabelStyle: GoogleFonts.notoSansSC(

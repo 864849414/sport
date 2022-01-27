@@ -66,30 +66,31 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
   Widget build(BuildContext context) {
     // TODO: implement build
     super.build(context);
-
     return Scaffold(
-      appBar:AppBar(
-        centerTitle: true,
-        backgroundColor: MyColors.main1,
-        elevation: 0,
-        brightness: Brightness.dark,
-        leading: IconButton(
-          padding: EdgeInsets.zero,
-          icon: SPClassEncryptImage.asset(
-            SPClassImageUtil.spFunGetImagePath('ic_match_setting'),
-            width: width(19),
-            color: Colors.white,
+      appBar:PreferredSize(
+        preferredSize: Size.fromHeight(width(48)),
+        child: AppBar(
+          centerTitle: true,
+          backgroundColor: MyColors.main1,
+          elevation: 0,
+          brightness: Brightness.dark,
+          leading: IconButton(
+            padding: EdgeInsets.zero,
+            icon: SPClassEncryptImage.asset(
+              SPClassImageUtil.spFunGetImagePath('ic_match_setting'),
+              width: width(19),
+              color: Colors.white,
+            ),
+            onPressed: (){
+              if(spFunIsLogin(context: context)){
+                SPClassNavigatorUtils.spFunPushRoute(context,SPClassMatchListSettingPage());
+              }
+            },
           ),
-          onPressed: (){
-            if(spFunIsLogin(context: context)){
-              SPClassNavigatorUtils.spFunPushRoute(context,SPClassMatchListSettingPage());
-            }
-          },
-        ),
-        title:  SPClassSwitchTabBar(
+          title:  SPClassSwitchTabBar(
             spProTabTitles:titles,
             index:spProIndex,
-            fontSize: sp(16),
+            fontSize: sp(17),
             width: width(67*titles.length),
             height: width(29),
             spProGetState: (state){
@@ -100,27 +101,29 @@ class SPClassCompetitionHomePageState extends State<SPClassCompetitionHomePage> 
               controller.jumpToPage(index);
               SPClassHomePageState.spProHomeMatchType=titles[spProIndex];
             },
+          ),
+          actions: <Widget>
+          [
+            spProHiddenFilter?  SizedBox():IconButton(
+              padding: EdgeInsets.zero,
+              icon: SPClassEncryptImage.asset(
+                SPClassImageUtil.spFunGetImagePath('ic_filter'),
+                width: width(19),
+                color: Colors.white,
+              ),
+              onPressed: (){
+                SPClassNavigatorUtils.spFunPushRoute(context,SPClassFilterHomePage(
+                  spProPages[spProIndex].spProState.spFunGetLeagueName,
+                  spProIsHot: spProPages[spProIndex].spProState.spFunIsMatchHot,
+                  param:spProPages[spProIndex].spProState.spFunGetParams,
+                  callback: (value,value2){
+                    spFunCurrentPage.spProState.spFunReFreshByFilter(value,value2);
+                  },));
+              },
+            )
+          ],
         ),
-        actions: <Widget>
-        [
-          spProHiddenFilter?  SizedBox():IconButton(
-            padding: EdgeInsets.zero,
-            icon: SPClassEncryptImage.asset(
-              SPClassImageUtil.spFunGetImagePath('ic_filter'),
-              width: width(19),
-              color: Colors.white,
-            ),
-            onPressed: (){
-            SPClassNavigatorUtils.spFunPushRoute(context,SPClassFilterHomePage(
-              spProPages[spProIndex].spProState.spFunGetLeagueName,
-              spProIsHot: spProPages[spProIndex].spProState.spFunIsMatchHot,
-              param:spProPages[spProIndex].spProState.spFunGetParams,
-              callback: (value,value2){
-              spFunCurrentPage.spProState.spFunReFreshByFilter(value,value2);
-            },));
-            },
-          )
-        ],
+        
       ),
       backgroundColor: Color(0xFFF2F2F2),
       body:PageView(

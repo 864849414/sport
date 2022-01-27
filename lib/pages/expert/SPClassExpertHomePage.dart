@@ -44,6 +44,10 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
     spProTabMatchController =
         TabController(length: spProTabMatchTitles.length,initialIndex: 1, vsync: this);
     spProPageController=PageController(initialPage: index);
+    spProTabMatchController.addListener(() {
+      setState(() {
+      });
+    });
     //views=[/*FollowHomePage(),*/SPClassExpertLeaderboardPage()/*,ExpertListPage()*/];
     views=[FollowPage(),SPClassExpertLeaderboardPage(matchType: 'is_zq_expert',),SPClassExpertLeaderboardPage(matchType: 'is_lq_expert',)];
     /*if(index==1){
@@ -70,35 +74,35 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
                 Expanded(
                   child: Container(
                     color: MyColors.main1,
-                    // padding:EdgeInsets.symmetric(vertical: height(11),horizontal: width(20)),
-                    padding: EdgeInsets.only(
-                        top: height(14),
-                        bottom: height(8),
-                        left: width(20),
-                        right: width(20)),
+                    height: width(48),
+                    padding:EdgeInsets.symmetric(horizontal: width(20)),
                     child: Container(
-                      height: height(26),
+                      height: width(27),
                       child: TabBar(
-                          indicator: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(width(150))),
+                          indicatorColor: Colors.transparent,
                           labelColor: MyColors.main1,
                           labelPadding: EdgeInsets.zero,
                           unselectedLabelColor: Colors.white,
-                          indicatorColor: MyColors.main1,
                           unselectedLabelStyle: GoogleFonts.notoSansSC(
                             fontSize: sp(17),
                           ),
                           isScrollable: false,
-                          indicatorSize:TabBarIndicatorSize.tab,
+                          // indicatorSize:TabBarIndicatorSize.label,
                           labelStyle: GoogleFonts.notoSansSC(
                             fontSize: sp(17),
                             fontWeight: FontWeight.w500,
                           ),
                           controller: spProTabMatchController,
                           tabs: spProTabMatchTitles.map((key) {
-                            return Tab(
-                              text: key,
+                            return Container(
+                              width: width(65),
+                              height: width(27),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color:spProTabMatchController.index==spProTabMatchTitles.indexOf(key)?Colors.white: MyColors.main1,
+                                borderRadius: BorderRadius.circular(width(150)),
+                              ),
+                              child: Text(key),
                             );
                           }).toList()),
                     ),
