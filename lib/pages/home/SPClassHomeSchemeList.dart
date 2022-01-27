@@ -17,8 +17,9 @@ class SPClassHomeSchemeList extends StatefulWidget{
   String spProFetchType="";
   String spProPayWay;
   bool spProShowProfit;
+  int type ;
 
-  SPClassHomeSchemeList({this.spProFetchType,this.spProPayWay,this.spProShowProfit:true});
+  SPClassHomeSchemeList({this.spProFetchType,this.spProPayWay,this.spProShowProfit:true,this.type=0});
   SPClassHomeSchemeListState spProState;
   @override
   State<StatefulWidget> createState() {
@@ -39,13 +40,13 @@ class SPClassHomeSchemeListState extends State<SPClassHomeSchemeList> with Autom
     // TODO: implement initState
     super.initState();
     spProRefreshController=EasyRefreshController();
-    spProMatchType= SPClassHomePageState.spProHomeMatchType;
+    // spProMatchType= SPClassHomePageState.spProHomeMatchType;
+    spProMatchType = widget.type==0?'足球':'篮球';
     spFunOnRefresh(widget.spProPayWay,spProMatchType);
 
     SPClassApplicaion.spProEventBus.on<String>().listen((event) {
       if(event.startsWith("scheme:refresh")){
-           spFunOnRefresh(widget.spProPayWay,SPClassHomePageState.spProHomeMatchType);
-
+        spFunOnRefresh(widget.spProPayWay,spProMatchType/*SPClassHomePageState.*/);
       }
     });
   }
@@ -78,6 +79,8 @@ class SPClassHomeSchemeListState extends State<SPClassHomeSchemeList> with Autom
   }
 
   Future<void>  spFunOnRefresh(String spProPayWay,String spProMatchType) async {
+    print('哈哈哈2：${spProMatchType}');
+
     page=1;
     this.spProPayWay=spProPayWay;
     this.spProMatchType=spProMatchType;

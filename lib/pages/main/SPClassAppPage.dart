@@ -229,8 +229,8 @@ class SPClassAppPageState extends State<SPClassAppPage>
 
 
     if(SPClassApplicaion.spProShowMenuList.contains("home")){
-      spProPageList.add(SPClassHomePage());
-      // spProPageList.add(HomePage());
+      // spProPageList.add(SPClassHomePage());
+      spProPageList.add(HomePage());
       tabs.add(SPClassQNavTab( spProTabText: "推荐",spProTabImage:SPClassImageUtil.spFunGetImagePath("ic_homepage")));
     }
     if(SPClassApplicaion.spProShowMenuList.contains("match")){

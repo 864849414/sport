@@ -7,6 +7,7 @@ import 'package:sport/utils/colors.dart';
 
 import 'AIAnalysisPage.dart';
 import 'FollowPage.dart';
+import 'HomeDetailPage.dart';
 import 'SPClassHomePage.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,22 +31,6 @@ class _HomePageState extends State<HomePage>
   void initState() {
     spProTabMatchController = TabController(
         length: spProTabMatchTitles.length, initialIndex: 1, vsync: this);
-    spProTabMatchController.addListener(() {
-      if (spProTabMatchIndex == spProTabMatchController.index) {
-        return;
-      }
-      spProTabMatchIndex = spProTabMatchController.index;
-      setState(() {});
-      if (spProTabMatchTitles[spProTabMatchController.index] == 'AI分析' ||
-          spProTabMatchTitles[spProTabMatchController.index] == '关注') {
-        return;
-      }
-      spProHomeMatchType = spProTabMatchKeys[spProTabMatchController.index];
-      spProHomeMatchTypeKey = spProTabExpertKeys[spProTabMatchController.index];
-
-      SPClassApplicaion.spProEventBus.fire("scheme:refresh" +
-          "${spProTabMatchKeys[spProTabMatchController.index]}");
-    });
     // TODO: implement initState
     super.initState();
   }
@@ -65,36 +50,46 @@ class _HomePageState extends State<HomePage>
           children: <Widget>[
             Container(
               color: MyColors.main1,
-              // padding:EdgeInsets.symmetric(vertical: height(11),horizontal: width(20)),
+              height: width(48),
               padding: EdgeInsets.only(
-                  top: height(13),
-                  bottom: width(8),
-                  left: width(20),
-                  right: width(20)),
+                // top: height(14),
+                // bottom: height(8),
+                  left: width(18),
+                  right: width(18)),
               child: Container(
-                height: width(27),
+                height: height(26),
                 child: TabBar(
-                    indicator: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(width(150))),
+                  // indicator: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(width(150))),
                     labelColor: MyColors.main1,
                     labelPadding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
                     unselectedLabelColor: Colors.white,
-                    indicatorColor: MyColors.main1,
                     unselectedLabelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                     ),
                     isScrollable: false,
-                    indicatorSize: TabBarIndicatorSize.tab,
+                    // indicatorSize:TabBarIndicatorSize.tab,
                     labelStyle: GoogleFonts.notoSansSC(
                       fontSize: sp(17),
                       fontWeight: FontWeight.w500,
                     ),
                     controller: spProTabMatchController,
                     tabs: spProTabMatchTitles.map((key) {
-                      return Tab(
-                        text: key,
+                      return Container(
+                        width: width(65),
+                        height: width(27),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:spProTabMatchController.index==spProTabMatchTitles.indexOf(key)?Colors.white: MyColors.main1,
+                          borderRadius: BorderRadius.circular(width(150)),
+                        ),
+                        child: Text(key),
                       );
+                      // return Tab(
+                      //   text: key,
+                      // );
                     }).toList()),
               ),
             ),
@@ -103,8 +98,8 @@ class _HomePageState extends State<HomePage>
                 controller: spProTabMatchController,
                 children: <Widget>[
                   FollowPage(),
-                  SPClassHomePage(),
-                  SPClassHomePage(),
+                  HomeDetailPage(type: 0,),
+                  HomeDetailPage(type: 1,),
                   AIAnalysis(),
                 ],
               ),
