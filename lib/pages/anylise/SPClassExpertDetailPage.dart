@@ -181,16 +181,15 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
                         ),
                         Row(
                           children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                '${ widget.info?.intro??''}',
-                                style: TextStyle(
-                                  fontSize: sp(12),
-                                  color: Colors.white,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                            Text(
+                              SPClassStringUtils.spFunMaxLength('${ widget.info?.intro??''}',
+                                  length: 6),
+                              style: TextStyle(
+                                fontSize: sp(12),
+                                color: Colors.white,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(
@@ -573,14 +572,15 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
            plotAreaBorderWidth: 0,
            onTooltipRender: (TooltipArgs args) {
              final NumberFormat format = NumberFormat.decimalPattern();
-            var text=  format.format(args.dataPoints[args.pointIndex].y).toString();
-            SPClassLogUtils.spFunPrintLog("text：${text.toString()}");
+             var text=  format.format(args.dataPoints[args.pointIndex].y).toString();
+             SPClassLogUtils.spFunPrintLog("text：${text.toString()}");
            },
            title: ChartTitle(text: ""),
            legend: Legend(
                isVisible: false,
                overflowMode: LegendItemOverflowMode.wrap),
            primaryXAxis: CategoryAxis(
+                labelStyle:ChartTextStyle(fontSize: sp(8)),
                labelPlacement: LabelPlacement.onTicks,
                majorGridLines: MajorGridLines(width: 0.4)),
            primaryYAxis: NumericAxis(
@@ -588,6 +588,7 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
                labelFormat: '{value}%',
                interval: 25,
                axisLine: AxisLine(width: 0),
+               labelStyle: ChartTextStyle(fontSize: sp(8)),
                majorTickLines: MajorTickLines(color: Colors.transparent)),
            series: <AreaSeries<SPClassChartData, String>>[
              AreaSeries<SPClassChartData, String>(
@@ -607,6 +608,7 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
            ],
            tooltipBehavior: TooltipBehavior(enable: true,color: Colors.red,borderColor:Colors.cyan ),
          ),
+
        );
      }
      return spProChartsCon;

@@ -478,16 +478,15 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                   ),
                   Row(
                     children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          '${widget.spProSchemeDetail.scheme.expert.intro}',
-                          style: TextStyle(
-                            fontSize: sp(12),
-                            color: Colors.white,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        SPClassStringUtils.spFunMaxLength('${widget.spProSchemeDetail.scheme.expert.intro}',
+                            length: 6),
+                        style: TextStyle(
+                          fontSize: sp(12),
+                          color: Colors.white,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(
@@ -1025,17 +1024,16 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
     return Row(
       children: <Widget>[
         Expanded(
-          child:Container(
-            height: width(43),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: supportWhich=="1"?MyColors.main1:Color(0xFFF2F2F2),
-                borderRadius: BorderRadius.all(Radius.circular(4))
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Container(
+          child:Stack(
+            children: <Widget>[
+              Container(
+                height: width(43),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: supportWhich=="1"?MyColors.main1:Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.all(Radius.circular(4))
+                ),
+                child:Container(
                   height: width(43),
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -1048,33 +1046,42 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: SPClassEncryptImage.asset(
-                    (whichWin=="1")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                    width: width(18),
-                  ),
+              ),
+              (supportWhich=="1"||supportWhich2=="1")?Container(
+                width: width(27),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Color(0xFFFFB44D),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(width(4)),bottomRight:Radius.circular(width(4)), )
                 ),
-              ],
-            ),
+                child: Text('主推',style: TextStyle(fontSize: sp(10),color: Colors.white),),
+              ):Container(),
+              (whichWin=="1")? Positioned(
+                bottom: 0,
+                right: 0,
+                child: SPClassEncryptImage.asset(
+                  SPClassImageUtil.spFunGetImagePath("ic_select_lab"),
+                  width: width(18),
+                ),
+              ):Container(),
+
+            ],
           ),
         ),
         SizedBox(width: width(4),),
         Expanded(
-          child: Container(
-            height: width(43),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: Color(0xFFF2F2F2),
-                borderRadius: BorderRadius.all(Radius.circular(4))
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Container(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: width(43),
+                width: double.infinity,
+                child: Container(
                   height: width(43),
-                  width: double.infinity,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF2F2F2),
+                      borderRadius: BorderRadius.all(Radius.circular(4))
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1084,45 +1091,84 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              (supportWhich=="0"||supportWhich2=="0")?Container(
+                width: width(27),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Color(0xFFFFB44D),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(width(4)),bottomRight:Radius.circular(width(4)), )
+                ),
+                child: Text('主推',style: TextStyle(fontSize: sp(10),color: Colors.white),),
+              ):Container(),
+              (whichWin=="0")? Positioned(
+                bottom: 0,
+                right: 0,
+                child: SPClassEncryptImage.asset(
+                  SPClassImageUtil.spFunGetImagePath("ic_select_lab"),
+                  width: width(18),
+                ),
+              ):Container(),
+
+            ],
           ),
         ),
         SizedBox(width: width(4),),
         Expanded(
-          child: Container(
-            height: width(43),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: (supportWhich=="2"||supportWhich2=="2")?MyColors.main1:Color(0xFFF2F2F2),
-                borderRadius: BorderRadius.all(Radius.circular(4))
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  height: width(43),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text("$text3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF303133)),),
-                      Text("$value3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF303133)),),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: width(43),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: (supportWhich=="2"||supportWhich2=="2")?MyColors.main1:Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.all(Radius.circular(4))
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: double.infinity,
+                      height: width(43),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text("$text3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white : Color(0xFF303133)),),
+                          Text("$value3",style: TextStyle(fontSize: sp(12),color:(widget.spProSchemeDetail.scheme.spProSupportWhich=="2")? Colors.white :Color(0xFF303133)),),
 
-                    ],
-                  ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: SPClassEncryptImage.asset(
+                        (whichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
+                        width: width(18),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: SPClassEncryptImage.asset(
-                    (whichWin=="2")? SPClassImageUtil.spFunGetImagePath("ic_select_lab"):"",
-                    width: width(18),
-                  ),
+              ),
+              (supportWhich=="2"||supportWhich2=="2")?Container(
+                width: width(27),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFFB44D),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(width(4)),bottomRight:Radius.circular(width(4)), )
                 ),
-              ],
-            ),
+                child: Text('主推',style: TextStyle(fontSize: sp(10),color: Colors.white),),
+              ):Container(),
+              (whichWin=="2")? Positioned(
+                bottom: 0,
+                right: 0,
+                child: SPClassEncryptImage.asset(
+                  SPClassImageUtil.spFunGetImagePath("ic_select_lab"),
+                  width: width(18),
+                ),
+              ):Container(),
+            ],
           ),
         ),
       ],
