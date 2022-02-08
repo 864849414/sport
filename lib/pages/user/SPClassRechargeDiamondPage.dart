@@ -249,17 +249,29 @@ class SPClassRechargeDiamondPageState extends State<SPClassRechargeDiamondPage> 
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Text(
-                                            rmb+"元",
-                                            style: TextStyle(
-                                                fontSize: sp(16),
-                                                fontWeight: FontWeight.w500,
-                                                color:  spProSelectIndex == rechargeString.indexOf(rechargeItem)
-                                                    ? Color(0xFFE3494B)
-                                                    :Color(0xFF333333)),
+
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                rechargeItem["value_diamond"].toString(),
+                                                style: TextStyle(
+                                                    fontSize: sp(16),
+                                                    fontWeight: FontWeight.w500,
+                                                    color:  spProSelectIndex == rechargeString.indexOf(rechargeItem)
+                                                        ? Color(0xFFE3494B)
+                                                        :MyColors.main1
+                                                ),
+                                              ),
+                                              SPClassEncryptImage.asset(
+                                                SPClassImageUtil.spFunGetImagePath("zhuanshi"),
+                                                width: width(17),
+                                              ),
+                                            ],
                                           ),
                                           Text(
-                                            rechargeItem["value_diamond"].toString()+"钻石",
+                                            // rechargeItem["value_diamond"].toString()+"钻石",
+                                            rmb+"元",
                                             style: TextStyle(
                                                 fontSize: sp(11),
                                                 color:  spProSelectIndex == rechargeString.indexOf(rechargeItem)

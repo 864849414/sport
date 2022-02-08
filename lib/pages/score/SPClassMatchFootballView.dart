@@ -196,7 +196,7 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                               "观点",
                           style: TextStyle(
                               color: Color(0xFF24AAF0),
-                              fontSize: width(10)),
+                              fontSize: sp(12)),
                         ),
                         SPClassEncryptImage.asset(
                             SPClassImageUtil.spFunGetImagePath(
@@ -236,6 +236,7 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                   behavior: HitTestBehavior.opaque,
                   child: Container(
                     padding: EdgeInsets.all(4),
+                    margin: EdgeInsets.only(right: width(15)),
                     width: width(45),
                     alignment: Alignment.center,
                     child: SPClassEncryptImage.asset(
@@ -588,54 +589,63 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                 ),
                 Container(
                   width: width(45),
+                  margin: EdgeInsets.only(right: width(15)),
                   alignment: Alignment.centerLeft,
                   child: SPClassMatchDataUtils.spFunCanAddScheme(
                       widget.spProMatchItem.spProCanAddScheme,
                       widget.spProMatchItem.spProMatchType,
                       widget.spProMatchItem.status)
                       ? GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 0.5),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFFFEBEA),
-                                  border: Border.all(
-                                      color: Color(0xFFDE3C31),
-                                      width: 0.4),
-                                  borderRadius:
-                                  BorderRadius.circular(300)),
-                              child: Row(
-                                children: <Widget>[
-                                  SPClassEncryptImage.asset(
-                                    SPClassImageUtil.spFunGetImagePath(
-                                        "ic_add_scheme"),
-                                    width: width(8),
-                                  ),
-                                  SizedBox(
-                                    width: 1,
-                                  ),
-                                  Text(
-                                    "点评",
-                                    style: TextStyle(
-                                        fontSize: sp(9),
-                                        color: Color(0xFFDE3C31)),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: width(10),
-                        ),
-                      ],
+                    behavior: HitTestBehavior.translucent,
+                    child:
+                    Container(
+                      padding: EdgeInsets.only(top: width(5),),
+                      child: SPClassEncryptImage.asset(
+                        SPClassImageUtil.spFunGetImagePath("fabu"),
+                        width: width(42),
+                      ),
                     ),
+                    // Column(
+                    //   children: <Widget>[
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: <Widget>[
+                    //         Container(
+                    //           padding: EdgeInsets.symmetric(
+                    //               horizontal: 6, vertical: 0.5),
+                    //           decoration: BoxDecoration(
+                    //               color: Color(0xFFFFEBEA),
+                    //               border: Border.all(
+                    //                   color: Color(0xFFDE3C31),
+                    //                   width: 0.4),
+                    //               borderRadius:
+                    //               BorderRadius.circular(300)),
+                    //           child: Row(
+                    //             children: <Widget>[
+                    //               SPClassEncryptImage.asset(
+                    //                 SPClassImageUtil.spFunGetImagePath(
+                    //                     "ic_add_scheme"),
+                    //                 width: width(8),
+                    //               ),
+                    //               SizedBox(
+                    //                 width: 1,
+                    //               ),
+                    //               Text(
+                    //                 "点评",
+                    //                 style: TextStyle(
+                    //                     fontSize: sp(9),
+                    //                     color: Color(0xFFDE3C31)),
+                    //               )
+                    //             ],
+                    //           ),
+                    //         )
+                    //       ],
+                    //     ),
+                    //     SizedBox(
+                    //       height: width(10),
+                    //     ),
+                    //   ],
+                    // ),
                     onTap: () {
                       var spProGuessMatch =
                       SPClassSchemeGuessMatch2.newObject(

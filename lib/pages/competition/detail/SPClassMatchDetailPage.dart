@@ -235,7 +235,10 @@ class SPClassMatchDetailPageState extends State<SPClassMatchDetailPage> with Tic
           SliverAppBar(
             pinned: true,
             leading: FlatButton(
-              child: Icon(Icons.arrow_back_ios,size: width(20),color: Colors.white,),
+              child: SPClassEncryptImage.asset(
+                SPClassImageUtil.spFunGetImagePath("arrow_right"),
+                width: width(23),
+              ),
               onPressed: (){
                 Navigator.of(context).pop();
               },

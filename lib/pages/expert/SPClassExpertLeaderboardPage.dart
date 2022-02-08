@@ -500,12 +500,15 @@ class SPClassExpertLeaderboardPageState extends State<SPClassExpertLeaderboardPa
                               },
                               child: Container(
                                 margin: EdgeInsets.only(right: width(15)),
-                                padding: EdgeInsets.symmetric(horizontal: width(8),vertical: width(4)),
+                                width: width(61),
+                                height: width(27),
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14),
                                   border: Border.all(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,width: 0.5),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Icon(item.spProIsFollowing? Icons.check:Icons.add,color: item.spProIsFollowing?MyColors.grey_cc:MyColors.main1,size: width(15),),
                                     Text(item.spProIsFollowing? "已关注":"关注",style: TextStyle(color:item.spProIsFollowing?MyColors.grey_cc: MyColors.main1,fontSize: sp(12)),)

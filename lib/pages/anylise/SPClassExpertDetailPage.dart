@@ -108,10 +108,9 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
       child: Commons.getAppBar(
         title: '专家详情',
         appBarLeft: InkWell(
-          child: Icon(
-            Icons.arrow_back_ios,
-            size: width(20),
-            color: Colors.white,
+          child: SPClassEncryptImage.asset(
+            SPClassImageUtil.spFunGetImagePath("arrow_right"),
+            width: width(23),
           ),
           onTap: () {
             Navigator.of(context).pop();
@@ -217,10 +216,12 @@ class SPClassExpertDetailPageState extends State<SPClassExpertDetailPage> with T
                 // 关注
                 GestureDetector(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: width(13),vertical: width(6)),
+                      width: width(61),
+                      height: width(27),
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color:  widget.info.spProIsFollowing?Colors.transparent:Colors.white,
-                          borderRadius: BorderRadius.circular(width(13)),
+                          borderRadius: BorderRadius.circular(150),
                           border: Border.all(width: width(1),color:  widget.info.spProIsFollowing?Color.fromRGBO(255, 255, 255, 0.6):Colors.transparent)
                       ),
                       child: Row(

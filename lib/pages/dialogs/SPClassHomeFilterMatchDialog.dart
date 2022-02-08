@@ -86,11 +86,12 @@ class SPClassHomeFilterMatchDialogState
                                     ),
                                     Container(
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: football.map((title) {
                                           var index = football.indexOf(title);
                                           return GestureDetector(
                                             child: Container(
-                                              margin: EdgeInsets.only(right: width(9)),
+                                              // margin: EdgeInsets.only(right: width(9)),
                                               alignment: Alignment.center,
                                               width: width(73),
                                               height: width(27),

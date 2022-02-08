@@ -68,7 +68,10 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                  height: MediaQuery.of(context).padding.top,
                ),
                Commons.getAppBar(title: '新人好礼',appBarLeft: GestureDetector(
-                 child: Icon(Icons.arrow_back_ios,size: width(20),color: Colors.white,),
+                 child: SPClassEncryptImage.asset(
+                   SPClassImageUtil.spFunGetImagePath("arrow_right"),
+                   width: width(23),
+                 ),
                  onTap: (){Navigator.of(context).pop();},)),
                SizedBox(height: width(161),),
                GestureDetector(

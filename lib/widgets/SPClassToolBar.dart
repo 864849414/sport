@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sport/utils/SPClassCommonMethods.dart';
+import 'package:sport/utils/SPClassImageUtil.dart';
 import 'package:sport/utils/colors.dart';
+
+import '../SPClassEncryptImage.dart';
 
 class SPClassToolBar extends AppBar{
   SPClassToolBar(
@@ -14,7 +17,11 @@ class SPClassToolBar extends AppBar{
       }
       ):super(
           leading:!showLead? null: FlatButton(
-            child: Icon(Icons.arrow_back_ios,size: width(20),color: Color(iconColor),),
+            child: SPClassEncryptImage.asset(
+              SPClassImageUtil.spFunGetImagePath("arrow_right"),
+              width: width(23),
+              color: Color(iconColor),
+            ),
             onPressed: (){Navigator.of(context).pop();},),
           elevation:1,
           centerTitle:true,
