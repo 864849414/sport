@@ -125,7 +125,6 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
               ],
             ),
           ),
-          SizedBox(height: width(6),),
           Expanded(
             child: TabBarView(
               controller: spProTabMatchController,
@@ -133,34 +132,6 @@ class SPClassExpertHomePageState extends State<SPClassExpertHomePage> with Ticke
             ),
           )
         ],
-      ),
-    );
-    return Scaffold(
-     appBar: SPClassToolBar(context,title: "专家",showLead: false,
-     actions: <Widget>[
-       Container(
-         margin: EdgeInsets.only(right: width(20)),
-         child: GestureDetector(
-           child: SPClassEncryptImage.asset(
-             SPClassImageUtil.spFunGetImagePath("ic_search"),
-             width: width(16),
-             fit: BoxFit.fitWidth,
-             color: Color(0xFF333333),
-           ),
-           onTap: (){
-             SPClassNavigatorUtils.spFunPushRoute(context, SPClassSearchExpertPage());
-           },
-         ),
-       ),
-     ],
-     ),
-      body:Container(
-        color: Color(0xFFF1F1F1),
-        child: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: spProPageController,
-          children: views,
-        ),
       ),
     );
   }

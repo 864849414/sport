@@ -147,6 +147,7 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
             )
           ],
         ),
+        /*
         follow>0?Positioned(
           right:width(5),
 //          top: width(2),
@@ -166,7 +167,7 @@ class SPClassTabMatchInfoPageState extends  State<SPClassTabMatchInfoPage> with 
               ),
             ),
           ),
-        ):Container()
+        ):Container()*/
       ],
     );
   }

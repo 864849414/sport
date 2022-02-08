@@ -75,6 +75,10 @@ class SPClassExpertLeaderboardPageState extends State<SPClassExpertLeaderboardPa
       child: Column(
         children: <Widget>[
           Container(
+            height: width(width(6)),
+            color: Color(0xFFF2F2F2),
+          ),
+          Container(
             width: ScreenUtil.screenWidthDp,
             decoration: BoxDecoration(
             color: Colors.white,
@@ -676,7 +680,7 @@ class SPClassExpertLeaderboardPageState extends State<SPClassExpertLeaderboardPa
    buildMedal(int ranking) {
      return SPClassEncryptImage.asset(
        SPClassImageUtil.spFunGetImagePath(ranking==1? "ic_leaderbord_one":(ranking==2? "ic_leaderbord_two":"ic_leaderbord_three")),
-       width: width(25),
+       width: width(31),
      );
 
    }

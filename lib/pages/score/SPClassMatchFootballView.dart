@@ -236,7 +236,7 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                   behavior: HitTestBehavior.opaque,
                   child: Container(
                     padding: EdgeInsets.all(4),
-                    margin: EdgeInsets.only(right: width(15)),
+                    margin: EdgeInsets.only(right: width(12)),
                     width: width(45),
                     alignment: Alignment.center,
                     child: SPClassEncryptImage.asset(
@@ -588,7 +588,6 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                   ),
                 ),
                 Container(
-                  width: width(45),
                   margin: EdgeInsets.only(right: width(15)),
                   alignment: Alignment.centerLeft,
                   child: SPClassMatchDataUtils.spFunCanAddScheme(
@@ -661,7 +660,9 @@ class SPClassMatchFootballViewState extends State<SPClassMatchFootballView> {
                           ));
                     },
                   )
-                      : SizedBox(),
+                      : SizedBox(
+                    width: width(45),
+                  ),
                 )
 
               ],

@@ -88,6 +88,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                    ),
                  ),
                ),
+               SizedBox(height: width(7),),
                GestureDetector(
                  onTap: (){
                    if(spFunIsLogin(context: context)){
@@ -101,6 +102,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                    ),
                  ),
                ),
+               SizedBox(height: width(7),),
                GestureDetector(
                  onTap: (){
                    if(spFunIsLogin(context: context)){
@@ -114,6 +116,7 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                    ),
                  ),
                ),
+               SizedBox(height: width(7),),
                GestureDetector(
                  onTap: (){
                    if(spFunIsLogin(context: context)){
@@ -127,6 +130,8 @@ class SPClassNewUserWalFarePageState extends State<SPClassNewUserWalFarePage>{
                    ),
                  ),
                ),
+               SizedBox(height: width(22),),
+               Text('更多福利敬请期待...',style: TextStyle(fontSize: sp(15),color: MyColors.grey_66),)
              ],
            )
 

@@ -178,7 +178,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                                                           children: [
                                                             TextSpan(
                                                                 text: "两小时自动返回",
-                                                              style: TextStyle(fontSize: sp(12),color: Color(0xFF1B8DE0)),
+                                                              style: TextStyle(fontSize: sp(12),color: Color(0xFFEB3E1C)),
                                                             ),
                                                             TextSpan(
                                                                 text: "账户，请注意查收。",
@@ -848,14 +848,14 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: SPClassEncryptImage.asset(
-                    (widget.spProSchemeDetail.scheme.spProCanReturn) ? SPClassImageUtil.spFunGetImagePath("ic_can_return"):"",
-                    width: width(37),
-                  ),
-                ),
+                // Positioned(
+                //   top: 0,
+                //   left: 0,
+                //   child: SPClassEncryptImage.asset(
+                //     (widget.spProSchemeDetail.scheme.spProCanReturn) ? SPClassImageUtil.spFunGetImagePath("ic_can_return"):"",
+                //     width: width(37),
+                //   ),
+                // ),
 
               ]
           )

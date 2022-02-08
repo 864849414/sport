@@ -147,7 +147,11 @@ class SPClassUserInfoPageState extends State<SPClassUserInfoPage>
                           children: <Widget>[
                             Text(SPClassApplicaion.spProUserInfo.spProNickName,style: TextStyle(fontSize:sp(14),color: Color(0xFF333333) ),),
 
-                            SPClassApplicaion.spProUserInfo.spProLockNickName=="1" ? Icon(Icons.keyboard_arrow_right,size: width(25),color: Colors.white,):Icon(Icons.keyboard_arrow_right,size: width(25),color: Colors.grey[400],),
+                            SPClassApplicaion.spProUserInfo.spProLockNickName=="1" ? SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                              width: width(11),
+                            ):SPClassEncryptImage.asset(SPClassImageUtil.spFunGetImagePath("ic_btn_right"),
+                              width: width(11),
+                            ),
                           ],
                         ),
                       )

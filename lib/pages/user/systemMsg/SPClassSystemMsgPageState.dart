@@ -82,6 +82,72 @@ class SPClassSystemMsgPageState extends State<SPClassSystemMsgPage>{
           slivers: <Widget>[
             SliverList(
               delegate: SliverChildBuilderDelegate((c,i){
+                return GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(10),
+                    child:Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.all(width(4)),
+                              child: SPClassEncryptImage.asset(
+                                SPClassImageUtil.spFunGetImagePath("ic_sysmgs"),
+                                width: width(23),
+                                height: width(23),
+                              ),
+                            ),
+                            Stack(
+                              children: <Widget>[
+                                Text(spProMsgList[i].title,style: TextStyle(fontSize: sp(13),color:Color(0xFF999999)),),
+                                spProMsgList[i].spProIsRead  ? Container()
+                                    : Positioned(
+                                  top:0,
+                                  right:0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFEB3E1C),
+                                        borderRadius: BorderRadius.circular(width(6))),
+                                    width: width(8),
+                                    height: width(8),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Expanded(
+                              child: SizedBox(),
+                            ),
+                            Text(spProMsgList[i].spProAddTime,style: TextStyle(fontSize: sp(12),color:Colors.grey),),
+                          ],
+                        ),
+                        Text(spProMsgList[i].content,style: TextStyle(fontSize: sp(13),color:Color(0xFF333333)),),
+                      ],
+                    ),
+                  ),
+                  onTap: (){
+                    SPClassApiManager.spFunGetInstance().spFunReadMsg(context: context,queryParameters: {"msg_id":spProMsgList[i].spProMsgId},
+                        spProCallBack: SPClassHttpCallBack<SPClassBaseModelEntity>(
+                            spProOnSuccess: (result){
+                              spProMsgList[i].spProIsRead=true;
+
+                              spFunGetList();
+                            }
+                        )
+                    );
+
+                    if(spProMsgList[i].spProPageUrl.isEmpty){
+                      SPClassNavigatorUtils.spFunPushRoute(context,  SPClassSysMsgDetailPage(spProMsgList[i]));
+                    }else{
+                      SPClassNavigatorUtils.spFunPushRoute(context,  SPClassWebPage(spProMsgList[i].spProPageUrl,spProMsgList[i].title));
+                    }
+
+                  },
+                );
                 return  GestureDetector(
                   child: Container(
                     decoration: BoxDecoration(

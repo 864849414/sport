@@ -51,6 +51,7 @@ class _FollowPageState extends State<FollowPage> with  TickerProviderStateMixin<
         ),
         Container(
           decoration: BoxDecoration(
+              color: Colors.white,
               border: Border(
                   bottom: BorderSide(
                       width: 0.4, color: Colors.grey[300]))),

@@ -52,108 +52,108 @@ class SPClassBuySchemeListPageState extends State<SPClassBuySchemeListPage>{
     // TODO: implement build
     return Column(
       children: <Widget>[
-       widget.spProIsOver!="1"? SizedBox(): Container(
-          color: Color(0xFFF1F1F1),
-          height: height(40),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: spProItemIndex==0? MyColors.main1:null,
-                        borderRadius: BorderRadius.circular(100)
-                      ),
-                      height: height(27),
-                      width: width(58),
-                      alignment: Alignment.center,
-                      child: Text("今天",style: TextStyle(color:spProItemIndex==0? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
-                    ),
-                    onTap: (){
-                      setState(() {spProItemIndex=0;});
-                      spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
-                    },
-                  ),
-                ),
-              ),
-              Container(width: 1,height: height(12),color: Colors.grey[300],),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: spProItemIndex==1? MyColors.main1:null,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      height: height(27),
-                      width: width(58),
-                      alignment: Alignment.center,
-                      child: Text("昨天",style: TextStyle(color:spProItemIndex==1? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
-                    ),
-                    onTap: (){
-                      setState(() {spProItemIndex=1;});
-                      spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
-                    },
-                  ),
-                ),
-              ),
-              Container(width: 1,height: height(12),color: Colors.grey[300],),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: spProItemIndex==2? MyColors.main1:null,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      height: height(27),
-                      width: width(58),
-                      alignment: Alignment.center,
-                      child: Text("近七天",style: TextStyle(color:spProItemIndex==2? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
-                    ),
-                    onTap: (){
-                      setState(() {spProItemIndex=2;});
-                      spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
-                    },
-                  ),
-                ),
-              ),
-              Container(width: 1,height: height(12),color: Colors.grey[300],),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: spProItemIndex==3? MyColors.main1:null,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      height: height(27),
-                      width: width(58),
-                      alignment: Alignment.center,
-                      child: Text("全部",style: TextStyle(color:spProItemIndex==3? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
-                    ),
-                    onTap: (){
-                      setState(() {spProItemIndex=3;});
-                      spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
-                    },
-                  ),
-                ),
-              ),
-              Container(width: 1,height: height(12),color: Colors.grey[300],),
-
-            ],
-          ),
-        ),
+       // widget.spProIsOver!="1"? SizedBox(): Container(
+       //    color: Color(0xFFF1F1F1),
+       //    height: height(40),
+       //    child: Row(
+       //      crossAxisAlignment: CrossAxisAlignment.center,
+       //      mainAxisAlignment: MainAxisAlignment.center,
+       //      children: <Widget>[
+       //        Expanded(
+       //          child: Container(
+       //            alignment: Alignment.center,
+       //            child: GestureDetector(
+       //              child: Container(
+       //                decoration: BoxDecoration(
+       //                    color: spProItemIndex==0? MyColors.main1:null,
+       //                  borderRadius: BorderRadius.circular(100)
+       //                ),
+       //                height: height(27),
+       //                width: width(58),
+       //                alignment: Alignment.center,
+       //                child: Text("今天",style: TextStyle(color:spProItemIndex==0? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
+       //              ),
+       //              onTap: (){
+       //                setState(() {spProItemIndex=0;});
+       //                spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
+       //              },
+       //            ),
+       //          ),
+       //        ),
+       //        Container(width: 1,height: height(12),color: Colors.grey[300],),
+       //        Expanded(
+       //          child: Container(
+       //            alignment: Alignment.center,
+       //            child: GestureDetector(
+       //              child: Container(
+       //                decoration: BoxDecoration(
+       //                    color: spProItemIndex==1? MyColors.main1:null,
+       //                    borderRadius: BorderRadius.circular(100)
+       //                ),
+       //                height: height(27),
+       //                width: width(58),
+       //                alignment: Alignment.center,
+       //                child: Text("昨天",style: TextStyle(color:spProItemIndex==1? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
+       //              ),
+       //              onTap: (){
+       //                setState(() {spProItemIndex=1;});
+       //                spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
+       //              },
+       //            ),
+       //          ),
+       //        ),
+       //        Container(width: 1,height: height(12),color: Colors.grey[300],),
+       //        Expanded(
+       //          child: Container(
+       //            alignment: Alignment.center,
+       //            child: GestureDetector(
+       //              child: Container(
+       //                decoration: BoxDecoration(
+       //                    color: spProItemIndex==2? MyColors.main1:null,
+       //                    borderRadius: BorderRadius.circular(100)
+       //                ),
+       //                height: height(27),
+       //                width: width(58),
+       //                alignment: Alignment.center,
+       //                child: Text("近七天",style: TextStyle(color:spProItemIndex==2? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
+       //              ),
+       //              onTap: (){
+       //                setState(() {spProItemIndex=2;});
+       //                spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
+       //              },
+       //            ),
+       //          ),
+       //        ),
+       //        Container(width: 1,height: height(12),color: Colors.grey[300],),
+       //        Expanded(
+       //          child: Container(
+       //            alignment: Alignment.center,
+       //            child: GestureDetector(
+       //              child: Container(
+       //                decoration: BoxDecoration(
+       //                    color: spProItemIndex==3? MyColors.main1:null,
+       //                    borderRadius: BorderRadius.circular(100)
+       //                ),
+       //                height: height(27),
+       //                width: width(58),
+       //                alignment: Alignment.center,
+       //                child: Text("全部",style: TextStyle(color:spProItemIndex==3? Colors.white:Color(0xFF333333),fontSize: sp(13)),),
+       //              ),
+       //              onTap: (){
+       //                setState(() {spProItemIndex=3;});
+       //                spProRefreshController.callRefresh(duration: Duration(milliseconds: 500));
+       //              },
+       //            ),
+       //          ),
+       //        ),
+       //        Container(width: 1,height: height(12),color: Colors.grey[300],),
+       //
+       //      ],
+       //    ),
+       //  ),
         Expanded(
           child: Container(
-            color: Color(0xFFF1F1F1),
+            color: Colors.white,
             child: EasyRefresh.custom(
               firstRefresh: true,
               controller:spProRefreshController ,
