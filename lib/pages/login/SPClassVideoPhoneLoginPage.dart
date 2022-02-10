@@ -99,7 +99,7 @@ class SPClassVideoPhoneLoginPageState extends State<SPClassVideoPhoneLoginPage>
             Container(
               child: SPClassEncryptImage.asset(
                 SPClassImageUtil.spFunGetImagePath('login_bg'),
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
               ),

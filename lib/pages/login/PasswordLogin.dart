@@ -73,7 +73,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
                 SPClassImageUtil
                     .spFunGetImagePath(
                     'login_bg'),
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
               ),
