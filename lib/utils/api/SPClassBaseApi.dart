@@ -61,11 +61,9 @@ class SPClassBaseApi{
       params=  spFunGetBasicParams();
     }else{
       params=  spFunGetCommonParams();}
-
     if (queryParameters != null) {
       params.addAll(queryParameters);
     }
-
       Response response;
       cancelToken =new CancelToken();
       var httpManager=SPClassHttpManager.spFunGetInstance();
@@ -222,28 +220,30 @@ class SPClassBaseApi{
 
    Map<String, dynamic> spFunGetBasicParams() {
     Map<String, dynamic> basicParam = {};
-    basicParam["oauth_token"] =userLoginInfo==null? "":userLoginInfo.spProOauthToken;
-    basicParam["app_id"] =AppId;
-    basicParam["channel_id"] =ChannelId;
-    basicParam["app_version"] =SPClassApplicaion.spProPackageInfo.version;
-    basicParam["sydid"] = SPClassApplicaion.spProSydid;
-    basicParam["did"] =Platform.isAndroid ? SPClassApplicaion.spProImei : SPClassNetConfig.spProIosDeviceInfo.identifierForVendor;
+
+      basicParam["oauth_token"] =userLoginInfo==null? "":userLoginInfo.spProOauthToken;
+      basicParam["app_id"] =AppId;
+      basicParam["channel_id"] =ChannelId;
+      basicParam["app_version"] =SPClassApplicaion.spProPackageInfo?.version??'';
+      basicParam["sydid"] = SPClassApplicaion.spProSydid;
+      basicParam["did"] =Platform.isAndroid ? SPClassApplicaion.spProImei : SPClassNetConfig.spProIosDeviceInfo?.identifierForVendor??'';
+
     return basicParam;
   }
 
    Map<String, dynamic> spFunGetCommonParams() {
     Map<String, dynamic> basicParam = {};
-    basicParam["oauth_token"] =SPClassApplicaion.spProUserLoginInfo==null? "":SPClassApplicaion.spProUserLoginInfo.spProOauthToken;
+    basicParam["oauth_token"] =SPClassApplicaion.spProUserLoginInfo==null? "":SPClassApplicaion.spProUserLoginInfo?.spProOauthToken??'';
     basicParam["app_id"] =AppId;
     basicParam["channel_id"] =ChannelId;
-    basicParam["did"] =Platform.isAndroid ? SPClassApplicaion.spProImei : SPClassNetConfig.spProIosDeviceInfo.identifierForVendor;
+    basicParam["did"] =Platform.isAndroid ? SPClassApplicaion.spProImei : SPClassNetConfig.spProIosDeviceInfo?.identifierForVendor??'';
     basicParam["device"] =SPClassApplicaion.spProDeviceName;
     basicParam["os"] = Platform.isAndroid ? "android" : "ios";
-    basicParam["app_version"] =SPClassApplicaion.spProPackageInfo.version;
+    basicParam["app_version"] =SPClassApplicaion.spProPackageInfo?.version??'';
     basicParam["android_id"] =Platform.isAndroid ?    SPClassNetConfig.androidInfo.androidId:"";
     basicParam["manufacturer"] = Platform.isAndroid ? SPClassNetConfig.androidInfo.manufacturer.toLowerCase():"apple";
     basicParam["sydid"] = SPClassApplicaion.spProSydid;
-    basicParam["os_version"] =Platform.isAndroid ?SPClassNetConfig.androidInfo.version.release:SPClassNetConfig.spProIosDeviceInfo.systemVersion;
+    basicParam["os_version"] =Platform.isAndroid ?SPClassNetConfig.androidInfo.version.release:SPClassNetConfig.spProIosDeviceInfo?.systemVersion??'';
     basicParam["mac"] =SPClassApplicaion.spProMacAddress;
     return basicParam;
   }

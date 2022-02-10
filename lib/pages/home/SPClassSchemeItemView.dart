@@ -113,7 +113,7 @@ class SPClassSchemeItemView extends StatelessWidget {
                   width: width(5),
                 ),
                 Container(
-                  height: width(40),
+                  height: width(44),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,

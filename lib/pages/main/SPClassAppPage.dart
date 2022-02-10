@@ -277,22 +277,10 @@ class SPClassAppPageState extends State<SPClassAppPage>
     });
 
     WidgetsBinding.instance.addPostFrameCallback((callback) async {
-//      SharedPreferences.getInstance().then((sp){
-//        if(sp.getBool(SPClassSharedPreferencesKeys.KEY_APP_PRIVICY)!=null){
-//          spFunCheckVersion();
-//        }else{
-//          showDialog<void>(context: context,
-//              builder: (BuildContext context) {
-//                return SPClassPrivacyDialogDialog( (){
-//                  spFunCheckVersion();
-//                });
-//              });
-//        }
-//      });
       spFunCheckVersion();
-      FlutterPluginHuaweiPush.notificationListener((url,msgID,isDemo){
-        spFunGoRoutPage(url,"",msgID,isDemo);
-      });
+//      FlutterPluginHuaweiPush.notificationListener((url,msgID,isDemo){
+//        spFunGoRoutPage(url,"",msgID,isDemo);
+//      });
 
       if( SPClassApplicaion.spProJPush!=null){
         SPClassApplicaion.spProJPush.addEventHandler(

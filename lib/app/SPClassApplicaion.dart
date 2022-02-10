@@ -59,7 +59,7 @@ class SPClassApplicaion
   //初始化状态
   static Future<void> spFunInitUserState() async {
   return   await  SharedPreferences.getInstance().then((sp){
-     var loginInfoJson=sp.getString(SPClassSharedPreferencesKeys.KEY_LOGIN_INFO);
+      var loginInfoJson=sp.getString(SPClassSharedPreferencesKeys.KEY_LOGIN_INFO);
      if(loginInfoJson!=null){
        spProUserLoginInfo=new SPClassUserLoginInfo(json: json.decode(loginInfoJson));
      }
