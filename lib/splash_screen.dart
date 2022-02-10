@@ -86,12 +86,13 @@ class _SplashScreenState extends State<SplashScreen> {
         if(SPClassApplicaion.spProChannelId=="2"){
           SPClassApplicaion.spProAndroidAppId="105";
         }
-        spFunInitUserData();
       });
     }else{
       SPClassApplicaion.spProShowMenuList=
       ["home","match","expert","info","match_scheme","match_analyse","game"];
     }
+    spFunInitUserData();
+
   }
 
   Future<void> init() async{
@@ -165,6 +166,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SPClassApiManager.spFunGetInstance().spFunLogOpen<SPClassBaseModelEntity>(needSydid: "1",spProCallBack: SPClassHttpCallBack(
         spProOnSuccess: (result) async {
           var logOpen= JsonConvert.fromJsonAsT<SPClassLogInfoEntity>(result.data);
+          print('显示的内容：${logOpen.toJson()}');
           SPClassApplicaion.spProLogOpenInfo=logOpen;
           var md5Code=md5.convert(utf8.encode(AppId)).toString();
           if(Platform.isAndroid){
@@ -278,8 +280,33 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> spFunInitPush() async {
-    var androidInfo=  await SPClassNetConfig.spProDeviceInfo.androidInfo;
-    if(!androidInfo.manufacturer.toLowerCase().contains("huawei")||Platform.isIOS){
+//    var androidInfo=  await SPClassNetConfig.spProDeviceInfo.androidInfo;
+//    if(!androidInfo.manufacturer.toLowerCase().contains("huawei")||Platform.isIOS){
+//      SPClassApplicaion.spProJPush = new JPush();
+//      SPClassApplicaion.spProJPush .setup(
+//        appKey:SPClassApplicaion.spProChannelId=="2"? "13a7f0f109637413b2cc9c6d":"883e94b7fc3b1e8eae037188",
+//        channel: "theChannel",
+//        production: true,
+//        debug: true,
+////        production: false,
+////        debug: SPClassApplicaion.spProDEBUG,
+//      );
+//      if(Platform.isIOS){
+//        SPClassApplicaion.spProJPush.applyPushAuthority(new NotificationSettingsIOS(
+//            sound: true,
+//            alert: true,
+//            badge: true));
+//      }
+//    }else{
+//      FlutterPluginHuaweiPush.pushToken.then((pushToken){
+//        print("token=====$pushToken");
+//        if(pushToken!=null&&pushToken.isNotEmpty){
+//          SPClassApplicaion.pushToken=pushToken;
+//        }
+//      });
+//    }ß
+
+    if(Platform.isIOS){
       SPClassApplicaion.spProJPush = new JPush();
       SPClassApplicaion.spProJPush .setup(
         appKey:SPClassApplicaion.spProChannelId=="2"? "13a7f0f109637413b2cc9c6d":"883e94b7fc3b1e8eae037188",
@@ -289,29 +316,31 @@ class _SplashScreenState extends State<SplashScreen> {
 //        production: false,
 //        debug: SPClassApplicaion.spProDEBUG,
       );
-    }
-
-
-    if(Platform.isIOS){
       SPClassApplicaion.spProJPush.applyPushAuthority(new NotificationSettingsIOS(
           sound: true,
           alert: true,
           badge: true));
-    }
-    if(Platform.isAndroid){
-      FlutterPluginHuaweiPush.pushToken.then((pushToken){
-        print("token=====$pushToken");
-        if(pushToken!=null&&pushToken.isNotEmpty){
-          SPClassApplicaion.pushToken=pushToken;
-        }
-      });
-    }
-    FlutterPluginHuaweiPush.pushToken.then((pushToken){
-      if(pushToken!=null&&pushToken.isNotEmpty){
-        SPClassApplicaion.pushToken=pushToken;
+    }else{
+      var androidInfo=  await SPClassNetConfig.spProDeviceInfo.androidInfo;
+      if(androidInfo.manufacturer.toLowerCase().contains("huawei")){
+        FlutterPluginHuaweiPush.pushToken.then((pushToken){
+          print("token=====$pushToken");
+          if(pushToken!=null&&pushToken.isNotEmpty){
+            SPClassApplicaion.pushToken=pushToken;
+          }
+        });
+      }else{
+        SPClassApplicaion.spProJPush = new JPush();
+        SPClassApplicaion.spProJPush .setup(
+          appKey:SPClassApplicaion.spProChannelId=="2"? "13a7f0f109637413b2cc9c6d":"883e94b7fc3b1e8eae037188",
+          channel: "theChannel",
+          production: true,
+          debug: true,
+//        production: false,
+//        debug: SPClassApplicaion.spProDEBUG,
+        );
       }
-      print("token=====${SPClassApplicaion.pushToken}");
-    });
+    }
   }
 
   /// 监听网络状态

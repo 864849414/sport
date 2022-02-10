@@ -123,7 +123,7 @@ class SPClassUserPageState extends State<SPClassUserPage>
     if (Platform.isIOS) {
       spProMyTitles.remove("已购方案");
       spProMyTitleImages.remove("bug");
-      spProOtherTitles.remove("好友");
+      spProOtherTitles.remove("邀请好友");
       spProOtherTitles.remove("新人福利");
       spProOtherImages.remove("invite");
       spProOtherImages.remove("new");
