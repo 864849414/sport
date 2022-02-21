@@ -944,6 +944,7 @@ class SPClassSchemeDetailPageState extends State<SPClassSchemeDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
+            width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: width(15),bottom: width(12),top: width(23)),
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(width: 0.4,color: Colors.grey[300]))
