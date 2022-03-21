@@ -702,8 +702,7 @@ class SPClassPublicSchemePageState extends State<SPClassPublicSchemePage> {
                         decoration: InputDecoration(
                           hintText: "请输入标题",
                           border: InputBorder.none,
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: width(0)),
+                          contentPadding: EdgeInsets.only(bottom: width(7))
                         ),
                         onChanged: (value) {
                           title = value;

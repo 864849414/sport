@@ -11,6 +11,7 @@ import 'package:flutter_plugin_huawei_push/flutter_plugin_huawei_push.dart';
 import 'package:flutter_toolplugin/flutter_toolplugin.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:package_info/package_info.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/competition/SPClassMatchListSettingPage.dart';
 import 'package:sport/pages/dialogs/SPClassPrivacyDialogDialog.dart';
@@ -60,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   initState()  {
     // TODO: implement initState
     super.initState();
+
     if(LocalStorage.get(Commons.IS_AGREE_PRIVICY)!=null){
       init();
       Future.delayed(Duration(seconds: 3)).then((value) async{
@@ -115,7 +117,6 @@ class _SplashScreenState extends State<SplashScreen> {
       spFunInitConnectivity();
       spFunInitPush();
       spFunInitWx();
-      // spFunInitUserData();
     }
   }
 
@@ -145,11 +146,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> spFunChangeSplash() async{
     await init();
-//    Timer(Duration(seconds: 2), () {
-//      setState(() {
-//        spProIsSplash = false;
-//      });
-//    });
   }
 
   void spFunDoLogOpen() {
@@ -254,7 +250,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void spFunGetSydidCache() async {
-
 
     if(Platform.isAndroid){
       String documentsPath = await FlutterToolplugin.getExternalStorage();
