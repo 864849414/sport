@@ -1,0 +1,242 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+static def releaseDatetime() {
+    return new Date().format("yyyy-MM-dd_HH_mm_ss", TimeZone.getTimeZone("GMT+8:00"))
+}
+
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 29
+    flavorDimensions ""
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.sport583.changsheng"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.sport583.sport",
+                JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    signingConfigs {
+        config {
+            keyAlias 'sport'
+            //秘钥库口令也是tw2018*1
+            keyPassword '123456'
+            storeFile file('sport.jks')
+            storePassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+
+    buildTypes {
+        release {
+//            ndk {
+//                abiFilters "armeabi-v7a", "x86"
+//            }
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+        /*    shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'*/
+            signingConfig signingConfigs.debug
+            shrinkResources false
+            minifyEnabled false
+
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    //渠道
+
+    productFlavors {
+        offical {
+            applicationId "com.sport583.changsheng"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.changsheng",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"11",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        huawei {
+            applicationId "com.sport583.sport"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.sport",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"9",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        yingyongbao {
+            applicationId "com.sport583.sport"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.sport",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"1",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        pp {
+            applicationId "com.sport583.sport"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.sport",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"7",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        xiaomi {
+            applicationId "com.sport583.sport"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.sport",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"4",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        baidu {
+            applicationId "com.sport583.sport"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.sport583.sport",
+                    JPUSH_APPKEY : "883e94b7fc3b1e8eae037188", // NOTE: JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"3",
+                    app_logo :"@mipmap/ic_launcher",
+
+            ]
+        }
+        c360 {
+            applicationId "com.hongsheng.app"
+            minSdkVersion 17
+            targetSdkVersion 28
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.hongsheng.app",
+                    JPUSH_APPKEY : "13a7f0f109637413b2cc9c6d",
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                    app_channel :"2",
+                    app_logo :"@mipmap/ic_c360_launcher",
+            ]
+        }
+
+    }
+
+
+    // 自定义输出配置
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            if ('release' == variant.buildType.name) {
+//                output.outputFileName = "常胜体育_${variant.name}_vn${defaultConfig.versionName}_vc${defaultConfig.versionCode}_${releaseDatetime()}.apk"
+//            }
+//        }
+//    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+//    implementation 'androidx.arch.core:core-runtime:2.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
